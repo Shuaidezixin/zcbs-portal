@@ -267,5 +267,8 @@
     <module>portal-query-statistics-api</module>
     <module>portal-query-statistics</module>
     <module>portal-query-statistics-simple</module>
+    <module>portal-email</module>
+    <module>portal-email-api</module>
+    <module>portal-email-simple</module>
   </modules>
 </project>
