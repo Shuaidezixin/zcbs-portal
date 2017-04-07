@@ -23,4 +23,5 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+  <description>门户邮件服务项目</description>
 </project>
