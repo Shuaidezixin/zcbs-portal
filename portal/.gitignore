@@ -8,15 +8,15 @@
 /.settings/
 /.project
 
-/portal-email/.settings/
-/portal-email/target/
-/portal-email/.classpath
-/portal-email/.project
+portal-email/.settings/
+portal-email/target/
+portal-email/.classpath
+portal-email/.project
 
 /portal-email-api/.settings/
 /portal-email-api/target/
 /portal-email-api/.classpath
-/portal-email-api/.project
+portal-email-api/.project
 
 /portal-email-simple/.settings/
 /portal-email-simple/target/
