@@ -270,5 +270,8 @@
     <module>portal-email</module>
     <module>portal-email-api</module>
     <module>portal-email-simple</module>
+    <module>portal-sms-api</module>
+    <module>portal-sms</module>
+    <module>portal-sms-simple</module>
   </modules>
 </project>
