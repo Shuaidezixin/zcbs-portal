@@ -273,5 +273,10 @@
     <module>portal-sms-api</module>
     <module>portal-sms</module>
     <module>portal-sms-simple</module>
-  </modules>
+    <module>portal-api-auth-api</module>
+    <module>portal-api-auth</module>
+    <module>portal-api-auth-simple</module>
+    <module>portal-email-test</module>
+    <module>portal-api-auth-test</module>
+	</modules>
 </project>
