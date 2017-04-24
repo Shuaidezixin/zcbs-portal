@@ -5,7 +5,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
 	http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
 	
-	<!-- 邮件发送 -->
-	<dubbo:service interface="com.zcbspay.platform.portal.email.service.MailService" ref="mailService" retries="0" version="1.0" timeout="60000"/>
+	<!-- 短信 -->
+	<dubbo:service interface="com.zcbspay.platform.portal.sms.service.SMSService" ref="smsService" retries="0" version="1.0" timeout="60000"/>
 	
 </beans>

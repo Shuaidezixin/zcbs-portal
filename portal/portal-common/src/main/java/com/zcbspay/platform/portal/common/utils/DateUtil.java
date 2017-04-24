@@ -845,4 +845,17 @@ public class DateUtil {
 
         System.out.println(getSettleDate(2));
     }
+    
+    /**
+     * 给指定日期加上指定分钟
+     * @例：【2015-08-26 12:26:27】，【60】返回【2015-08-26 13:26:27】
+     * @param date
+     * @param min
+     * @return Date = 指定日期+指定分钟
+     */
+    public static Date addMin(Date date, long min) {
+        Date current = new Date();
+        Date rtnDate = new Date(current.getTime() + min * 60 * 1000);
+        return rtnDate;
+    }
 }
