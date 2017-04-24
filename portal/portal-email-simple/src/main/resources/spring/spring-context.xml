@@ -33,7 +33,5 @@
 	    </aop:aspect>
 	</aop:config>
 	
-<!-- 	<import resource="classpath:/spring-hibernate.xml"/> -->
 	<import resource="classpath:/spring-dubbo.xml"/>
-	<import resource="classpath:/spring-mail.xml"/>
 </beans>

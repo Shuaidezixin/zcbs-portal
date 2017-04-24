@@ -1,17 +1,20 @@
 package com.zcbspay.platform.portal.email.service.impl;
 
+import java.io.IOException;
+import java.util.Map;
+
+import javax.mail.MessagingException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.MailException;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.zcbspay.platform.portal.email.bean.MailBean;
+import com.zcbspay.platform.portal.email.bean.ResultBean;
 import com.zcbspay.platform.portal.email.service.MailService;
+import com.zcbspay.platform.portal.email.service.utils.MailUtil;
+
+import freemarker.template.TemplateException;
 
 /**
  * 邮件发送业务逻辑类
@@ -24,40 +27,56 @@ import com.zcbspay.platform.portal.email.service.MailService;
 public class MailServiceImpl implements MailService {
 	private static final Logger logger = LoggerFactory.getLogger(MailServiceImpl.class);
 	
-	@Autowired
-	private JavaMailSender mailSender;// spring配置中定义
-	@Autowired
-	private SimpleMailMessage simpleMailMessage;// spring配置中定义
-	@Autowired
-	private ThreadPoolTaskExecutor threadPool;
-
-	/**
-	 * 发送模板邮件
-	 * 
-	 * @param 需要设置四个参数
-	 *            templateName,toMail,subject,mapModel
-	 * @throws Exception
-	 * 
-	 */
 	@Override
-	public void mailSend(final MailBean mailBean) {
-		threadPool.execute(new Runnable() {
-			public void run() {
-				try {
-//					System.out.println("----------邮件信息："+ mailBean.toString() +"----------");
-					simpleMailMessage.setFrom(simpleMailMessage.getFrom()); // 发送人,从配置文件中取得
-					simpleMailMessage.setTo(mailBean.getTo()); // 接收人
-					simpleMailMessage.setSubject(mailBean.getSubject());
-					simpleMailMessage.setText(mailBean.getContent());
-//					System.out.println("----------开始 邮件 发送----------");
-					mailSender.send(simpleMailMessage);
-//					System.out.println("----------邮件 已经 发送----------");
-				} catch (MailException e) {
-					e.printStackTrace();
-					logger.error("邮件发送服务异常!");
-				}
-			}
-		});
+	public ResultBean sendMailByTemplate(String receiver, String subject, Map<String, String> map,
+			String templateName) {
+		try {
+			MailUtil.sendMailByTemplate(receiver, subject, map, templateName);
+			return new ResultBean("邮件发送成功！");
+		} catch (TemplateException e) {
+			logger.info("无法解析模板文件！");
+			return new ResultBean("", "无法解析模板文件！");
+		} catch (IOException | MessagingException e) {
+			logger.error("邮件发送失败！");
+			return new ResultBean("", "邮件发送失败！");
+		}
+	}
+
+	@Override
+	public ResultBean sendMailAndFileByTemplate(String receiver, String subject, String filePath,
+			Map<String, String> map, String templateName) {
+		try {
+			MailUtil.sendMailAndFileByTemplate(receiver, subject, filePath, map, templateName);
+			return new ResultBean("邮件发送成功！");
+		} catch (TemplateException e) {
+			logger.info("无法解析模板文件！");
+			return new ResultBean("", "无法解析模板文件！");
+		} catch (IOException | MessagingException e) {
+			logger.error("邮件发送失败！");
+			return new ResultBean("", "邮件发送失败！");
+		}
+	}
+
+	@Override
+	public ResultBean sendMail(String receiver, String subject, String maiBody) {
+		try {
+			MailUtil.sendMail(receiver, subject, maiBody);
+			return new ResultBean("邮件发送成功！");
+		} catch (IOException | MessagingException e) {
+			logger.error("邮件发送失败！");
+			return new ResultBean("", "邮件发送失败！");
+		}
+	}
+
+	@Override
+	public ResultBean sendMailAndFile(String receiver, String subject, String filePath, String maiBody) {
+		try {
+			MailUtil.sendMailAndFile(receiver, subject, filePath, maiBody);
+			return new ResultBean("邮件发送成功！");
+		}  catch (IOException | MessagingException e) {
+			logger.error("邮件发送失败！");
+			return new ResultBean("", "邮件发送失败！");
+		}
 	}
 
 }
