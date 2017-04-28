@@ -1,4 +1,4 @@
-package com.zcbspay.platform.portal.website.util;
+package com.zcbspay.platform.portal.common.utils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -23,6 +23,20 @@ import org.apache.commons.net.ftp.FTPReply;
  * @version 1.0
  */
 public class FtpUtil {
+	public static void main(String[] args) {
+		try {  
+	        //FileInputStream in=new FileInputStream(new File("D:\\tmp\\abc.xls"));  
+	        //boolean flag = uploadFile("192.168.1.104", 21, "bema", "121970", "D:/ftp/in","/2013123", "abc.xls", in);  
+	        
+	        
+	        
+	        boolean flag =downloadFile("192.168.1.104", 21, "bema", "121970", "/2013123", "abc.xls", "D:/tmp/in");
+	        
+	        System.out.println(flag);  
+	    } catch (Exception e) {  
+	        e.printStackTrace();  
+	    }  
+	}
 
 	/** 
 	 * Description: 向FTP服务器上传文件 
@@ -51,7 +65,7 @@ public class FtpUtil {
 				return result;
 			}
 			//切换到上传目录
-			if (!ftp.changeWorkingDirectory(basePath+filePath)) {
+			if (!ftp.changeWorkingDirectory(filePath)) {
 				//如果目录不存在创建目录
 				String[] dirs = filePath.split("/");
 				String tempPath = basePath;
@@ -59,9 +73,15 @@ public class FtpUtil {
 					if (null == dir || "".equals(dir)) continue;
 					tempPath += "/" + dir;
 					if (!ftp.changeWorkingDirectory(tempPath)) {
-						if (!ftp.makeDirectory(tempPath)) {
+						if (!ftp.makeDirectory(filePath)) {
 							return result;
 						} else {
+							ftp.login(username, password);// 登录
+							reply = ftp.getReplyCode();
+							if (!FTPReply.isPositiveCompletion(reply)) {
+								ftp.disconnect();
+								return result;
+							}
 							ftp.changeWorkingDirectory(tempPath);
 						}
 					}
@@ -119,7 +139,6 @@ public class FtpUtil {
 			for (FTPFile ff : fs) {
 				if (ff.getName().equals(fileName)) {
 					File localFile = new File(localPath + "/" + ff.getName());
-
 					OutputStream is = new FileOutputStream(localFile);
 					ftp.retrieveFile(ff.getName(), is);
 					is.close();
@@ -141,13 +160,5 @@ public class FtpUtil {
 		return result;
 	}
 	
-	public static void main(String[] args) {
-		try {  
-	        FileInputStream in=new FileInputStream(new File("D:\\tmp\\test.jpg"));  
-	        boolean flag = uploadFile("192.168.1.101", 21, "bema", "121970", "D:/ftp/in","/", "test.jpg", in);  
-	        System.out.println(flag);  
-	    } catch (FileNotFoundException e) {  
-	        e.printStackTrace();  
-	    }  
-	}
+	
 }

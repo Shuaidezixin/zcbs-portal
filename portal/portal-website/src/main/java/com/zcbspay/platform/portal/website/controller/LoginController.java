@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.zcbspay.platform.portal.system.api.bean.UserBean;
-import com.zcbspay.platform.portal.system.api.service.UserService;
+import com.zcbspay.platform.portal.system.bean.UserBean;
+import com.zcbspay.platform.portal.system.service.UserService;
 import com.zcbspay.platform.portal.website.constant.Constants;
 import com.zcbspay.platform.portal.website.util.CookieUtils;
 import com.zcbspay.platform.portal.website.util.MD5Util;

@@ -1,4 +1,4 @@
-package com.zcbspay.platform.portal.system.api.bean;
+package com.zcbspay.platform.portal.system.bean;
 
 import java.io.Serializable;
 

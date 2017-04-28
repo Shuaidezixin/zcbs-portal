@@ -3,7 +3,7 @@ package com.zcbspay.platform.portal.system.dao;
 import java.util.Map;
 
 import com.zcbspay.platform.portal.common.dao.BaseDAO;
-import com.zcbspay.platform.portal.system.api.bean.UserBean;
+import com.zcbspay.platform.portal.system.bean.UserBean;
 
 public interface UserDao extends BaseDAO<String>{
 

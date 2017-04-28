@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.zcbspay.platform.portal.system.api.bean.UserBean;
-import com.zcbspay.platform.portal.system.api.service.UserService;
+import com.zcbspay.platform.portal.system.bean.UserBean;
 import com.zcbspay.platform.portal.system.dao.UserDao;
+import com.zcbspay.platform.portal.system.service.UserService;
 @Service("userService")
 public class UserServiceImpl implements UserService{
 	

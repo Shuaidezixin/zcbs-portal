@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.zcbspay.platform.portal.common.dao.impl.HibernateBaseDAOImpl;
 import com.zcbspay.platform.portal.common.utils.MD5Util;
-import com.zcbspay.platform.portal.system.api.bean.UserBean;
+import com.zcbspay.platform.portal.system.bean.UserBean;
 import com.zcbspay.platform.portal.system.dao.UserDao;
 @Repository
 public class UserDaoImpl extends HibernateBaseDAOImpl<String>  implements UserDao{
