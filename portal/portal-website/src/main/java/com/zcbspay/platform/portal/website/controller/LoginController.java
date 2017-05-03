@@ -29,7 +29,7 @@ import com.zcbspay.platform.portal.website.util.MD5Util;
 import net.sf.json.util.JSONUtils;
 
 @Controller
-@RequestMapping("/index")
+@RequestMapping("/login")
 @SuppressWarnings("all")
 public class LoginController {
 

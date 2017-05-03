@@ -68,23 +68,21 @@ public class FtpUtil {
 			if (!ftp.changeWorkingDirectory(filePath)) {
 				//如果目录不存在创建目录
 				String[] dirs = filePath.split("/");
-				String tempPath = basePath;
 				for (String dir : dirs) {
 					if (null == dir || "".equals(dir)) continue;
-					tempPath += "/" + dir;
-					if (!ftp.changeWorkingDirectory(tempPath)) {
+					if (!ftp.changeWorkingDirectory(filePath)) {
 						if (!ftp.makeDirectory(filePath)) {
 							return result;
 						} else {
-							ftp.login(username, password);// 登录
-							reply = ftp.getReplyCode();
 							if (!FTPReply.isPositiveCompletion(reply)) {
 								ftp.disconnect();
 								return result;
 							}
-							ftp.changeWorkingDirectory(tempPath);
+						    
 						}
+						boolean r=ftp.changeWorkingDirectory("/"+dir);
 					}
+					
 				}
 			}
 			//设置上传文件的类型为二进制类型

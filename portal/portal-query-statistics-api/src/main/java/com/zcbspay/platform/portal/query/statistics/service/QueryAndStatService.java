@@ -1,5 +1,6 @@
 package com.zcbspay.platform.portal.query.statistics.service;
 
+import java.io.File;
 import java.util.Map;
 
 import com.zcbspay.platform.manager.trade.bean.TxnsForPortalBean;
@@ -40,6 +41,6 @@ public interface QueryAndStatService {
 	 * @date: 2017年4月28日 上午10:48:03 
 	 * @version v1.0
 	 */
-	boolean downForms(String fileName);
+	File downForms(String fileName);
 
 }
