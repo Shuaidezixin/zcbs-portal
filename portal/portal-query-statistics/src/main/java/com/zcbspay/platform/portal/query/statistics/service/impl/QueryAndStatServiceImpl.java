@@ -13,19 +13,20 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.zcbspay.platform.manager.trade.bean.TxnsForPortalBean;
 import com.zcbspay.platform.manager.trade.service.TradeService;
 import com.zcbspay.platform.manager.utils.DateUtils;
 import com.zcbspay.platform.portal.common.utils.ExcelUtil;
 import com.zcbspay.platform.portal.common.utils.FtpUtil;
 import com.zcbspay.platform.portal.query.statistics.bean.FtpBean;
+import com.zcbspay.platform.portal.query.statistics.bean.TxnsForPortalBean;
+import com.zcbspay.platform.portal.query.statistics.dao.QueryAndStatDao;
 import com.zcbspay.platform.portal.query.statistics.service.QueryAndStatService;
 
 @Service("queryAndStatService")
 public class QueryAndStatServiceImpl implements QueryAndStatService {
 
 	@Autowired
-	private TradeService tradeService;
+	private QueryAndStatDao tradeService;
 	@Autowired
 	private FtpBean ftp;
 
@@ -199,5 +200,43 @@ public class QueryAndStatServiceImpl implements QueryAndStatService {
 			returnResult.put("info", errorMessage);
 		}
 		return returnResult;
+	}
+	
+	
+	@Override
+	public Map<String, Object> selTxnsSingleForPortal(String page, String rows, TxnsForPortalBean txnsForPortalBean) {
+		return tradeService.selTxnsSingleForPortal(page,rows,txnsForPortalBean);
+	}
+	@Override
+	public Map<String, Object> selTxnsDetaForPortal(String page, String rows, TxnsForPortalBean txnsForPortalBean) {
+		return tradeService.selTxnsDetaForPortal(page,rows,txnsForPortalBean);
+	}
+	@Override
+	public Map<String, Object> selTxnsInfoPortal(String page, String rows, TxnsForPortalBean txnsForPortalBean) {
+		return tradeService.selTxnsInfoPortal(page,rows,txnsForPortalBean);
+	}
+	@Override
+	public Map<String, Object> selTxnsStatPortal(String page, String rows, TxnsForPortalBean txnsForPortalBean) {
+		return tradeService.selTxnsStatPortal(page,rows,txnsForPortalBean);
+	}
+	@Override
+	public Map<String, Object> selOrderPortal(String page, String rows, TxnsForPortalBean txnsForPortalBean) {
+		return tradeService.selOrderPortal(page,rows,txnsForPortalBean);
+	}
+	@Override
+	public Map<String, Object> selFormsTxnsDetaPortal(String page, String rows, TxnsForPortalBean txnsForPortalBean) {
+		return tradeService.selFormsTxnsDetaPortal(page,rows,txnsForPortalBean);
+	}
+	@Override
+	public Map<String, Object> selFormsTxnsStatPortal(String page, String rows, TxnsForPortalBean txnsForPortalBean) {
+		return tradeService.selFormsTxnsStatPortal(page,rows,txnsForPortalBean);
+	}
+	@Override
+	public Map<String, Object> selFormsSetlPortal(String page, String rows, TxnsForPortalBean txnsForPortalBean) {
+		return tradeService.selFormsSetlPortal(page,rows,txnsForPortalBean);
+	}
+	@Override
+	public Map<String, Object> selFormsBillPortal(String page, String rows, TxnsForPortalBean txnsForPortalBean) {
+		return tradeService.selFormsBillPortal(page,rows,txnsForPortalBean);
 	}
 }

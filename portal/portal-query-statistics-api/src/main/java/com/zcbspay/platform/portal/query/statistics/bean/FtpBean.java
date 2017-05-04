@@ -1,7 +1,5 @@
 package com.zcbspay.platform.portal.query.statistics.bean;
 
-import org.springframework.beans.factory.annotation.Value;
-
 /**
  * Hello world!
  *
