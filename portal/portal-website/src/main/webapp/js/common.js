@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-	$(document.body).on("click", ".w1200 shiro:hasPermission li a", function(event) {
+	$(document.body).on("click", ".w1200 li a", function(event) {
 		location.hash = this.getAttribute("href");
 	});
 	
