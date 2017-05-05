@@ -14,8 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.zcbspay.platform.portal.common.utils.DateUtil;
-import com.zcbspay.platform.portal.common.utils.ExcelUtil;
 import com.zcbspay.platform.portal.common.utils.FtpUtil;
+import com.zcbspay.platform.portal.common.utils.excel.ExcelUtil;
 import com.zcbspay.platform.portal.query.statistics.bean.FtpBean;
 import com.zcbspay.platform.portal.query.statistics.bean.TxnsForPortalBean;
 import com.zcbspay.platform.portal.query.statistics.dao.QueryAndStatDao;

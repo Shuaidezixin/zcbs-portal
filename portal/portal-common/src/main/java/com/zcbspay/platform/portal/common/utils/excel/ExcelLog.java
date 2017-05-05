@@ -1,4 +1,4 @@
-package com.zcbspay.platform.portal.common.utils;
+package com.zcbspay.platform.portal.common.utils.excel;
 
 /**
  * The <code>ExcelLog</code>
