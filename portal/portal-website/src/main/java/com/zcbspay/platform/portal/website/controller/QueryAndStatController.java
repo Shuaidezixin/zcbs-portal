@@ -33,6 +33,56 @@ public class QueryAndStatController {
 
 	@Autowired
 	private QueryAndStatService queryAndStatService;
+	
+	
+	/**
+	 * 对账单报表
+	 * @author: zhangshd
+	 * @return String
+	 * @date: 2017年5月5日 上午10:38:23 
+	 * @version v1.0
+	 */
+	@RequestMapping("showBill")
+	public String showBill() {
+		return "tradeForm/bill";
+	}
+	/**
+	 * 结算单报表
+	 * @author: zhangshd
+	 * @return String
+	 * @date: 2017年5月5日 上午10:38:53 
+	 * @version v1.0
+	 */
+	@RequestMapping("showSetl")
+	public String showSetl() {
+		return "tradeForm/setl";
+	}
+	/**
+	 * 交易明细报表
+	 * @author: zhangshd
+	 * @return String
+	 * @date: 2017年5月5日 上午10:39:18 
+	 * @version v1.0
+	 */
+	@RequestMapping("showTradeDetail")
+	public String showTradeDetail() {
+		return "tradeForm/tradeDetail";
+	}
+	/**
+	 * 交易汇总报表
+	 * @author: zhangshd
+	 * @return String
+	 * @date: 2017年5月5日 上午10:40:33 
+	 * @version v1.0
+	 */
+	@RequestMapping("showTradeStat")
+	public String showBusiRate() {
+		return "tradeForm/tradeStat";
+	}
+	
+	
+	
+	
 
 	// 交易明细报表 报表预查询功能，报表下载功能，生成的报表文件放入ftp服务器中并从ftp服务器中下载pck_forms_txns_deta
 	/**

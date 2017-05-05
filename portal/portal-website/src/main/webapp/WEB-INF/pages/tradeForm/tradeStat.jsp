@@ -18,7 +18,7 @@
 	<!--header_end-->
 	<!--会员中心nav_begin-->
 	<jsp:include page="/common/menu.jsp"></jsp:include>
-
+	<jsp:include page="menusecond.jsp"></jsp:include>
 	<!--content_begin-->
 	<div class="w1200 mtb20 clearfix minheight_body">
         <!--电子对账单begin-->
@@ -29,14 +29,8 @@
 					<input type="hidden" name="pageSize" value="10"/> 
 					<input type="hidden" id="busiType" name="busiType" value=""/> 
 					<div class="billtime clearfix"> 
-						<span class="fl mlr10 detailtime"><a href="javascript:searchByOne('month');" id="month" class="time_active">最近一个月</a></span>
-						<span class="fl mlr10 detailtime"><a href="javascript:searchByOne('month3');" id="month3">最近三个月</a></span>
-						<span class="fl mlr10 detailtime"><a href="javascript:searchByOne('month6');" id="month6">最近半年</a></span>
- 						<span class="fl mlr10 detailtime"><a href="javascript:searchByOne('year');" id="year">最近一年</a></span>
-						 
 						<!--日历begin-->
-
-						 <span class="mlr10 fl">订单提交日期：</span>
+						<span class="mlr10 fl">交易日期：</span>
 						<div class="time_start fl">  
 	                        <div class="set_time">
 	                            <input type="text" class="input_text show_time" id="time" name="startTime" value="2015-04-13" readonly="readonly"/>
@@ -65,8 +59,6 @@
 	                                </ul>
 	                                <div class="data_time">
 	                                    <table class="date_body" width="100%">
-	                                        
-	                                        
 	                                    </table>
 	                                </div>
 	                            </div>
@@ -111,17 +103,11 @@
 	                        </div>
 	                   </div>
 	                    <!--日历end-->
-	                     <span class="mlr10 fl">业务类型：
+	                     <span class="mlr10 fl">统计周期：
 		                  	 <select id="selBusiType" class="selectStatus"  name=""> 
-			                   		<option value="all">全部</option> 
-									<option value="1000">消费</option> 
-									<option value="2000">充值</option> 
-									<option value="3000">提现</option> 
-									<option value="4000">退款</option> 
-									<option value="7000">代付</option> 
-									<!-- <option value="7000"></option> 
-									<option value="8000">text2</option> -->
-									<option value="9000">手工充值</option>
+			                   		<option value="all">周</option> 
+									<option value="1000">月</option> 
+									<option value="2000">自定义时间</option> 
 							</select>
 						</span>
 	                    <span class="fl mlr10"><input class="inquire" type="button" onclick="queryTrade()" value="查询"/></span>
@@ -164,6 +150,7 @@
 	$(window).load(function(){
 		$("#member,#merch,#trade,#service,#helpe").removeClass();
 		$('#trade').addClass('active');
+		$('#tradestatms').addClass('active');
 		initTime();
 		//getData();
 	});

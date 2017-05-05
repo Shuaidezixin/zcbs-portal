@@ -1,30 +1,37 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+%>
 <html>
 <head> 
 	<title>证联金融商户网站</title>
 </head>
 <body ng-app="app">
-	<jsp:include page="/common/head.jsp"></jsp:include> 
-	<script type="text/javascript" src="/js/tab.js"></script>
-	<script type="text/javascript" src="/js/calendar.js"></script>
-	<script type="text/javascript" src="/js/jquery.form.js"></script>
-	<script type="text/javascript" src="/js/angular.min.js"></script>
-	<script type="text/javascript" src="/js/pages.js"></script>
-	<script type="text/javascript" src="/js/timeUtil.js"></script>
+	<jsp:include page="../../../common/head.jsp"></jsp:include> 
+	<script type="text/javascript" src="<%=basePath%>js/tab.js"></script>
+	<script type="text/javascript" src="<%=basePath%>js/calendar.js"></script>
+	<script type="text/javascript" src="<%=basePath%>js/jquery.form.js"></script>
+	<script type="text/javascript" src="<%=basePath%>js/angular.min.js"></script>
+	<script type="text/javascript" src="<%=basePath%>js/pages.js"></script>
+	<script type="text/javascript" src="<%=basePath%>js/timeUtil.js"></script>
 	<!--header_begin-->
-	<jsp:include page="/common/header.jsp"></jsp:include>
+	<jsp:include page="../../../common/header.jsp"></jsp:include>
 	<!--header_end-->
 	<!--会员中心nav_begin-->
-	<jsp:include page="/common/menu.jsp"></jsp:include>
+	<jsp:include page="../../../common/menu.jsp"></jsp:include>
 
 	<!--content_begin-->
 	<div class="w1200 mtb20 clearfix minheight_body">
+		
         <!--电子对账单begin-->
 	        <div class="flow_item">
 				<div class="bill_box clearfix">
-					<form id="queryTradeForm" action="txnsLog/info" method="post">
+					<form id="queryTradeForm" action="<%=basePath%>txnsLog/info" method="post">
 					<input type="hidden" id="pageIndex" name="page" value="0"/> 
 					<input type="hidden" name="pageSize" value="10"/> 
 					<input type="hidden" id="busiType" name="busiType" value=""/> 
@@ -33,6 +40,7 @@
 						<span class="fl mlr10 detailtime"><a href="javascript:searchByOne('month3');" id="month3">最近三个月</a></span>
 						<span class="fl mlr10 detailtime"><a href="javascript:searchByOne('month6');" id="month6">最近半年</a></span>
  						<span class="fl mlr10 detailtime"><a href="javascript:searchByOne('year');" id="year">最近一年</a></span>
+						
 						 
 						<!--日历begin-->
 
@@ -158,7 +166,7 @@
 	</div>
 	<!--content_end-->
 	<!--footer_begin-->
-	<jsp:include page="/common/foot.jsp"></jsp:include>
+	<jsp:include page="../../../common/foot.jsp"></jsp:include>
 	<!--footer_end-->
 	<script type="text/javascript">
 	$(window).load(function(){
@@ -307,9 +315,9 @@
 			});
 		}
 		function refundApply(texseqno) {
-			window.location='refund/toRefundApplyReady?txnseqno='+texseqno;
+			window.location='<%=basePath%>refund/toRefundApplyReady?txnseqno='+texseqno;
 			<%-- $.ajax({
-				url: "refund/toRefundApplyReady", 
+				url: "<%=basePath%>refund/toRefundApplyReady", 
 	            type: 'post',
 				data: {txnseqno:texseqno},
 				async: false,

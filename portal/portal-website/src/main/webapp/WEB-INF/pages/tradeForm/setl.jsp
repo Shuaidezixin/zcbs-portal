@@ -164,7 +164,7 @@
 	$(window).load(function(){
 		$("#member,#merch,#trade,#service,#helpe").removeClass();
 		$('#trade').addClass('active');
-		$('#tradedetailms').addClass('active');
+		$('#setlms').addClass('active');
 		initTime();
 		//getData();
 	});
