@@ -37,12 +37,12 @@ public class QueryAndStatServiceImpl implements QueryAndStatService {
 
 	@Override
 	public Map<String, Object> queryTxnsDeta(String page, String rows, TxnsForPortalBean txnsForPortalBean) {
-		return tradeService.selFormsTxnsDetaPortal(page, rows, txnsForPortalBean);
+		return tradeService.selFormsTxnsDeta(page, rows, txnsForPortalBean);
 	}
 
 	@Override
 	public Map<String, Object> createTxnsDetaExcelForms(TxnsForPortalBean txnsForPortalBean) {
-		Map<String, Object> dataMap = tradeService.selFormsTxnsDetaPortal("1", "1000000", txnsForPortalBean);
+		Map<String, Object> dataMap = tradeService.selFormsTxnsDeta("1", "1000000", txnsForPortalBean);
 		String[] headers = { "MERCHNAME", "REMARKS", "BUSICODE", "TXNDATE", "RETINFO", "RN", "STATUS", "BUSINAME",
 				"COMMITIME", "TXNSEQNO", "RETCODE", "RETTIME", "ORDERID", "TXNAMT", "NOTES" };
 		return exportExcelAnd2Ftp(dataMap, headers, "deta");
@@ -50,7 +50,7 @@ public class QueryAndStatServiceImpl implements QueryAndStatService {
 
 	@Override
 	public Map<String, Object> createTxnsDetaTxtForms(TxnsForPortalBean txnsForPortalBean) {
-		Map<String, Object> dataMap = tradeService.selFormsTxnsDetaPortal("1", "1000000", txnsForPortalBean);
+		Map<String, Object> dataMap = tradeService.selFormsTxnsDeta("1", "1000000", txnsForPortalBean);
 		return exportTxtAnd2Ftp(dataMap, "deta");
 	}
 
@@ -69,12 +69,12 @@ public class QueryAndStatServiceImpl implements QueryAndStatService {
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	@Override
 	public Map<String, Object> queryTxnsStat(String page, String rows, TxnsForPortalBean txnsForPortalBean) {
-		return tradeService.selFormsTxnsStatPortal(page, rows, txnsForPortalBean);
+		return tradeService.selFormsTxnsStat(page, rows, txnsForPortalBean);
 	}
 
 	@Override
 	public Map<String, Object> createTxnsStatExcelForms(TxnsForPortalBean txnsForPortalBean) {
-		Map<String, Object> dataMap = tradeService.selFormsTxnsStatPortal("1", "1000000", txnsForPortalBean);
+		Map<String, Object> dataMap = tradeService.selFormsTxnsStat("1", "1000000", txnsForPortalBean);
 		String[] headers = { "CANCELFAILNUM", "MERCHNAME", "ALLNUM", "REMARKS", "MERID", "CANCELNUM", "RN", "SUCCNUM",
 				"BUSINAME", "CANCELFAILAMT", "CANCELSUCCNUM", "CYCEL", "CANCELSUCCAMT", "SUCCAMT", "FIALAMT", "FAILNUM",
 				"NOTES" };
@@ -83,19 +83,19 @@ public class QueryAndStatServiceImpl implements QueryAndStatService {
 
 	@Override
 	public Map<String, Object> createTxnsStatTxtForms(TxnsForPortalBean txnsForPortalBean) {
-		Map<String, Object> dataMap = tradeService.selFormsTxnsStatPortal("1", "1000000", txnsForPortalBean);
+		Map<String, Object> dataMap = tradeService.selFormsTxnsStat("1", "1000000", txnsForPortalBean);
 		return exportTxtAnd2Ftp(dataMap, "stat");
 	}
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	@Override
 	public Map<String, Object> queryTxnsSetl(String page, String rows, TxnsForPortalBean txnsForPortalBean) {
-		return tradeService.selFormsSetlPortal(page, rows, txnsForPortalBean);
+		return tradeService.selFormsSetl(page, rows, txnsForPortalBean);
 	}
 
 	@Override
 	public Map<String, Object> createTxnsSetlExcelForms(TxnsForPortalBean txnsForPortalBean) {
-		Map<String, Object> dataMap = tradeService.selFormsSetlPortal("1", "1000000", txnsForPortalBean);
+		Map<String, Object> dataMap = tradeService.selFormsSetl("1", "1000000", txnsForPortalBean);
 		String[] headers = { "MERCHNAME", "ALLNUM", "CANCELAMT", "REFUNDNUM", "REMARKS", "MERID", "CANCELNUM", "FEES",
 				"STIME", "ALLAMT", "SUCCNUM", "REFUNDAMT", "ETIME", "SUCCAMT", "SETLAMT", "ROWNUM", "NOTES" };
 		return exportExcelAnd2Ftp(dataMap, headers, "setl");
@@ -103,19 +103,19 @@ public class QueryAndStatServiceImpl implements QueryAndStatService {
 
 	@Override
 	public Map<String, Object> createTxnsSetlTxtForms(TxnsForPortalBean txnsForPortalBean) {
-		Map<String, Object> dataMap = tradeService.selFormsSetlPortal("1", "1000000", txnsForPortalBean);
+		Map<String, Object> dataMap = tradeService.selFormsSetl("1", "1000000", txnsForPortalBean);
 		return exportTxtAnd2Ftp(dataMap, "setl");
 	}
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	@Override
 	public Map<String, Object> queryTxnsBill(String page, String rows, TxnsForPortalBean txnsForPortalBean) {
-		return tradeService.selFormsBillPortal(page, rows, txnsForPortalBean);
+		return tradeService.selFormsBill(page, rows, txnsForPortalBean);
 	}
 
 	@Override
 	public Map<String, Object> createTxnsBillExcelForms(TxnsForPortalBean txnsForPortalBean) {
-		Map<String, Object> dataMap = tradeService.selFormsBillPortal("1", "1000000", txnsForPortalBean);
+		Map<String, Object> dataMap = tradeService.selFormsBill("1", "1000000", txnsForPortalBean);
 		String[] headers = { "SETL", "CURRENCY", "TXNDATE", "TXNFEE", "ACCSETTLEDATE", "RN", "AMOUNT", "BUSINAME",
 				"TXNSEQNO", "ACCORDNO" };
 		return exportExcelAnd2Ftp(dataMap, headers, "bill");
@@ -123,7 +123,7 @@ public class QueryAndStatServiceImpl implements QueryAndStatService {
 
 	@Override
 	public Map<String, Object> createTxnsBillTxtForms(TxnsForPortalBean txnsForPortalBean) {
-		Map<String, Object> dataMap = tradeService.selFormsBillPortal("1", "1000000", txnsForPortalBean);
+		Map<String, Object> dataMap = tradeService.selFormsBill("1", "1000000", txnsForPortalBean);
 		return exportTxtAnd2Ftp(dataMap, "bill");
 	}
 
@@ -205,38 +205,38 @@ public class QueryAndStatServiceImpl implements QueryAndStatService {
 	
 	@Override
 	public Map<String, Object> selTxnsSingleForPortal(String page, String rows, TxnsForPortalBean txnsForPortalBean) {
-		return tradeService.selTxnsSingleForPortal(page,rows,txnsForPortalBean);
+		return tradeService.selTxnsSingle(page,rows,txnsForPortalBean);
 	}
 	@Override
 	public Map<String, Object> selTxnsDetaForPortal(String page, String rows, TxnsForPortalBean txnsForPortalBean) {
-		return tradeService.selTxnsDetaForPortal(page,rows,txnsForPortalBean);
+		return tradeService.selTxnsDeta(page,rows,txnsForPortalBean);
 	}
 	@Override
 	public Map<String, Object> selTxnsInfoPortal(String page, String rows, TxnsForPortalBean txnsForPortalBean) {
-		return tradeService.selTxnsInfoPortal(page,rows,txnsForPortalBean);
+		return tradeService.selTxnsInfo(page,rows,txnsForPortalBean);
 	}
 	@Override
 	public Map<String, Object> selTxnsStatPortal(String page, String rows, TxnsForPortalBean txnsForPortalBean) {
-		return tradeService.selTxnsStatPortal(page,rows,txnsForPortalBean);
+		return tradeService.selTxnsStat(page,rows,txnsForPortalBean);
 	}
 	@Override
 	public Map<String, Object> selOrderPortal(String page, String rows, TxnsForPortalBean txnsForPortalBean) {
-		return tradeService.selOrderPortal(page,rows,txnsForPortalBean);
+		return tradeService.selOrder(page,rows,txnsForPortalBean);
 	}
 	@Override
 	public Map<String, Object> selFormsTxnsDetaPortal(String page, String rows, TxnsForPortalBean txnsForPortalBean) {
-		return tradeService.selFormsTxnsDetaPortal(page,rows,txnsForPortalBean);
+		return tradeService.selFormsTxnsDeta(page,rows,txnsForPortalBean);
 	}
 	@Override
 	public Map<String, Object> selFormsTxnsStatPortal(String page, String rows, TxnsForPortalBean txnsForPortalBean) {
-		return tradeService.selFormsTxnsStatPortal(page,rows,txnsForPortalBean);
+		return tradeService.selFormsTxnsStat(page,rows,txnsForPortalBean);
 	}
 	@Override
 	public Map<String, Object> selFormsSetlPortal(String page, String rows, TxnsForPortalBean txnsForPortalBean) {
-		return tradeService.selFormsSetlPortal(page,rows,txnsForPortalBean);
+		return tradeService.selFormsSetl(page,rows,txnsForPortalBean);
 	}
 	@Override
 	public Map<String, Object> selFormsBillPortal(String page, String rows, TxnsForPortalBean txnsForPortalBean) {
-		return tradeService.selFormsBillPortal(page,rows,txnsForPortalBean);
+		return tradeService.selFormsBill(page,rows,txnsForPortalBean);
 	}
 }
