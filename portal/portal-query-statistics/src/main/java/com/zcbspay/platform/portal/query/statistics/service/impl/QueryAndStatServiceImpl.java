@@ -13,8 +13,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.zcbspay.platform.manager.trade.service.TradeService;
-import com.zcbspay.platform.manager.utils.DateUtils;
+import com.zcbspay.platform.portal.common.utils.DateUtil;
 import com.zcbspay.platform.portal.common.utils.ExcelUtil;
 import com.zcbspay.platform.portal.common.utils.FtpUtil;
 import com.zcbspay.platform.portal.query.statistics.bean.FtpBean;
@@ -60,7 +59,7 @@ public class QueryAndStatServiceImpl implements QueryAndStatService {
 		file = new File(ftp.getLocalPath() + "/" + fileName);
 		if (!file.exists()) {
 			FtpUtil.downloadFile(ftp.getFtpAddress(), ftp.getFtpPort(), ftp.getFtpUser(), ftp.getFtpPwd(),
-					"/" + DateUtils.getCurrentDateString(), fileName, ftp.getLocalPath());
+					"/" + DateUtil.getCurrentDate(), fileName, ftp.getLocalPath());
 			file = new File(ftp.getLocalPath() + "/" + fileName);
 		}
 		return file;
@@ -132,7 +131,7 @@ public class QueryAndStatServiceImpl implements QueryAndStatService {
 		List<Map<String, Object>> dataList = (List<Map<String, Object>>) dataMap.get("rows");
 		FileOutputStream outSTr = null;
 		BufferedOutputStream Buff = null;
-		String fileName = prefix + DateUtils.getCurrentDateString() + ".txt";
+		String fileName = prefix + DateUtil.getCurrentDate() + ".txt";
 		String path = ftp.getLocalPath() + fileName;
 		String enter = "\r\n";
 		StringBuffer write;
@@ -153,7 +152,7 @@ public class QueryAndStatServiceImpl implements QueryAndStatService {
 			Buff.close();
 			FileInputStream in = new FileInputStream(new File(ftp.getLocalPath() + fileName));
 			flag = FtpUtil.uploadFile(ftp.getFtpAddress(), ftp.getFtpPort(), ftp.getFtpUser(), ftp.getFtpPwd(),
-					ftp.getFtpPath(), DateUtils.getCurrentDateString(), fileName, in);
+					ftp.getFtpPath(), DateUtil.getCurrentDate(), fileName, in);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -180,7 +179,7 @@ public class QueryAndStatServiceImpl implements QueryAndStatService {
 		List<Map<String, Object>> dataList = (List<Map<String, Object>>) dataMap.get("rows");
 		OutputStream out;
 		// TODO:制定命名规则
-		String fileName = prefix + DateUtils.getCurrentDateString() + ".xls";
+		String fileName = prefix + DateUtil.getCurrentDate() + ".xls";
 		Map<String, Object> returnResult = new HashMap<String, Object>();
 		boolean flag = false;
 		try {
@@ -188,7 +187,7 @@ public class QueryAndStatServiceImpl implements QueryAndStatService {
 			ExcelUtil.exportExcel(headers, dataList, out);
 			FileInputStream in = new FileInputStream(new File(ftp.getLocalPath() + fileName));
 			flag = FtpUtil.uploadFile(ftp.getFtpAddress(), ftp.getFtpPort(), ftp.getFtpUser(), ftp.getFtpPwd(),
-					ftp.getFtpPath(), DateUtils.getCurrentDateString(), fileName, in);
+					ftp.getFtpPath(), DateUtil.getCurrentDate(), fileName, in);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
