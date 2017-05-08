@@ -41,7 +41,7 @@ public interface QueryAndStatService {
 	 * @date: 2017年4月28日 上午10:48:03 
 	 * @version v1.0
 	 */
-	File downForms(String fileName);
+	File downForms(String fileName,String packageName);
 	
 	/**
 	 * 交易查询-实时类
@@ -159,5 +159,15 @@ public interface QueryAndStatService {
 	 */
 	public Map<String, Object> selFormsBillPortal (String page, String rows,
 			TxnsForPortalBean txnsForPortalBean);
+	/**
+	 * 获取ftp特定文件夹下的文件列表
+	 * @author: zhangshd
+	 * @param fileName
+	 * @param packageName
+	 * @return Map<String,Object>
+	 * @date: 2017年5月5日 下午5:48:47 
+	 * @version v1.0
+	 */
+	Map<String, Object> getFileInfo(String packageName);
 
 }

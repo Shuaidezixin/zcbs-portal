@@ -152,6 +152,7 @@ $(function() {
 		new SelDate($('#time'))
 		new SelDate($('#time2'))
 		new SelDate($('#time3'))
+		new SelDate($('#time4'))
 	}
 
 })
