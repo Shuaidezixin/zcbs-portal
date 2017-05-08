@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zcbspay.platform.portal.query.statistics.bean.TxnsForPortalBean;
 import com.zcbspay.platform.portal.query.statistics.service.QueryAndStatService;
+import com.zcbspay.platform.portal.system.bean.UserBean;
+import com.zcbspay.platform.portal.website.util.UserHelper;
 
 /**
  * 交易报表模块
@@ -151,6 +153,8 @@ public class QueryAndStatController {
 	@ResponseBody
 	@RequestMapping("/txnsStat")
 	public Map<String, Object> txnsStat(String page, String rows, TxnsForPortalBean txnsForPortalBean) {
+		//txnsForPortalBean.setMerid(UserHelper.getCurrentUser(request).getMemberid());
+		txnsForPortalBean.setMerid("200000000000610");
 		return queryAndStatService.queryTxnsStat(page, rows, txnsForPortalBean);
 	}
 
@@ -168,6 +172,8 @@ public class QueryAndStatController {
 	@ResponseBody
 	@RequestMapping("/txnsStatExcelForms")
 	public Map<String, Object> txnsStatExcelForms(String page, String rows, TxnsForPortalBean txnsForPortalBean) {
+		//txnsForPortalBean.setMerid(UserHelper.getCurrentUser(request).getMemberid());
+				txnsForPortalBean.setMerid("200000000000610");
 		return queryAndStatService.createTxnsStatExcelForms(txnsForPortalBean);
 	}
 
@@ -185,6 +191,8 @@ public class QueryAndStatController {
 	@ResponseBody
 	@RequestMapping("/txnsStatTxtForms")
 	public Map<String, Object> txnsStatTxtForms(String page, String rows, TxnsForPortalBean txnsForPortalBean) {
+		//txnsForPortalBean.setMerid(UserHelper.getCurrentUser(request).getMemberid());
+				txnsForPortalBean.setMerid("200000000000610");
 		return queryAndStatService.createTxnsStatTxtForms(txnsForPortalBean);
 	}
 
@@ -203,6 +211,8 @@ public class QueryAndStatController {
 	@ResponseBody
 	@RequestMapping("/txnsSetl")
 	public Map<String, Object> txnsSetl(String page, String rows, TxnsForPortalBean txnsForPortalBean) {
+		//txnsForPortalBean.setMerid(UserHelper.getCurrentUser(request).getMemberid());
+				txnsForPortalBean.setMerid("200000000000610");
 		return queryAndStatService.queryTxnsSetl(page, rows, txnsForPortalBean);
 	}
 
@@ -220,6 +230,8 @@ public class QueryAndStatController {
 	@ResponseBody
 	@RequestMapping("/txnsSetlExcelForms")
 	public Map<String, Object> txnsSetlExcelForms(String page, String rows, TxnsForPortalBean txnsForPortalBean) {
+		//txnsForPortalBean.setMerid(UserHelper.getCurrentUser(request).getMemberid());
+				txnsForPortalBean.setMerid("200000000000610");
 		return queryAndStatService.createTxnsSetlExcelForms(txnsForPortalBean);
 	}
 
@@ -237,6 +249,8 @@ public class QueryAndStatController {
 	@ResponseBody
 	@RequestMapping("/txnsSetlTxtForms")
 	public Map<String, Object> txnsSetlTxtForms(String page, String rows, TxnsForPortalBean txnsForPortalBean) {
+		//txnsForPortalBean.setMerid(UserHelper.getCurrentUser(request).getMemberid());
+				txnsForPortalBean.setMerid("200000000000610");
 		return queryAndStatService.createTxnsSetlTxtForms(txnsForPortalBean);
 	}
 
@@ -255,6 +269,8 @@ public class QueryAndStatController {
 	@ResponseBody
 	@RequestMapping("/txnsBill")
 	public Map<String, Object> txnsBill(String page, String rows, TxnsForPortalBean txnsForPortalBean) {
+		//txnsForPortalBean.setMerid(UserHelper.getCurrentUser(request).getMemberid());
+				txnsForPortalBean.setMerid("200000000000610");
 		return queryAndStatService.queryTxnsBill(page, rows, txnsForPortalBean);
 	}
 
@@ -272,6 +288,8 @@ public class QueryAndStatController {
 	@ResponseBody
 	@RequestMapping("/txnsBillExcelForms")
 	public Map<String, Object> txnsBillExcelForms(String page, String rows, TxnsForPortalBean txnsForPortalBean) {
+		//txnsForPortalBean.setMerid(UserHelper.getCurrentUser(request).getMemberid());
+				txnsForPortalBean.setMerid("200000000000610");
 		return queryAndStatService.createTxnsBillExcelForms(txnsForPortalBean);
 	}
 
@@ -288,7 +306,9 @@ public class QueryAndStatController {
 	 */
 	@ResponseBody
 	@RequestMapping("/txnsBillTxtForms")
-	public Map<String, Object> txnsBillTxtForms(String page, String rows, TxnsForPortalBean txnsForPortalBean) {
+	public Map<String, Object> txnsBillTxtForms(HttpServletRequest request,String page, String rows, TxnsForPortalBean txnsForPortalBean) {
+		//txnsForPortalBean.setMerid(UserHelper.getCurrentUser(request).getMemberid());
+		txnsForPortalBean.setMerid("200000000000610");
 		return queryAndStatService.createTxnsBillTxtForms(txnsForPortalBean);
 	}
 
@@ -305,8 +325,8 @@ public class QueryAndStatController {
 	 */
 	@ResponseBody
 	@RequestMapping("/downloadFile")
-	public void downloadFile(String fileName, HttpServletRequest request,HttpServletResponse response) {
-		File file = queryAndStatService.downForms(fileName);
+	public void downloadFile(String fileName, HttpServletRequest request,HttpServletResponse response,String packageName) {
+		File file = queryAndStatService.downForms(fileName,packageName);
 		String filenames = file.getName();
 		InputStream inputStream;
 		try {
@@ -328,6 +348,26 @@ public class QueryAndStatController {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * 获取ftp文件信息
+	 * 
+	 * @author: zhangshd
+	 * @param page
+	 * @param rows
+	 * @param txnsForPortalBean
+	 * @return Map<String,Object>
+	 * @date: 2017年5月2日 下午2:42:32
+	 * @version v1.0
+	 */
+	@ResponseBody
+	@RequestMapping("/getFileInfo")
+	public Map<String, Object> getFileInfo(HttpServletRequest request,HttpServletResponse response,String packageName) {
+		return queryAndStatService.getFileInfo(packageName);
+		
+	}
+	
+	
 	
 	public static void main(String[] args) {
 		File file = new File("D:/ftp/in/20170502/deta2170502.txt");

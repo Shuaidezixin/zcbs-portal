@@ -16,6 +16,7 @@
 	<script type="text/javascript" src="<%=basePath%>js/tab.js"></script>
 	<script type="text/javascript" src="<%=basePath%>js/calendar.js"></script>
 	<script type="text/javascript" src="<%=basePath%>js/jquery.form.js"></script>
+	<script type="text/javascript" src="<%=basePath%>js/angular.min.js"></script>
 	<script type="text/javascript" src="<%=basePath%>js/pages.js"></script>
 	<script type="text/javascript" src="<%=basePath%>js/timeUtil.js"></script>
 	<!--header_begin-->
@@ -170,7 +171,7 @@
 	$(window).load(function(){
 		$("#member,#merch,#trade,#service,#helpe").removeClass();
 		$('#trade').addClass('active');
-		$('#tradedetailms').addClass('active');
+		$('#setlms').addClass('active');
 		initTime();
 		//getData();
 	});

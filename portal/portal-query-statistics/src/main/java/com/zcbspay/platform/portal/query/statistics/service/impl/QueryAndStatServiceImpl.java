@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import com.zcbspay.platform.portal.common.utils.DateUtil;
 import com.zcbspay.platform.portal.common.utils.FtpUtil;
 import com.zcbspay.platform.portal.common.utils.excel.ExcelUtil;
+import com.zcbspay.platform.portal.query.enums.FormTypeEnum;
 import com.zcbspay.platform.portal.query.statistics.bean.FtpBean;
 import com.zcbspay.platform.portal.query.statistics.bean.TxnsForPortalBean;
 import com.zcbspay.platform.portal.query.statistics.dao.QueryAndStatDao;
@@ -54,17 +55,34 @@ public class QueryAndStatServiceImpl implements QueryAndStatService {
 	}
 
 	@Override
-	public File downForms(String fileName) {
+	public File downForms(String fileName,String packageName) {
 		File file = null;//
 		file = new File(ftp.getLocalPath() + "/" + fileName);
 		if (!file.exists()) {
 			FtpUtil.downloadFile(ftp.getFtpAddress(), ftp.getFtpPort(), ftp.getFtpUser(), ftp.getFtpPwd(),
-					"/" + DateUtil.getCurrentDate(), fileName, ftp.getLocalPath());
+					"/" + packageName, fileName, ftp.getLocalPath());
 			file = new File(ftp.getLocalPath() + "/" + fileName);
 		}
 		return file;
 	}
 
+	@Override
+	public Map<String, Object> getFileInfo(String packageName) {
+		Map<String, Object> resultMap=new HashMap<>();
+		String filename=FtpUtil.getFileInfo(ftp.getFtpAddress(), ftp.getFtpPort(), ftp.getFtpUser(), ftp.getFtpPwd(),packageName);
+		if (filename==null) {
+			resultMap.put("err", "不存在文件");
+			return resultMap;
+		}
+		String[] file=filename.split("\\.");
+		resultMap.put("filename",  file[0]);
+		resultMap.put("filetype", FormTypeEnum.getFormTypeEnum(packageName).getType());
+		resultMap.put("filepatten", file[1]);
+		resultMap.put("date", filename.substring(4,12));
+		resultMap.put("fileAllName", filename);
+		return resultMap;
+	}
+	
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	@Override
 	public Map<String, Object> queryTxnsStat(String page, String rows, TxnsForPortalBean txnsForPortalBean) {
@@ -152,7 +170,7 @@ public class QueryAndStatServiceImpl implements QueryAndStatService {
 			Buff.close();
 			FileInputStream in = new FileInputStream(new File(ftp.getLocalPath() + fileName));
 			flag = FtpUtil.uploadFile(ftp.getFtpAddress(), ftp.getFtpPort(), ftp.getFtpUser(), ftp.getFtpPwd(),
-					ftp.getFtpPath(), DateUtil.getCurrentDate(), fileName, in);
+					ftp.getFtpPath(), prefix, fileName, in);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -187,7 +205,7 @@ public class QueryAndStatServiceImpl implements QueryAndStatService {
 			ExcelUtil.exportExcel(headers, dataList, out);
 			FileInputStream in = new FileInputStream(new File(ftp.getLocalPath() + fileName));
 			flag = FtpUtil.uploadFile(ftp.getFtpAddress(), ftp.getFtpPort(), ftp.getFtpUser(), ftp.getFtpPwd(),
-					ftp.getFtpPath(), DateUtil.getCurrentDate(), fileName, in);
+					ftp.getFtpPath(), prefix, fileName, in);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -238,4 +256,6 @@ public class QueryAndStatServiceImpl implements QueryAndStatService {
 	public Map<String, Object> selFormsBillPortal(String page, String rows, TxnsForPortalBean txnsForPortalBean) {
 		return tradeService.selFormsBill(page,rows,txnsForPortalBean);
 	}
+
+	
 }

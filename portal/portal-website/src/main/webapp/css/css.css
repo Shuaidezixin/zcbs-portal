@@ -450,6 +450,17 @@ line-height: 22px;
 cursor: pointer;
 border-radius: 3px;
 }
+.inquirel {
+width: 100px;
+height: 28px;
+border: 1px solid #d70c18;
+border-bottom: 1px solid #9d0710;
+background: #d70c18;
+color: #fff;
+line-height: 22px;
+cursor: pointer;
+border-radius: 3px;
+}
 .inquire:hover{background: #b70c18;color: #fff;border: 1px solid #b70c18;}
 .return {
 width: 78px;

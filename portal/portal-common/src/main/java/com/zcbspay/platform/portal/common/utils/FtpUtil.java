@@ -31,8 +31,8 @@ public class FtpUtil {
 	        
 	        
 	        boolean flag =downloadFile("192.168.1.104", 21, "bema", "121970", "/2013123", "abc.xls", "D:/tmp/in");
-	        
-	        System.out.println(flag);  
+	        getFileInfo("192.168.1.104", 21, "bema", "121970", "stat");
+	        //System.out.println(flag);  
 	    } catch (Exception e) {  
 	        e.printStackTrace();  
 	    }  
@@ -85,6 +85,13 @@ public class FtpUtil {
 					
 				}
 			}
+			
+			FTPFile[] fs = ftp.listFiles();
+			for (FTPFile ftpFile : fs) {
+				ftp.deleteFile(ftpFile.getName()); 
+			}
+			
+			
 			//设置上传文件的类型为二进制类型
 			ftp.setFileType(FTP.BINARY_FILE_TYPE);
 			//上传文件
@@ -156,6 +163,44 @@ public class FtpUtil {
 			}
 		}
 		return result;
+	}
+	
+	
+	public static String getFileInfo(String host, int port, String username, String password, String remotePath) {
+		FTPClient ftp = new FTPClient();
+		String filename=null;
+		try {
+			int reply;
+			ftp.connect(host, port);
+			// 如果采用默认端口，可以使用ftp.connect(host)的方式直接连接FTP服务器
+			ftp.login(username, password);// 登录
+			reply = ftp.getReplyCode();
+			if (!FTPReply.isPositiveCompletion(reply)) {
+				ftp.disconnect();
+				return null;
+			}
+			boolean flag= ftp.changeWorkingDirectory(remotePath);// 转移到FTP服务器目录
+			if (!flag) {
+				return null;
+			}
+			FTPFile[] fs = ftp.listFiles();
+			
+			for (FTPFile ff : fs) {
+				filename=ff.getName();
+			}
+			ftp.logout();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (ftp.isConnected()) {
+				try {
+					ftp.disconnect();
+				} catch (IOException ioe) {
+				}
+			}
+		}
+		
+		return  filename;
 	}
 	
 	
