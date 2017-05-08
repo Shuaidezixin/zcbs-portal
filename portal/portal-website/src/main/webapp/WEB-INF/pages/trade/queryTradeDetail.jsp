@@ -39,12 +39,14 @@
 		<!--电子对账单begin-->
 		<div class="flow_item">
 			<div class="bill_box clearfix">
-				<form id="queryTradeForm" action="<%=basePath%>trade/tradeQuery" method="post">
+				<form id="queryTradeForm" action="<%=basePath%>trade/selTxnsInfo" method="post">
 					<input type="hidden" id="pageIndex" name="page" value="0" /> 
 					<input type="hidden" id="pageRows" name="rows" value="10" /> 
 					<input type="hidden" name="merid" value="200000000000610" /> 
 					<input type="hidden" name="stime" id="stime" value="" /> 
 					<input type="hidden" name="etime" id="etime" value="" />
+					<input type="hidden" name="scommitime" id="scommitime" value="" />
+					<input type="hidden" name="ecommitime" id="ecommitime" value="" />
 
 					<div class="billtime clearfix">
 						<table width="100%" >
@@ -68,7 +70,7 @@
 								</td>
 								<td align="right">
 									<span class="mlr10 fl">
-										批次号: <input id="" class="input_text2" name="" value placeholder="" />
+										批次号: <input id="batchno" class="input_text2" name="batchno" value placeholder="" />
 									</span>
 								</td>
 							</tr>
@@ -237,16 +239,20 @@
 					<table width="100%" class="order_detail">
 						<thead>
 							<tr class="order_field">
-								<th width="11%">订单号</th>
-								<th width="11%">原订单号</th>
-								<th width="11%">提交时间</th>
-								<th width="8%">交易类型</th>
-								<th width="8%">业务类型</th>
-								<th width="8%">金额(元)</th>
-								<th width="11%">处理状态</th>
-								<th width="11%">渠道处理时间</th>
-								<th width="11%">渠道处理状态</th>
-								<th width="10%">操作</th>
+								<th width="9%">订单号</th>
+								<th width="9%">交易流水号</th>
+								<th width="9%">批次序列号</th>
+								<th width="9%">文件名</th>
+								<th width="6%">交易日期</th>
+								<th width="6%">交易时间</th>
+								<th width="8%">渠道处理时间</th>
+								<th width="8%">清算日期</th>
+								<th width="4%">开户省</th>
+								<th width="4%">市</th>
+								<th width="5%">开户银行</th>
+								<th width="9%">账号</th>
+								<th width="9%">户名</th>
+								<th width="5%">处理状态</th>
 							</tr>
 						</thead>
 						<tbody id="tradeContents">
@@ -314,18 +320,20 @@
 			var beginDate = $('#time').val();
 			var endDate = $('#time2').val();
 			if (beginDate > endDate) {
-				$.MessageBox("开始时间不能大于结束时间");
+				$.MessageBox("交易日期的开始时间不能大于结束时间");
 				return false;
 			}
-
+			var beginDateChn = $('#time3').val();
+			var endDateChn = $('#time4').val();
+			if (beginDateChn > endDateChn) {
+				$.MessageBox("渠道交易日期的开始时间不能大于结束时间");
+				return false;
+			}
 			$("#stime").val(beginDate.replace(/-/g, ""));
 			$("#etime").val(endDate.replace(/-/g, ""));
+			$("#scommitime").val(beginDateChn.replace(/-/g, ""));
+			$("#ecommitime").val(endDateChn.replace(/-/g, ""));
 
-			var selBusitype = $("#status option:selected").val();
-			if (selBusitype == "") {
-				$.MessageBox("请选择处理状态！");
-				return false;
-			}
 
 			$('#queryTradeForm')
 					.ajaxSubmit(
@@ -340,7 +348,7 @@
 										if (data.rows.length == 0) {
 											$('#tradeContents').html('');
 											document.getElementById('pager').innerHTML = '';
-											$.MessageBox("您所查询的日期，无交易记录！");
+											$.MessageBox("您所查询的日期，无交易结果！");
 											return;
 										} else {
 											$.MessageBox("查询错误！");
@@ -350,43 +358,21 @@
 									var dataStr = data.rows;
 									var output = '';
 									for (var i = 0, l = dataStr.length; i < l; i++) {
-										output = output
-												+ '<tr height="36" class="bor_bottom" >';
-										output = output + '<td width="11%">'
-												+ dataStr[i]['ORDERID']
-												+ '</td>';
-										output = output + '<td width="11%">'
-												+ dataStr[i]['ORDERID_OG']
-												+ '</td>';
-										output = output
-												+ '<td width="11%">'
-												+ changeDateTime(dataStr[i]['TXNTIME'])
-												+ '</td>';
-										output = output + '<td width="8%">'
-												+ dataStr[i]['PAYNAME']
-												+ '</td>';
-										output = output + '<td width="8%">'
-												+ dataStr[i]['BUSINAME']
-												+ '</td>';
-										output = output + '<td width="8%">'
-												+ dataStr[i]['TXNAMT'] / 100
-												+ '</td>';
-										output = output + '<td width="11%">'
-												+ dataStr[i]['STATUS']
-												+ '</td>';
-										output = output
-												+ '<td width="11%">'
-												+ changeDateTime(dataStr[i]['COMMITIME'])
-												+ '</td>';
-										output = output + '<td width="11%">'
-												+ dataStr[i]['RESPMSG']
-												+ '</td>';
-										output = output
-												+ '<td width="10%">'
-												+ '<a href="#" onclick="showDetail('
-												+ dataStr[i]['TID']
-												+ ')" class="refund_sq">明细</a>'
-												+ '</td>';
+										output = output + '<tr height="36" class="bor_bottom" >';
+										output = output + '<td width="9%">' + dataStr[i]['ORDERID'] + '</td>';
+										output = output + '<td width="9%">' + dataStr[i]['RELATETRADETXN'] + '</td>';
+										output = output + '<td width="9%">' + '批次序列号' + '</td>';
+										output = output + '<td width="9%">' + '文件名' + '</td>';
+										output = output + '<td width="6%">' + dataStr[i]['TXNTIME'] + '</td>';
+										output = output + '<td width="6%">' + dataStr[i]['TXNTIME'] + '</td>';
+										output = output + '<td width="8%">' + dataStr[i]['RESPTIME'] + '</td>';
+										output = output + '<td width="8%">' + '清算日期' + '</td>';
+										output = output + '<td width="4%">' + '开户省' + '</td>';
+										output = output + '<td width="4%">' + '开户市' + '</td>';
+										output = output + '<td width="5%">' + '开户银行' + '</td>';
+										output = output + '<td width="9%">' + '账号' + '</td>';
+										output = output + '<td width="9%">' + '户名' + '</td>';
+										output = output + '<td width="5%">' + dataStr[i]['RESPMSG'] + '</td>';
 										output = output + '</tr>';
 									}
 									$('#tradeContents').html(output);
