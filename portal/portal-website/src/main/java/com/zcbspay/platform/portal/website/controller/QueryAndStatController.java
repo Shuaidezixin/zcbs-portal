@@ -101,6 +101,8 @@ public class QueryAndStatController {
 	@ResponseBody
 	@RequestMapping("/txnsDeta")
 	public Map<String, Object> txnsDeta(String page, String rows, TxnsForPortalBean txnsForPortalBean) {
+		//txnsForPortalBean.setMerid(UserHelper.getCurrentUser(request).getMemberid());
+				txnsForPortalBean.setMerid("200000000000610");
 		return queryAndStatService.queryTxnsDeta(page, rows, txnsForPortalBean);
 	}
 
@@ -118,6 +120,8 @@ public class QueryAndStatController {
 	@ResponseBody
 	@RequestMapping("/txnsDetaExcelForms")
 	public Map<String, Object> txnsDetaExcelForms(String page, String rows, TxnsForPortalBean txnsForPortalBean) {
+		//txnsForPortalBean.setMerid(UserHelper.getCurrentUser(request).getMemberid());
+				txnsForPortalBean.setMerid("200000000000610");
 		return queryAndStatService.createTxnsDetaExcelForms(txnsForPortalBean);
 	}
 
@@ -135,6 +139,8 @@ public class QueryAndStatController {
 	@ResponseBody
 	@RequestMapping("/txnsDetaTxtForms")
 	public Map<String, Object> txnsDetaTxtForms(String page, String rows, TxnsForPortalBean txnsForPortalBean) {
+		//txnsForPortalBean.setMerid(UserHelper.getCurrentUser(request).getMemberid());
+				txnsForPortalBean.setMerid("200000000000610");
 		return queryAndStatService.createTxnsDetaTxtForms(txnsForPortalBean);
 	}
 

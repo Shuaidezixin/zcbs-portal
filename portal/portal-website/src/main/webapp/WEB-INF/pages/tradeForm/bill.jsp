@@ -174,6 +174,7 @@
 	<!--footer_end-->
 	<script type="text/javascript">
 	$(window).load(function(){
+		$("#member,#merch,#trade,#service,#helpe").removeClass();
 		$("#tradedetailms,#tradestatms,#setlms,#billms").removeClass();
 		$('#trade').addClass('active');
 		$('#billms').addClass('active');
