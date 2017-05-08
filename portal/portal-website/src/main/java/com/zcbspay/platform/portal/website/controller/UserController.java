@@ -35,6 +35,23 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+	
+	@RequestMapping("/showUserManager")
+	public String showBusiRate() {
+		return "user/userManager";
+	}
+	
+	@RequestMapping("/toModifyUserPwd")
+	public String toModifyUserPwd() {
+		return "user/modify_loginpwd";
+	}
+	
+	@ResponseBody
+	@RequestMapping("/queryUsers")
+	public Map<String, Object> queryUsers(UserBean userBean, String page, String rows) {
+		return userService.queryUsers(userBean, page, rows);
+	}
+	
 	@ResponseBody
 	@RequestMapping("/saveUser")
 	public Map<String, Object> saveUser(UserBean userBean) {

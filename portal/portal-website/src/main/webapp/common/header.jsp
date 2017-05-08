@@ -9,7 +9,7 @@
 	
 	<div id="loginHide" class="top">
 		<div class="w1200 clearfix top_box">
-			<div class="fl top_l">证联金融商户网站</div>
+			<div class="fl top_l">宜赋通门户网站</div>
 			<shiro:authenticated>	<div class="fr top_r"><a id="logOutConfirm" href="javascript:void(0);">退出</a></div></shiro:authenticated>
 		</div>
 	</div>

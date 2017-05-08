@@ -24,9 +24,14 @@ public class TradeQueryController {
 	private QueryAndStatService tradeService;
    
     
-	@RequestMapping("showQueryTrade")
+	@RequestMapping("/showQueryTrade")
 	public String showBusiRate() {
 		return "trade/queryTrade";
+	}
+	
+	@RequestMapping("/showQueryTrade1")
+	public String showBusiRate1() {
+		return "trade/queryTrade1";
 	}
     
     /**
