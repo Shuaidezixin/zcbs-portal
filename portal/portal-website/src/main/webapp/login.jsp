@@ -7,7 +7,7 @@
 %>
 <jsp:include page="./common/head.jsp"/>
 <script type="text/javascript" src="<%=basePath%>js/placeholder.js"></script>
-<title>证联金融商户网站</title>
+<title>登录</title>
 <script> 
 $(document).ready(function(){
   $("button").click(function(){
@@ -45,7 +45,7 @@ $(document).ready(function(){
 		        </div>
 		        
 		        <div class="login"><a class="login_btn" href="javascript:void(0);" id="login-button-submit"></a></div>
-		        <div class="pas_box clearfix"><a href="<%=basePath%>user/toResetLoginPwd">忘记登录密码？</a></div>
+<%-- 		        <div class="pas_box clearfix"><a href="<%=basePath%>login/showForgetPwd">忘记登录密码？</a></div> --%>
 			</div>
 		</div>
 	</div>

@@ -51,13 +51,13 @@ $(function () {
             }else{
             	 $.ajax({  
                      type: "post",  
-                     url: "user/login",
-                     data: {memberId:usernumValue,name:usernameValue,pwd: passwordValue},//发送ajax请求  
+                     url: "login/login",
+                     data: {memberid:usernumValue,loginName:usernameValue,pwd: passwordValue},//发送ajax请求  
                      success: function(result) {   
                          if (result.result == "success") { 
-                             parent.document.location.href = result.newUrl; //login successfully  
+                             parent.document.location.href = '/trade/showQueryTrade1';
                          } else {
-                        	 $('.login-msg').html(result.result);
+                        	 $('.login-msg').html(result.info);
                          } 
                      }
                  });  

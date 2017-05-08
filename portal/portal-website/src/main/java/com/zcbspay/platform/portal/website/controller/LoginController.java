@@ -68,19 +68,18 @@ public class LoginController {
 	 */
 	@ResponseBody
 	@RequestMapping("/login")
-	public Map<String, Object> validateUser(UserBean user,HttpServletRequest request,String randcode) {
-		Map<String, Object> returnMap = new HashMap<String, Object>();
+	public Map<String, Object> validateUser(UserBean user,HttpServletRequest request,String randcode,HttpServletResponse response) {
 		HttpSession session = request.getSession(true);
 		boolean loginFlag = false;
-		String result = userService.login(user);
-		if (loginFlag) {
-			returnMap.put("ret", Constants.ReturnCanstant.ERROT);
-			returnMap.put("info", "用户名或密码错误！");
-		}else{
-			Cookie cookies=new Cookie(Constants.LoginCanstant.LOGIN_USER_NAME, user.getLoginName());
+		Map<String, Object> returnmap = userService.login(user);
+		if (returnmap.get("code").equals("00")) {
+			Cookie cookie=new Cookie(Constants.LoginCanstant.LOGIN_USER_NAME, user.getLoginName());
+			cookie.setMaxAge(30 * 60);// 设置为30min  
+	        cookie.setPath("/");  
+	        response.addCookie(cookie);  
 			request.getSession().setAttribute(Constants.LoginCanstant.LOGIN_USER, user);
 		}
-		return returnMap;
+		return returnmap;
 	}
 
 	/**
@@ -105,6 +104,16 @@ public class LoginController {
         }
         return result;
     }
+    
+    
+    /**
+	 * 用户登出
+	 * @return
+	 */
+	@RequestMapping("/showForgetPwd")
+	public String showBill() {
+		return "user/reset_password";
+	}
 
 	public String getIpAddr(HttpServletRequest request) {
 		String ip = request.getHeader("x-forwarded-for");
@@ -137,9 +146,5 @@ public class LoginController {
 		}
 
 	}
-	
-	
-	
-	
 	
 }

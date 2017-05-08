@@ -16,17 +16,6 @@ public class Constants {
     }
     
     
-    public static class ReturnCanstant {
-        public static final String SUCCESS = "success";
-        
-        public static final String ERROT="error";
-
-        private ReturnCanstant() {
-        }
-    }
-    
-    
-    
     /**
      * 时间相关常量
      */

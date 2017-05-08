@@ -1,5 +1,6 @@
 package com.zcbspay.platform.portal.system.service.impl;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,18 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	@Transactional
-	public String login(UserBean userbean) {
-		return userDao.login(userbean);
+	public Map<String, Object> login(UserBean userbean) {
+		String reString=userDao.login(userbean);
+		String[] reArray=reString.split(",");
+		Map<String, Object> resMap=new HashMap<>();
+		if (reArray[0].equals("00")) {
+			resMap.put("result", "success");
+		}else{
+			resMap.put("result", "error");
+		}
+		resMap.put("code", reArray[0]);
+		resMap.put("info", reArray[1]);
+		return resMap;
 		
 	}
 
