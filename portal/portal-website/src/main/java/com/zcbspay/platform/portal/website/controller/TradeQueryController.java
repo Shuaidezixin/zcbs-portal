@@ -33,6 +33,11 @@ public class TradeQueryController {
 	public String showBusiRate1() {
 		return "trade/queryTrade1";
 	}
+	
+	@RequestMapping("/showQueryTradeDetail")
+	public String showQueryTradeDetail() {
+		return "trade/queryTradeDetail";
+	}
     
     /**
      * 交易查询	批量和实时类交易分别对应两种表头，具体划分为批量代收付和实时代收付四种交易类型pck_sel_txns_single

@@ -30,8 +30,8 @@
 
 		<div class="sh_manage_tit">
 			<ul>
-				<li><a href="javascript:void(0);" class="active">委托机构交易查询</a></li>
-				<li><a href="<%=basePath%>trade/showQueryTradeDetail">委托机构交易明细查询</a></li>
+				<li><a href="<%=basePath%>trade/showQueryTrade1" >委托机构交易查询</a></li>
+				<li><a href="javascript:void(0);" class="active">委托机构交易明细查询</a></li>
 			</ul>
 			<span class="col6 fr login_time" id="lastLogin"></span>
 		</div>
@@ -62,6 +62,18 @@
 									</span>
 								</td>
 								<td align="center">
+									<span class="mlr10 fl">
+										订单号: <input id="orderid" class="input_text2" name="orderid" value placeholder="" />
+									</span>
+								</td>
+								<td align="right">
+									<span class="mlr10 fl">
+										批次号: <input id="" class="input_text2" name="" value placeholder="" />
+									</span>
+								</td>
+							</tr>
+							<tr>
+								<td align="left">
 									<!--日历begin-->
 									<span class="mlr10 fl">交易日期：</span>
 									<div class="time_start fl">
@@ -135,28 +147,79 @@
 									</div>
 									<!--日历end-->
 								</td>
-								<td align="right">
-									<span class="mlr10 fl">
-										处理状态： 
-										<select id="status" class="selectStatus" style="width: 140px" name="status">
-											<option value="">--请选择处理状态--</option>
-											<option value="00">交易成功</option>
-											<option value="03">交易失败</option>
-											<option value="04">交易超时</option>
-										</select>
-									</span>
-								</td>
-							</tr>
-							<tr>
-								<td align="left">
-									<span class="mlr10 fl">
-										订单号: <input id="orderid" class="input_text2" name="orderid" value placeholder="" />
-									</span>
-								</td>
 								<td align="center">
-									<span class="mlr10 fl">
-										原订单号: <input id="orderidog" class="input_text2" name="orderidog" value placeholder="" />
-									</span>
+									<!--日历begin-->
+									<span class="mlr10 fl">渠道交易日期：</span>
+									<div class="time_start fl">
+										<div class="set_time">
+											<input type="text" class="input_text show_time" id="time3" value="2015-04-13" readonly="readonly" />
+											<div class="date_list hide">
+												<div class="date_head">
+													<div class="left_btn">
+														<a href="javascript:;" class="prev_year" title="上一年">上一年</a> <a href="javascript:;" class="prev_month" title="上一月">上一月</a>
+													</div>
+													<div class="show_date">
+														<span class="show_year">2012</span>年 <span class="show_month">4</span>月
+													</div>
+													<div class="right_btn">
+														<a href="javascript:;" class="next_month" title="下一月">下一月</a> <a href="javascript:;" class="next_year" title="下一年">下一年</a>
+													</div>
+												</div>
+												<ul class="data_day">
+													<li>日</li>
+													<li>一</li>
+													<li>二</li>
+													<li>三</li>
+													<li>四</li>
+													<li>五</li>
+													<li>六</li>
+												</ul>
+												<div class="data_time">
+													<table class="date_body" width="100%">
+			
+			
+													</table>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!--日历end-->
+									<span class="fl mlr10"> - </span>
+									<!--日历begin-->
+									<div class="time_start">
+										<div class="set_time">
+											<input type="text" class="input_text show_time" id="time4" value="2017-04-13" readonly="readonly" />
+											<div class="date_list hide">
+												<div class="date_head">
+													<div class="left_btn">
+														<a href="javascript:;" class="prev_year" title="上一年">上一年</a> <a href="javascript:;" class="prev_month" title="上一月">上一月</a>
+													</div>
+													<div class="show_date">
+														<span class="show_year">2012</span>年 <span class="show_month">4</span>月
+													</div>
+													<div class="right_btn">
+														<a href="javascript:;" class="next_month" title="下一月">下一月</a> <a href="javascript:;" class="next_year" title="下一年">下一年</a>
+													</div>
+												</div>
+												<ul class="data_day">
+													<li>日</li>
+													<li>一</li>
+													<li>二</li>
+													<li>三</li>
+													<li>四</li>
+													<li>五</li>
+													<li>六</li>
+												</ul>
+												<div class="data_time">
+													<table class="date_body" width="100%">
+			
+			
+													</table>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!--日历end-->
 								</td>
 								<td align="right">
 									<span class="fl mlr10">
@@ -222,6 +285,8 @@
 			var endDateValue = getNowDate();
 			$('#time').val(endDateValue);
 			$('#time2').val(endDateValue);
+			$('#time3').val(endDateValue);
+			$('#time4').val(endDateValue);
 		}
 		
 		function getData() {
@@ -267,7 +332,7 @@
 							{
 								async : false,
 								error : function(XMLHttpRequest, textStatus,
-										errorThrown) {
+										errorThrown) {                                                                                                                                                                                            
 									alert(XMLHttpRequest.status);
 								},
 								success : function(data) {
