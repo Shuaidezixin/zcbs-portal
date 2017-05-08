@@ -7,7 +7,7 @@
 			+ path + "/";
 %>
 <jsp:include page="../../../common/head.jsp"></jsp:include>
-		<title>证联金融商户网站</title>
+		<title>宜赋通门户网站</title>
 	</head>
 <body>
 	<!--header_begin-->
@@ -18,7 +18,7 @@
 		<div class="mtb90 activate clearfix">
 			<i class="reset"></i>
 			<h1>修改成功</h1>
-			<p><a href="<%=basePath%>login.jsp">返回证联</a></p>
+			<p><a href="<%=basePath%>login.jsp">返回</a></p>
 		</div>
 	</div>
 	<!--content_end-->

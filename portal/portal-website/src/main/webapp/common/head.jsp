@@ -12,7 +12,7 @@
 		<meta http-equiv="pragma" content="no-cache"/>
 		<meta http-equiv="cache-control" content="no-cache"/>
 		<meta http-equiv="expires" content="0"/>    
-		<meta http-equiv="description" content="证联金融商户网站"/>
+		<meta http-equiv="description" content="宜赋通门户网站"/>
 		<script type="text/javascript" src="<%=basePath%>js/jquery-1.8.3-min.js"></script>
 		<script type="text/javascript" src="<%=basePath%>js/login.js"></script>
 		<script type="text/javascript" src="<%=basePath%>js/resgin.js"></script>

@@ -1,5 +1,4 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
-<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%
 	String path = request.getContextPath();
@@ -8,7 +7,7 @@
 			+ path + "/";
 %>
 <jsp:include page="../../../common/head.jsp"></jsp:include>
-		<title>证联金融商户网站</title>
+		<title>宜赋通门户网站</title>
 	</head>
 <body>
 	<!--header_begin-->
@@ -18,7 +17,7 @@
 	<!--content_begin-->
 	<div class="w1200 mtb20 clearfix minheight_body">
 	<div class="sh_serve clearfix">
-	<jsp:include page="../merch/service/left_menu.jsp"></jsp:include>
+	<jsp:include page="left_menu.jsp"></jsp:include>
 		<div class="serve_right fl">
 			<br />
 			<div class="wrapper">
@@ -57,9 +56,8 @@
 </body>
 <script type="text/javascript"> 
 $(document).ready(function(){
-	$("#member,#merch,#trade,#service,#helpe").removeClass();
-	$('#service').addClass('active');
-	$("#operation,#loginPwd,#payPwd,#operatorLog,#merchBase").removeClass();
+	$("#member,#merch,#trade,#service,#user").removeClass();
+	$('#user').addClass('active');
 	$("#loginPwd").attr("class", "active");
 	$("#cancleLogoff").click(function() {
 		history.back();
@@ -168,7 +166,7 @@ $(document).ready(function(){
 		}
         	$.ajax({
         		type:"post",
-        		url:"modify/modifyUserPwd",
+        		url:"user/updateUser",
         		data:$('#signupForm').serialize(),
         		async: false,
         		success:function(data){
