@@ -54,5 +54,8 @@ public class UserDaoImpl extends HibernateBaseDAOImpl<String>  implements UserDa
 		List<?> result =queryBySQL(queryString, paramaters);
 		return (String)((Map<String, Object>) result.get(0)).get("USER_LOGIN(:1,:2,:3)");
 	}
+	public static void main(String[] args) {
+		System.out.println();MD5Util.MD5("123123");
+	}
 	
 }

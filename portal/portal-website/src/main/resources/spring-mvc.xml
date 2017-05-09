@@ -92,4 +92,18 @@
 	<property name="maxInactiveIntervalInSeconds" value="1800"/>
 	</bean>
 	<bean id="cookieHttpSessionStrategy" class="org.springframework.session.web.http.CookieHttpSessionStrategy"></bean>
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<!-- 拦截订单类请求 -->
+			<mvc:mapping path="/**"/>
+			<mvc:exclude-mapping path="/login/*"/>  
+			<mvc:exclude-mapping path="/js/**"/>
+			<mvc:exclude-mapping path="/css/**"/>
+			<bean class="com.zcbspay.platform.portal.website.interceptor.LoginInterceptor"/>
+		</mvc:interceptor>
+	</mvc:interceptors>
+	
+	
+	
+	
 </beans>

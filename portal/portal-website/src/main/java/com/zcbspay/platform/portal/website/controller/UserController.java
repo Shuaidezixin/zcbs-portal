@@ -81,14 +81,15 @@ public class UserController {
 	@RequestMapping("/modifyPwd")
 	public Map<String, Object> modifyPwd(String password,String passwordnew,String confirm_passwordnew,HttpServletRequest request) {
 		UserBean userBean=new UserBean();
+		UserBean loginUser=UserHelper.getCurrentUser(request);
 		userBean.setPwd(password);
-		userBean.setLoginName(UserHelper.getCurrentUser(request).getLoginName());
+		userBean.setMemberid(loginUser.getMemberid());
+		userBean.setLoginName(loginUser.getLoginName());
 		Map<String, Object> returnMap = userService.login(userBean);
 		Map<String, Object> message =  new HashMap<>();
 		if (returnMap.get("code").equals("00")) {
-			userBean.setPwd(passwordnew);
-			userBean.setUserId(UserHelper.getCurrentUser(request).getUserId());
-			message= userService.updateUser(userBean);
+			loginUser.setPwd(passwordnew);
+			message= userService.updateUser(loginUser);
 		}else{
 			message.put("RET", "error");
 			message.put("INFO","更新失败");
@@ -99,6 +100,6 @@ public class UserController {
 	@ResponseBody
 	@RequestMapping("/test")
 	public Map<String, Object> saveUser(UserBean userBean, String page, String rows) {
-		return userService.queryUsers(userBean, page, rows);
+		return userService.queryUsers(userBean, "1", "10");
 	}
 }

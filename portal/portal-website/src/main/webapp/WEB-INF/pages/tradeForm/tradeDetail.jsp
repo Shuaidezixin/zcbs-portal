@@ -9,7 +9,7 @@
 %>
 <html>
 <head> 
-	<title>结算单报表</title>
+	<title>宜赋通门户网站</title>
 	<style> 
 		.divright{ float:right} 
 	</style> 

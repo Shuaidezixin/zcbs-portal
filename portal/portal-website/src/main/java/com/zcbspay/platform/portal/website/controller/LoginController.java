@@ -77,9 +77,16 @@ public class LoginController {
 			cookie.setMaxAge(30 * 60);// 设置为30min  
 	        cookie.setPath("/");  
 	        response.addCookie(cookie);  
-	        Map<String, Object> userMap =userService.queryUsers(user, "10", "10");
+	        Map<String, Object> userMap =userService.queryUsers(user, "1", "1");
 	        if (((List<?>)userMap.get("rows")).get(0)!=null) {
-				user=(UserBean) ((List<?>)userMap.get("rows")).get(0);
+	        	Map<String, Object> re=(Map<String, Object>) ((List<?>)userMap.get("rows")).get(0);
+				user.setUserId(re.get("USERID").toString());
+				user.setUserName(re.get("USER_NAME").toString());
+				user.setPhone(re.get("USER_PHONE")==null?null:re.get("USER_PHONE").toString());
+				user.setErrorTime(re.get("ERROR_TIMES")==null?null:re.get("ERROR_TIMES").toString());
+				user.setEmail(re.get("USER_EMAIL")==null?null:re.get("USER_EMAIL").toString());
+				user.setStatus(re.get("STATUS").toString());
+				user.setNotes(re.get("NOTES")==null?null:re.get("NOTES").toString());
 			}
 			request.getSession().setAttribute(Constants.LoginCanstant.LOGIN_USER, user);
 		}
@@ -92,20 +99,23 @@ public class LoginController {
 	 */
     @ResponseBody
 	@RequestMapping("/logout")
-	public ModelAndView logout(HttpServletRequest request,HttpServletResponse response) {
-		ModelAndView result=new ModelAndView("/login");
+	public Map<String, Object> logout(HttpServletRequest request,HttpServletResponse response) {
+    	Map<String, Object> result=new  HashMap<>();
 		HttpSession session = request.getSession(true);
-
-        if (isNull(session.getAttribute(Constants.LoginCanstant.LOGIN_USER))) {
+        if (!isNull(session.getAttribute(Constants.LoginCanstant.LOGIN_USER))) {
         	session.invalidate();
         }
         Cookie[] cookies = request.getCookies();
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equals(Constants.LoginCanstant.LOGIN_USER_NAME)) {
-                cookie.setMaxAge(0);
-                response.addCookie(cookie);
+        if (cookies!=null) {
+        	for (Cookie cookie : cookies) {
+                if (cookie.getName().equals(Constants.LoginCanstant.LOGIN_USER_NAME)) {
+                    cookie.setMaxAge(0);
+                    response.addCookie(cookie);
+                }
             }
-        }
+		}
+        result.put("code", 00);
+        result.put("info", "成功");
         return result;
     }
     

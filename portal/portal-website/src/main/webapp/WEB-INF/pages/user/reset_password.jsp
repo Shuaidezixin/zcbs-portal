@@ -7,7 +7,7 @@
 			+ path + "/";
 %>
 <jsp:include page="../../../common/head.jsp"></jsp:include>
-		<title>证联金融商户网站</title>
+		<title>宜赋通门户网站</title>
 	</head>
 <body>
 	<!--header_begin-->
@@ -162,7 +162,7 @@
 	}
     function initOpenTip() {
    	 	var userMember = $("#userMember");
-   	 	var userMemberOpentip = new Opentip(userMember,"您的证联金融商户号，如遗忘，请联系客服",{tipJoint:"bottom",background:"#f3f3f3",borderColor:"#cecece"});
+   	 	var userMemberOpentip = new Opentip(userMember,"您的商户号，如遗忘，请联系客服",{tipJoint:"bottom",background:"#f3f3f3",borderColor:"#cecece"});
    	 //myInput.focus(function() { inputOpentip.hide(); });
    		 userMember.focus(function() {
    	 		userMemberOpentip.show();
@@ -174,7 +174,7 @@
    	  	 	userNameOpentip.show();
    	  	 });
    	 	 var telphone = $("#telphone");
- 	  	 var telphoneOpentip = new Opentip(telphone,"证联金融商户系统中绑定的手机号码",{tipJoint:"bottom",background:"#f3f3f3",borderColor:"#cecece"});
+ 	  	 var telphoneOpentip = new Opentip(telphone,"商户系统中绑定的手机号码",{tipJoint:"bottom",background:"#f3f3f3",borderColor:"#cecece"});
  	  	 //myInput.focus(function() { inputOpentip.hide(); });
  	  	 telphone.focus(function() {
  	  		telphoneOpentip.show();
