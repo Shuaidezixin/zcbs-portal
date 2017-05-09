@@ -90,7 +90,7 @@ public class QueryAndStatDaoImpl extends HibernateBaseDAOImpl<String>  implement
 				 "v_scommitime",
 				 "v_ecommitime",
 				 "v_batchno",
-				 "v_orderid",
+				 "v_orderid"
 	             };
 	        Object[] paramaters = new Object[]{
 	        		txnsForPortalBean.getMerid(),
