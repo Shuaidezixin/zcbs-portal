@@ -8,7 +8,7 @@
 %>
 <html>
 <head>
-<title>证联金融商户网站</title>
+<title>宜赋通门户网站</title>
 </head>
 <body ng-app="app">
 	<jsp:include page="../../../common/head.jsp"></jsp:include>

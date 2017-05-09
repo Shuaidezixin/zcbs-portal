@@ -99,20 +99,23 @@ public class LoginController {
 	 */
     @ResponseBody
 	@RequestMapping("/logout")
-	public ModelAndView logout(HttpServletRequest request,HttpServletResponse response) {
-		ModelAndView result=new ModelAndView("/login");
+	public Map<String, Object> logout(HttpServletRequest request,HttpServletResponse response) {
+    	Map<String, Object> result=new  HashMap<>();
 		HttpSession session = request.getSession(true);
-
         if (isNull(session.getAttribute(Constants.LoginCanstant.LOGIN_USER))) {
         	session.invalidate();
         }
         Cookie[] cookies = request.getCookies();
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equals(Constants.LoginCanstant.LOGIN_USER_NAME)) {
-                cookie.setMaxAge(0);
-                response.addCookie(cookie);
+        if (cookies!=null) {
+        	for (Cookie cookie : cookies) {
+                if (cookie.getName().equals(Constants.LoginCanstant.LOGIN_USER_NAME)) {
+                    cookie.setMaxAge(0);
+                    response.addCookie(cookie);
+                }
             }
-        }
+		}
+        result.put("code", 00);
+        result.put("info", "成功");
         return result;
     }
     

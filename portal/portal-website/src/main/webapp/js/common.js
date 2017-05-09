@@ -27,7 +27,16 @@ $(document).ready(function() {
             buttonFail: "取消",
             message: "确定要退出吗?"
         }).done(function() {
-        	window.location="/merportal/user/logOut";
+        	$.ajax({
+    			type: "POST",
+    			url: "/login/logout",
+    			dataType: "json",
+    			success: function(json) {
+    				if(json.code==00){
+    					window.location='../../login.jsp';
+    				}
+    			}
+    		});
         }).fail(function() {
             
         });
