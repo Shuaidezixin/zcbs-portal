@@ -15,7 +15,7 @@
 		<script type="text/javascript" src="<%=basePath%>js/common.js"></script>
 		<script src="<%=basePath%>js/messagebox.js"></script> 
 		<link rel="stylesheet" href="<%=basePath%>css/messagebox.css" type="text/css"/>
-		<title>证联金融商户网站</title>
+		<title>用户信息</title>
 </head>
 <body>
 	<!--header_begin-->
@@ -55,15 +55,14 @@
 						<table width="100%" class="order_detail">
 							<thead>
 								<tr class="order_field">
-									<th width="16%">登录名</th>
-									<th width="16%">用户名称</th>
-									<th width="13%">用户类型</th>
-									<th width="20%">所属委托机构</th>
-									<th width="13%">状态</th>
-									<th width="22%">操作</th>
+									<th >登录名</th>
+									<th >用户名称</th>
+									<th >所属委托机构</th>
+									<th >状态</th>
+									<th >操作</th>
 								</tr>
 							</thead>
-							<tbody id="takeAddress">
+							<tbody id="takeAddress" >
 							</tbody>
 						</table>
 						<!--分页-->
@@ -117,9 +116,11 @@ function getData(){
 			page:turnTo
 		},
 		success:function(data){
-			if (data.success=="true") {
+			if (data.total=="0" && data.rows.length=="1") {
+				$.MessageBox(data.rows[0].INFO);
+			}else{
 				var tBody = $('#takeAddress');
-            	var items = data.cols;
+            	var items = data.rows;
             	if (items.length==0) {
             		tBody.html('');
             		document.getElementById("pager").innerHTML = '';
@@ -127,8 +128,7 @@ function getData(){
 				}
             	output(tBody, items);
             	initPage(data.pageCount,data.page,"pager",1);
-			}else{
-				 $.MessageBox("查询失败");
+				 
 			}
 		}
 	});
@@ -136,32 +136,23 @@ function getData(){
 
 function output(tBody, items){
 	tBody.html('');
-	for(var i in items){
+	for(i in items){
 		var statusName="";
 		var activeOrLogOff="";
-		if(items[i].status==0){
+		if(items[i].STATUS==00){
 			statusName="正常";
-			activeOrLogOff='<a href="<%=basePath%>user/tologoff?id=' +items[i].id+ '" class="refund_sq fl mlr3">注销</a>'
-		}else if(items[i].status==1){
-			statusName="已锁定";
-			activeOrLogOff='<a href="<%=basePath%>user/toActiveUser?id=' +items[i].id+ '" class="refund_sq fl mlr3">启用</a>'
-		}else if(items[i].status==2){
+			activeOrLogOff='<a href="<%=basePath%>user/tologoff?id=' +items[i].USERID+ '" class="refund_sq fl mlr3">注销</a>'
+		}else if(items[i].STATUS==01){
 			statusName="已注销";
-			activeOrLogOff='<a href="<%=basePath%>user/toActiveUser?id=' +items[i].id+ '" class="refund_sq fl mlr3">启用</a>'
+			activeOrLogOff='<a href="<%=basePath%>user/toActiveUser?id=' +items[i].USERID+ '" class="refund_sq fl mlr3">启用</a>'
 		}
-		var operation='<a href="<%=basePath%>user/toUpdateUser?id=' +items[i].id+ '" class="refund_sq fl mlr3 ml10">修改</a>';
-		if(items[i].roleName!="admin"){
-			operation+=activeOrLogOff+'<a href="<%=basePath%>menu/tosetUserPermission?id=' +items[i].id+ '" class="refund_sq fl mlr3">用户权限</a>';
-		}
-		
+		var operation='<a href="<%=basePath%>user/toUpdateUser?id=' +items[i].USERID+ '" class="refund_sq fl mlr3 ml10">修改</a>';
 		tBody.append( '<tr height="36" class="bor_bottom">'+
-        '<td width="11%">'+items[i].userName+'</td>'+
-        '<td width="11%">'+items[i].userPhone+'</td>'+
-        '<td width="11%">'+items[i].createUser+'</td>'+
-        '<td width="11%">'+items[i].createTime+'</td>'+
-        '<td width="11%">'+statusName+'</td>'+
-        '<td width="11%">'+items[i].roleMarkInfo+'</td>'+
-        '<td width="22%">'+	operation+
+		'<td >'+items[i].LOGIN_NAME+'</td>'+
+        '<td >'+items[i].USER_NAME+'</td>'+
+        '<td >'+items[i].MEMBER_ID+'</td>'+
+        '<td >'+statusName+'</td>'+
+        '<td >'+	activeOrLogOff+
 		'</td>'+
     	'</tr>');
 	}

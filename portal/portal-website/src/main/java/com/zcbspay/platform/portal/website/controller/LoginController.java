@@ -77,9 +77,16 @@ public class LoginController {
 			cookie.setMaxAge(30 * 60);// 设置为30min  
 	        cookie.setPath("/");  
 	        response.addCookie(cookie);  
-	        Map<String, Object> userMap =userService.queryUsers(user, "10", "10");
+	        Map<String, Object> userMap =userService.queryUsers(user, "1", "1");
 	        if (((List<?>)userMap.get("rows")).get(0)!=null) {
-				user=(UserBean) ((List<?>)userMap.get("rows")).get(0);
+	        	Map<String, Object> re=(Map<String, Object>) ((List<?>)userMap.get("rows")).get(0);
+				user.setUserId(re.get("USERID").toString());
+				user.setUserName(re.get("USER_NAME").toString());
+				user.setPhone(re.get("USER_PHONE")==null?null:re.get("USER_PHONE").toString());
+				user.setErrorTime(re.get("ERROR_TIMES")==null?null:re.get("ERROR_TIMES").toString());
+				user.setEmail(re.get("USER_EMAIL")==null?null:re.get("USER_EMAIL").toString());
+				user.setStatus(re.get("STATUS").toString());
+				user.setNotes(re.get("NOTES")==null?null:re.get("NOTES").toString());
 			}
 			request.getSession().setAttribute(Constants.LoginCanstant.LOGIN_USER, user);
 		}
