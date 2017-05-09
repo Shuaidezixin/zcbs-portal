@@ -233,7 +233,7 @@ public class QueryAndStatServiceImpl implements QueryAndStatService {
 		return tradeService.selTxnsInfo(page,rows,txnsForPortalBean);
 	}
 	@Override
-	public Map<String, Object> selTxnsStatPortal(String page, String rows, TxnsForPortalBean txnsForPortalBean) {
+	public List<?> selTxnsStatPortal(String page, String rows, TxnsForPortalBean txnsForPortalBean) {
 		return tradeService.selTxnsStat(page,rows,txnsForPortalBean);
 	}
 	@Override
@@ -257,5 +257,8 @@ public class QueryAndStatServiceImpl implements QueryAndStatService {
 		return tradeService.selFormsBill(page,rows,txnsForPortalBean);
 	}
 
-	
+	@Override
+	public Map<String, Object> orderForBatchAndSingle(String page, String rows, TxnsForPortalBean txnsForPortalBean) {
+		return tradeService.selOrderForBatchAndSingle(page, rows, txnsForPortalBean);
+	}
 }

@@ -1,6 +1,7 @@
 package com.zcbspay.platform.portal.query.statistics.service;
 
 import java.io.File;
+import java.util.List;
 import java.util.Map;
 
 import com.zcbspay.platform.portal.query.statistics.bean.TxnsForPortalBean;
@@ -90,7 +91,7 @@ public interface QueryAndStatService {
 	 * @date: 2017年4月25日 下午2:13:50 
 	 * @version v1.0
 	 */
-	public Map<String, Object> selTxnsStatPortal (String page, String rows,
+	public List<?> selTxnsStatPortal (String page, String rows,
 			TxnsForPortalBean txnsForPortalBean);
 	
 	
@@ -169,5 +170,7 @@ public interface QueryAndStatService {
 	 * @version v1.0
 	 */
 	Map<String, Object> getFileInfo(String packageName);
+
+	Map<String, Object> orderForBatchAndSingle(String page, String rows, TxnsForPortalBean txnsForPortalBean);
 
 }

@@ -36,9 +36,9 @@
 					<input type="hidden" id="fileallName" name="page" value="0"/>
 					<form id="queryTradeForm" action="/queryAndStat/txnsBill" method="post">
 					<input type="hidden" id="pageIndex" name="page" value="0"/> 
-					<input type="hidden" id="pageRows" name="rows" value="3"/> 
-					<input type="hidden" id="stime" name="stime" value="3"/> 
-					<input type="hidden" id="etime" name="etime" value="3"/> 
+					<input type="hidden" id="pageRows" name="rows" value="10"/> 
+					<input type="hidden" id="stime" name="stime" /> 
+					<input type="hidden" id="etime" name="etime" /> 
 					<div class="billtime clearfix"> 
 						<!--日历begin-->
 						<span class="mlr10 fl">交易日期：</span>
@@ -174,7 +174,7 @@
 	<!--footer_end-->
 	<script type="text/javascript">
 	$(window).load(function(){
-		$("#member,#merch,#trade,#service,#helpe").removeClass();
+		$("#member,#merch,#trade,#service,#user").removeClass();
 		$("#tradedetailms,#tradestatms,#setlms,#billms").removeClass();
 		$('#trade').addClass('active');
 		$('#billms').addClass('active');

@@ -1,5 +1,6 @@
 package com.zcbspay.platform.portal.query.statistics.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import com.zcbspay.platform.portal.common.dao.BaseDAO;
@@ -53,7 +54,7 @@ public interface QueryAndStatDao extends BaseDAO<String>{
 	 * @date: 2017年4月25日 下午2:13:50 
 	 * @version v1.0
 	 */
-	public Map<String, Object> selTxnsStat (String page, String rows,
+	public List<?> selTxnsStat (String page, String rows,
 			TxnsForPortalBean txnsForPortalBean);
 	
 	
@@ -122,6 +123,11 @@ public interface QueryAndStatDao extends BaseDAO<String>{
 	 */
 	public Map<String, Object> selFormsBill (String page, String rows,
 			TxnsForPortalBean txnsForPortalBean);
+	
+	public Map<String, Object> selOrderForBatchAndSingle (String page, String rows,TxnsForPortalBean txnsForPortalBean);
+	
+	
+	
 	
 	
 }

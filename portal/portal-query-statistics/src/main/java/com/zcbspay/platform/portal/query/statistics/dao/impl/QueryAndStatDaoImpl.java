@@ -1,5 +1,6 @@
 package com.zcbspay.platform.portal.query.statistics.dao.impl;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Repository;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.zcbspay.platform.portal.common.dao.impl.HibernateBaseDAOImpl;
 import com.zcbspay.platform.portal.query.statistics.bean.TxnsForPortalBean;
 import com.zcbspay.platform.portal.query.statistics.dao.QueryAndStatDao;
+
 @Repository
 public class QueryAndStatDaoImpl extends HibernateBaseDAOImpl<String>  implements QueryAndStatDao{
 
@@ -79,7 +81,7 @@ public class QueryAndStatDaoImpl extends HibernateBaseDAOImpl<String>  implement
 	}
 
 	@Override
-	public Map<String, Object> selTxnsStat(String page, String rows, TxnsForPortalBean txnsForPortalBean) {
+	public  List<?> selTxnsStat(String page, String rows, TxnsForPortalBean txnsForPortalBean) {
 		String[] columns = new String[]{
 				"v_merid", 
 				 "v_busicode",
@@ -89,8 +91,6 @@ public class QueryAndStatDaoImpl extends HibernateBaseDAOImpl<String>  implement
 				 "v_ecommitime",
 				 "v_batchno",
 				 "v_orderid",
-	             "i_no",
-	             "i_perno"
 	             };
 	        Object[] paramaters = new Object[]{
 	        		txnsForPortalBean.getMerid(),
@@ -100,11 +100,10 @@ public class QueryAndStatDaoImpl extends HibernateBaseDAOImpl<String>  implement
 	        		txnsForPortalBean.getScommitime(),
 	        		txnsForPortalBean.getEcommitime(),
 	                txnsForPortalBean.getBatchno(),
-	                txnsForPortalBean.getOrderid(),
-	                page, rows};
-	        return executePageOracleProcedure(
-	               "{CALL pck_sel_txns_info.stat_txns_info(?,?,?,?,?,?,?,?,?,?,?,?)}", columns,
-	               paramaters, "cursor0","v_total");
+	                txnsForPortalBean.getOrderid()};
+	       return  executeOracleProcedure("{CALL pck_sel_txns_info.stat_txns_info(?,?,?,?,?,?,?,?,?)}", columns,
+	               paramaters, "cursor0");
+	        
 	}
 
 	@Override
@@ -221,6 +220,34 @@ public class QueryAndStatDaoImpl extends HibernateBaseDAOImpl<String>  implement
 	                page, rows};
 	        return executePageOracleProcedure(
 	               "{CALL pck_forms_bill.forms_bill(?,?,?,?,?,?,?)}", columns,
+	               paramaters, "cursor0","v_total");
+	}
+
+	@Override
+	public Map<String, Object> selOrderForBatchAndSingle(String page, String rows,
+			TxnsForPortalBean txnsForPortalBean) {
+		String[] columns = new String[]{
+				"v_merid", 
+				 "v_busicode",
+				 "v_stime",
+				 "v_etime", 
+				 "v_orderid",
+				 "v_account",
+				 "v_name",
+	             "i_no",
+	             "i_perno"
+	             };
+	        Object[] paramaters = new Object[]{
+	                txnsForPortalBean.getMerid(),
+	                txnsForPortalBean.getBusicode(),
+	                txnsForPortalBean.getStime(),
+	                txnsForPortalBean.getEtime(),
+	                txnsForPortalBean.getOrderid(),
+	                txnsForPortalBean.getAccount(),
+	                txnsForPortalBean.getName(),
+	                page, rows};
+	        return executePageOracleProcedure(
+	               "{CALL pck_sel_order.sel_order(?,?,?,?,?,?,?,?,?,?,?)}", columns,
 	               paramaters, "cursor0","v_total");
 	}
 	

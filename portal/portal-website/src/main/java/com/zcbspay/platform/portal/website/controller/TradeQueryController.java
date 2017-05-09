@@ -1,5 +1,6 @@
 package com.zcbspay.platform.portal.website.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zcbspay.platform.portal.query.statistics.bean.TxnsForPortalBean;
 import com.zcbspay.platform.portal.query.statistics.service.QueryAndStatService;
+
 /**
  * 交易查询模块
  * @author: zhangshd
@@ -97,7 +99,7 @@ public class TradeQueryController {
 	 */
 	@ResponseBody
 	@RequestMapping("/selTxnsStatPortal")
-	public Map<String, Object> selTxnsStat(String page,String rows,TxnsForPortalBean txnsForPortalBean) {
+	public List<?> selTxnsStat(String page,String rows,TxnsForPortalBean txnsForPortalBean) {
 		return tradeService.selTxnsStatPortal(page,rows,txnsForPortalBean);
 	}
 
