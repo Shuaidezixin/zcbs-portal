@@ -77,6 +77,10 @@ public class LoginController {
 			cookie.setMaxAge(30 * 60);// 设置为30min  
 	        cookie.setPath("/");  
 	        response.addCookie(cookie);  
+	        Map<String, Object> userMap =userService.queryUsers(user, "10", "10");
+	        if (((List<?>)userMap.get("rows")).get(0)!=null) {
+				user=(UserBean) ((List<?>)userMap.get("rows")).get(0);
+			}
 			request.getSession().setAttribute(Constants.LoginCanstant.LOGIN_USER, user);
 		}
 		return returnmap;

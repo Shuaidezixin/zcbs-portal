@@ -35,9 +35,9 @@
 					<input type="hidden" id="fileallName" name="page" value="0"/>
 					<form id="queryTradeForm" action="/order/orderForBatchAndSingle" method="post">
 					<input type="hidden" id="pageIndex" name="page" value="0"/> 
-					<input type="hidden" id="pageRows" name="rows" value="3"/> 
-					<input type="hidden" id="stime" name="stime" value="3"/> 
-					<input type="hidden" id="etime" name="etime" value="3"/>
+					<input type="hidden" id="pageRows" name="rows" value="10"/> 
+					<input type="hidden" id="stime" name="stime" /> 
+					<input type="hidden" id="etime" name="etime" />
 					<div class="billtime clearfix"> 
 						<span class="mlr10 fl">
 							交易类型： 
@@ -207,8 +207,14 @@
 		}
 		$('#stime').val(beginDate);
 		$('#etime').val(endDate);
+		
 	}
 	function queryTradeController(){
+		var selBusitype = $("#busicode option:selected").val();
+		if (selBusitype == "") {
+			$.MessageBox("请选择交易类型！");
+			return false;
+		}
 		prepareParm();
 		$('#queryTradeForm').ajaxSubmit({
 			async:false,
@@ -231,14 +237,14 @@
 		    	var output="";
 				for(var i=0,l=dataStr.length;i<l;i++){ 
 					output = output + '<tr height="36" class="bor_bottom" >'; 
-					output = output + '<td >'+dataStr[i]['COMMITIME']+'</td>';
-					output = output + '<td >'+dataStr[i]['TXNTIME']+'</td>';
-					output = output + '<td >'+dataStr[i]['ORDERID']+'</td>';
-					output = output + '<td >'+dataStr[i]['TXNAMT']+'</td>';
-					output = output + '<td >'+dataStr[i]['RETCODE']+'</td>';
-					output = output + '<td >'+dataStr[i]['RETINFO']+'</td>';
-					output = output + '<td >'+dataStr[i]['RESPTIME']+'</td>';
-					output = output + '<td >'+dataStr[i]['RELATETRADETXN']+'</td>';
+					output = output + '<td >'+(dataStr[i]['COMMITIME']==null?"":dataStr[i]['COMMITIME'])+'</td>';
+					output = output + '<td >'+(dataStr[i]['TXNTIME']==null?"":dataStr[i]['TXNTIME'])+'</td>';
+					output = output + '<td >'+(dataStr[i]['ORDERID']==null?"":dataStr[i]['ORDERID'])+'</td>';
+					output = output + '<td >'+(dataStr[i]['TXNAMT']==null?"":dataStr[i]['TXNAMT'])+'</td>';
+					output = output + '<td >'+(dataStr[i]['RESPCODE']==null?"":dataStr[i]['RESPCODE'])+'</td>';
+					output = output + '<td >'+(dataStr[i]['RESPMSG']==null?"":dataStr[i]['RESPMSG'])+'</td>';
+					output = output + '<td >'+(dataStr[i]['RESPTIME']==null?"":dataStr[i]['RESPTIME'])+'</td>';
+					output = output + '<td >'+(dataStr[i]['RELATETRADETXN']==null?"":dataStr[i]['RELATETRADETXN'])+'</td>';
 					output = output + '</tr>';
 				} 
 				$('#tradeContents').html(output);
@@ -274,6 +280,9 @@
 	function resize(){
 		$('#time').val(new Date().Format('yyyy-MM-dd'));
 		$('#time2').val(new Date().Format('yyyy-MM-dd'));
+		$('#busicode').val('');
+		$("#orderid,#name,#account").val("");
+		  
 	}
 	</script>
 </body>

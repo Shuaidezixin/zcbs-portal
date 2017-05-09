@@ -166,14 +166,15 @@ $(document).ready(function(){
 		}
         	$.ajax({
         		type:"post",
-        		url:"user/updateUser",
+        		url:"user/modifyPwd",
         		data:$('#signupForm').serialize(),
         		async: false,
         		success:function(data){
-        			if(data.success == "true"){
-        				window.location="<%=basePath%>user/"+data.newUrl;
+        			if(data.RET == "succ"){
+        				$.MessageBox(data.INFO);
+        				window.location="<%=basePath%>login.jsp";
         			}else{
-        				$.MessageBox(data.result);
+        				$.MessageBox(data.INFO);
         			}
         		}
         	});

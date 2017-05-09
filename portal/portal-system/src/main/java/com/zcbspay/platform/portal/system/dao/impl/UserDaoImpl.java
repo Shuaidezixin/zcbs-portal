@@ -32,7 +32,7 @@ public class UserDaoImpl extends HibernateBaseDAOImpl<String>  implements UserDa
 	}
 
 	@Override
-	public String updateUser(UserBean userBean) {
+	public Map<String, Object> updateUser(UserBean userBean) {
 		Object[] paramaters = new Object[] {userBean.getUserId(), userBean.getUserName(), userBean.getMemberid(), 
 				userBean.getLoginName(),MD5Util.MD5(userBean.getPwd()),userBean.getPhone(),
 				userBean.getEmail(),userBean.getErrorTime(),userBean.getCreator(),
@@ -42,8 +42,8 @@ public class UserDaoImpl extends HibernateBaseDAOImpl<String>  implements UserDa
 										"v_user_email","v_error_times","v_uptate_user",
 										"v_status","v_notes" };
 		Object total = executeOracleProcedure("{CALL pck_t_user_info.upt_t_user_info(?,?,?,?,?,?,?,?,?,?,?,?)}", columns, paramaters,
-				"cursor0").get(0).get("INFO");
-		return (String) total;
+				"cursor0").get(0);
+		return  (Map<String, Object>) total;
 	}
 
 	@SuppressWarnings("unchecked")

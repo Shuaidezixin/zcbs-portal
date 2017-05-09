@@ -54,7 +54,7 @@ public interface QueryAndStatService {
 	 * @date: 2017年4月25日 下午2:13:17 
 	 * @version v1.0
 	 */
-	public Map<String, Object> selTxnsSingleForPortal (String page, String rows,
+	public Map<String, Object> selTxnsSingle (String page, String rows,
 			TxnsForPortalBean txnsForPortalBean);
 	/**
 	 * 交易查询--批量明细
@@ -66,7 +66,7 @@ public interface QueryAndStatService {
 	 * @date: 2017年4月25日 下午2:13:50 
 	 * @version v1.0
 	 */
-	public Map<String, Object> selTxnsDetaForPortal (String page, String rows,
+	public Map<String, Object> selTxnsDeta (String page, String rows,
 			TxnsForPortalBean txnsForPortalBean);
 	
 	/**
@@ -79,7 +79,7 @@ public interface QueryAndStatService {
 	 * @date: 2017年4月25日 下午2:13:50 
 	 * @version v1.0
 	 */
-	public Map<String, Object> selTxnsInfoPortal (String page, String rows,
+	public Map<String, Object> selTxnsInfo (String page, String rows,
 			TxnsForPortalBean txnsForPortalBean);
 	/**
 	 * 交易明细汇总
@@ -91,7 +91,7 @@ public interface QueryAndStatService {
 	 * @date: 2017年4月25日 下午2:13:50 
 	 * @version v1.0
 	 */
-	public List<?> selTxnsStatPortal (String page, String rows,
+	public List<?> selTxnsStat (
 			TxnsForPortalBean txnsForPortalBean);
 	
 	
@@ -105,7 +105,7 @@ public interface QueryAndStatService {
 	 * @date: 2017年4月25日 下午2:13:50 
 	 * @version v1.0
 	 */
-	public Map<String, Object> selOrderPortal (String page, String rows,
+	public Map<String, Object> selOrder (String page, String rows,
 			TxnsForPortalBean txnsForPortalBean);
 	
 	/**
@@ -118,7 +118,7 @@ public interface QueryAndStatService {
 	 * @date: 2017年4月26日 下午3:41:15 
 	 * @version v1.0
 	 */
-	public Map<String, Object> selFormsTxnsDetaPortal (String page, String rows,
+	public Map<String, Object> selFormsTxnsDeta (String page, String rows,
 			TxnsForPortalBean txnsForPortalBean);
 	
 	/**
@@ -131,7 +131,7 @@ public interface QueryAndStatService {
 	 * @date: 2017年4月26日 下午3:41:15 
 	 * @version v1.0
 	 */
-	public Map<String, Object> selFormsTxnsStatPortal (String page, String rows,
+	public Map<String, Object> selFormsTxnsStat (String page, String rows,
 			TxnsForPortalBean txnsForPortalBean);
 	
 	/**
@@ -144,7 +144,7 @@ public interface QueryAndStatService {
 	 * @date: 2017年4月26日 下午3:41:15 
 	 * @version v1.0
 	 */
-	public Map<String, Object> selFormsSetlPortal (String page, String rows,
+	public Map<String, Object> selFormsSetl (String page, String rows,
 			TxnsForPortalBean txnsForPortalBean);
 	
 	
@@ -158,7 +158,7 @@ public interface QueryAndStatService {
 	 * @date: 2017年4月26日 下午3:41:15 
 	 * @version v1.0
 	 */
-	public Map<String, Object> selFormsBillPortal (String page, String rows,
+	public Map<String, Object> selFormsBill (String page, String rows,
 			TxnsForPortalBean txnsForPortalBean);
 	/**
 	 * 获取ftp特定文件夹下的文件列表

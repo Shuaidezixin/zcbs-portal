@@ -385,6 +385,11 @@
 		window.location='<%=basePath%>queryAndStat/downloadFile?fileName='+$("#fileallName").val()+"&"+"packageName=deta";
 	}
 	function queryTradeController(){
+		var selBusitype = $("#busicode option:selected").val();
+		if (selBusitype == "") {
+			$.MessageBox("请选择交易类型！");
+			return false;
+		}
 		prepareParm();
 		$('#queryTradeForm').ajaxSubmit({
 			async:false,
@@ -456,6 +461,9 @@
 		$('#time2').val(new Date().Format('yyyy-MM-dd'));
 		$('#time3').val(new Date().Format('yyyy-MM-dd'));
 		$('#time4').val(new Date().Format('yyyy-MM-dd'));
+		$('#busicode').val('');
+		$('#batchno,#orderid,#name,#account').val("");
+		   
 	}
 	</script>
 </body>

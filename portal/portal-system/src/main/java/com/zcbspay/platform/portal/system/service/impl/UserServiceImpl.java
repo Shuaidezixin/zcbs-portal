@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public String updateUser(UserBean userBean) {
+	public Map<String, Object> updateUser(UserBean userBean) {
 		return userDao.updateUser(userBean);
 	}
 	

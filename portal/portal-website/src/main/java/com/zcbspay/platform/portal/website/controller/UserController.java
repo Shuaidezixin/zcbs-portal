@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -25,6 +26,7 @@ import com.zcbspay.platform.portal.system.service.UserService;
 import com.zcbspay.platform.portal.website.constant.Constants;
 import com.zcbspay.platform.portal.website.util.CookieUtils;
 import com.zcbspay.platform.portal.website.util.MD5Util;
+import com.zcbspay.platform.portal.website.util.UserHelper;
 
 import net.sf.json.util.JSONUtils;
 
@@ -64,10 +66,34 @@ public class UserController {
 	@ResponseBody
 	@RequestMapping("/updateUser")
 	public Map<String, Object> updateUser(UserBean userBean) {
-		String message = userService.updateUser(userBean);
-		Map<String, Object> re = new HashMap<>();
-		re.put("info", message);
-		return re;
+		Map<String, Object> message = userService.updateUser(userBean);
+		return message;
+	}
+	/**
+	 * 
+	 * @author: zhangshd
+	 * @param userBean
+	 * @return Map<String,Object>
+	 * @date: 2017年5月9日 下午1:28:44 
+	 * @version v1.0
+	 */
+	@ResponseBody
+	@RequestMapping("/modifyPwd")
+	public Map<String, Object> modifyPwd(String password,String passwordnew,String confirm_passwordnew,HttpServletRequest request) {
+		UserBean userBean=new UserBean();
+		userBean.setPwd(password);
+		userBean.setLoginName(UserHelper.getCurrentUser(request).getLoginName());
+		Map<String, Object> returnMap = userService.login(userBean);
+		Map<String, Object> message =  new HashMap<>();
+		if (returnMap.get("code").equals("00")) {
+			userBean.setPwd(passwordnew);
+			userBean.setUserId(UserHelper.getCurrentUser(request).getUserId());
+			message= userService.updateUser(userBean);
+		}else{
+			message.put("RET", "error");
+			message.put("INFO","更新失败");
+		}
+		return message;
 	}
 
 	@ResponseBody

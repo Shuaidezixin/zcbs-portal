@@ -54,7 +54,7 @@ public class TradeQueryController {
 	@ResponseBody
 	@RequestMapping("/tradeQuery")
 	public Map<String, Object> tradeQuery(String page,String rows,TxnsForPortalBean txnsForPortalBean) {
-		return tradeService.selTxnsSingleForPortal(page,rows,txnsForPortalBean);
+		return tradeService.selTxnsSingle(page,rows,txnsForPortalBean);
 	}
 	/**
 	 * 批次明细查询  pck_sel_txns_deta
@@ -69,7 +69,7 @@ public class TradeQueryController {
 	@ResponseBody
 	@RequestMapping("/tradeQueryForBatch")
 	public Map<String, Object> tradeQueryForBatch(String page,String rows,TxnsForPortalBean txnsForPortalBean) {
-		return tradeService.selTxnsSingleForPortal(page,rows,txnsForPortalBean);
+		return tradeService.selTxnsSingle(page,rows,txnsForPortalBean);
 	}
 	
 	/**
@@ -85,7 +85,7 @@ public class TradeQueryController {
 	@ResponseBody
 	@RequestMapping("/selTxnsInfo")
 	public Map<String, Object> selTxnsInfo(String page,String rows,TxnsForPortalBean txnsForPortalBean) {
-		return tradeService.selTxnsInfoPortal(page,rows,txnsForPortalBean);
+		return tradeService.selTxnsInfo(page,rows,txnsForPortalBean);
 	}
 	/**
 	 * 汇总数据pck_sel_txns_info
@@ -100,7 +100,7 @@ public class TradeQueryController {
 	@ResponseBody
 	@RequestMapping("/selTxnsStatPortal")
 	public List<?> selTxnsStat(String page,String rows,TxnsForPortalBean txnsForPortalBean) {
-		return tradeService.selTxnsStatPortal(page,rows,txnsForPortalBean);
+		return tradeService.selTxnsStat(txnsForPortalBean);
 	}
 
 }

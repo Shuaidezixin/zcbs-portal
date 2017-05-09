@@ -11,7 +11,7 @@ public interface UserDao extends BaseDAO<String>{
 
 	String saveUser(UserBean userBean);
 
-	String updateUser(UserBean userBean);
+	Map<String, Object> updateUser(UserBean userBean);
 
 	String login(UserBean userbean);
 	

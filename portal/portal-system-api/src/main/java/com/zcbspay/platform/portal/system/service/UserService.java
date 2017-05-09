@@ -11,6 +11,6 @@ public interface UserService{
 	
 	public String saveUser(UserBean userBean);
 	
-	public String updateUser(UserBean userBean);
+	public Map<String, Object> updateUser(UserBean userBean);
 	
 }

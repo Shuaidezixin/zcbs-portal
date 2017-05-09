@@ -177,7 +177,6 @@
 		                            <th >撤销失败笔数</th>
 		                            <th >撤销成功金额</th>
 		                            <th >撤销失败金额</th>
-		                            <th >汇总结算金额</th>
 		                        </tr>
 		                    </thead>
 		                    <tbody id="tradeContents">
@@ -365,7 +364,6 @@
 					output = output + '<td >'+dataStr[i]['CANCELFAILNUM']+'</td>';
 					output = output + '<td >'+dataStr[i]['CANCELSUCCAMT']+'</td>';
 					output = output + '<td >'+dataStr[i]['CANCELFAILAMT']+'</td>';
-					output = output + '<td >'+dataStr[i]['SETLAMT']+'</td>';//不确定
 					output = output + '</tr>';
 				} 
 				$('#tradeContents').html(output);

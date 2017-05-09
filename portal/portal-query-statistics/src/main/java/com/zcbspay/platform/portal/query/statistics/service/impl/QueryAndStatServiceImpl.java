@@ -221,39 +221,39 @@ public class QueryAndStatServiceImpl implements QueryAndStatService {
 	
 	
 	@Override
-	public Map<String, Object> selTxnsSingleForPortal(String page, String rows, TxnsForPortalBean txnsForPortalBean) {
+	public Map<String, Object> selTxnsSingle(String page, String rows, TxnsForPortalBean txnsForPortalBean) {
 		return tradeService.selTxnsSingle(page,rows,txnsForPortalBean);
 	}
 	@Override
-	public Map<String, Object> selTxnsDetaForPortal(String page, String rows, TxnsForPortalBean txnsForPortalBean) {
+	public Map<String, Object> selTxnsDeta(String page, String rows, TxnsForPortalBean txnsForPortalBean) {
 		return tradeService.selTxnsDeta(page,rows,txnsForPortalBean);
 	}
 	@Override
-	public Map<String, Object> selTxnsInfoPortal(String page, String rows, TxnsForPortalBean txnsForPortalBean) {
+	public Map<String, Object> selTxnsInfo(String page, String rows, TxnsForPortalBean txnsForPortalBean) {
 		return tradeService.selTxnsInfo(page,rows,txnsForPortalBean);
 	}
 	@Override
-	public List<?> selTxnsStatPortal(String page, String rows, TxnsForPortalBean txnsForPortalBean) {
-		return tradeService.selTxnsStat(page,rows,txnsForPortalBean);
+	public List<?> selTxnsStat(TxnsForPortalBean txnsForPortalBean) {
+		return tradeService.selTxnsStat(txnsForPortalBean);
 	}
 	@Override
-	public Map<String, Object> selOrderPortal(String page, String rows, TxnsForPortalBean txnsForPortalBean) {
+	public Map<String, Object> selOrder(String page, String rows, TxnsForPortalBean txnsForPortalBean) {
 		return tradeService.selOrder(page,rows,txnsForPortalBean);
 	}
 	@Override
-	public Map<String, Object> selFormsTxnsDetaPortal(String page, String rows, TxnsForPortalBean txnsForPortalBean) {
+	public Map<String, Object> selFormsTxnsDeta(String page, String rows, TxnsForPortalBean txnsForPortalBean) {
 		return tradeService.selFormsTxnsDeta(page,rows,txnsForPortalBean);
 	}
 	@Override
-	public Map<String, Object> selFormsTxnsStatPortal(String page, String rows, TxnsForPortalBean txnsForPortalBean) {
+	public Map<String, Object> selFormsTxnsStat(String page, String rows, TxnsForPortalBean txnsForPortalBean) {
 		return tradeService.selFormsTxnsStat(page,rows,txnsForPortalBean);
 	}
 	@Override
-	public Map<String, Object> selFormsSetlPortal(String page, String rows, TxnsForPortalBean txnsForPortalBean) {
+	public Map<String, Object> selFormsSetl(String page, String rows, TxnsForPortalBean txnsForPortalBean) {
 		return tradeService.selFormsSetl(page,rows,txnsForPortalBean);
 	}
 	@Override
-	public Map<String, Object> selFormsBillPortal(String page, String rows, TxnsForPortalBean txnsForPortalBean) {
+	public Map<String, Object> selFormsBill(String page, String rows, TxnsForPortalBean txnsForPortalBean) {
 		return tradeService.selFormsBill(page,rows,txnsForPortalBean);
 	}
 

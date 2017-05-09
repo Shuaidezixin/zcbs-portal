@@ -54,7 +54,7 @@ public interface QueryAndStatDao extends BaseDAO<String>{
 	 * @date: 2017年4月25日 下午2:13:50 
 	 * @version v1.0
 	 */
-	public List<?> selTxnsStat (String page, String rows,
+	public List<?> selTxnsStat (
 			TxnsForPortalBean txnsForPortalBean);
 	
 	

@@ -81,7 +81,7 @@ public class QueryAndStatDaoImpl extends HibernateBaseDAOImpl<String>  implement
 	}
 
 	@Override
-	public  List<?> selTxnsStat(String page, String rows, TxnsForPortalBean txnsForPortalBean) {
+	public  List<?> selTxnsStat(TxnsForPortalBean txnsForPortalBean) {
 		String[] columns = new String[]{
 				"v_merid", 
 				 "v_busicode",
