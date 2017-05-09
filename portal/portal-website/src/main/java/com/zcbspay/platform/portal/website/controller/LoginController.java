@@ -102,7 +102,7 @@ public class LoginController {
 	public Map<String, Object> logout(HttpServletRequest request,HttpServletResponse response) {
     	Map<String, Object> result=new  HashMap<>();
 		HttpSession session = request.getSession(true);
-        if (isNull(session.getAttribute(Constants.LoginCanstant.LOGIN_USER))) {
+        if (!isNull(session.getAttribute(Constants.LoginCanstant.LOGIN_USER))) {
         	session.invalidate();
         }
         Cookie[] cookies = request.getCookies();
