@@ -233,7 +233,7 @@ public class QueryAndStatServiceImpl implements QueryAndStatService {
 		return tradeService.selTxnsInfo(page,rows,txnsForPortalBean);
 	}
 	@Override
-	public List<?> selTxnsStat(TxnsForPortalBean txnsForPortalBean) {
+	public Map<String, Object> selTxnsStat(TxnsForPortalBean txnsForPortalBean) {
 		return tradeService.selTxnsStat(txnsForPortalBean);
 	}
 	@Override

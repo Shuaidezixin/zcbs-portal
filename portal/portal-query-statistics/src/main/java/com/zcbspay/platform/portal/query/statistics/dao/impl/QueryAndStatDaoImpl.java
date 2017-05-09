@@ -81,7 +81,7 @@ public class QueryAndStatDaoImpl extends HibernateBaseDAOImpl<String>  implement
 	}
 
 	@Override
-	public  List<?> selTxnsStat(TxnsForPortalBean txnsForPortalBean) {
+	public  Map<String, Object> selTxnsStat(TxnsForPortalBean txnsForPortalBean) {
 		String[] columns = new String[]{
 				"v_merid", 
 				 "v_busicode",
@@ -102,7 +102,7 @@ public class QueryAndStatDaoImpl extends HibernateBaseDAOImpl<String>  implement
 	                txnsForPortalBean.getBatchno(),
 	                txnsForPortalBean.getOrderid()};
 	       return  executeOracleProcedure("{CALL pck_sel_txns_info.stat_txns_info(?,?,?,?,?,?,?,?,?)}", columns,
-	               paramaters, "cursor0");
+	               paramaters, "cursor0").get(0);
 	        
 	}
 

@@ -90,8 +90,6 @@ public class TradeQueryController {
 	/**
 	 * 汇总数据pck_sel_txns_info
 	 * @author: zhangshd
-	 * @param page
-	 * @param rows
 	 * @param txnsForPortalBean
 	 * @return Map<String,Object>
 	 * @date: 2017年5月2日 下午2:32:34 
@@ -99,7 +97,7 @@ public class TradeQueryController {
 	 */
 	@ResponseBody
 	@RequestMapping("/selTxnsStatPortal")
-	public List<?> selTxnsStat(String page,String rows,TxnsForPortalBean txnsForPortalBean) {
+	public Map<String, Object> selTxnsStat(TxnsForPortalBean txnsForPortalBean) {
 		return tradeService.selTxnsStat(txnsForPortalBean);
 	}
 

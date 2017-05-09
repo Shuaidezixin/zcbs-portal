@@ -36,13 +36,12 @@
 			<span class="col6 fr login_time" id="lastLogin"></span>
 		</div>
 
-		<!--电子对账单begin-->
 		<div class="flow_item">
 			<div class="bill_box clearfix">
 				<form id="queryTradeForm" action="<%=basePath%>trade/selTxnsInfo" method="post">
 					<input type="hidden" id="pageIndex" name="page" value="0" /> 
 					<input type="hidden" id="pageRows" name="rows" value="10" /> 
-					<input type="hidden" name="merid" value="200000000000610" /> 
+					<input type="hidden" id="merid" name="merid" value="200000000000610" /> 
 					<input type="hidden" name="stime" id="stime" value="" /> 
 					<input type="hidden" name="etime" id="etime" value="" />
 					<input type="hidden" name="scommitime" id="scommitime" value="" />
@@ -235,7 +234,10 @@
 						</table>
 					</div>
 				</form>
+				
+				
 				<div class="deal_item clearfix">
+					<div class="deal_item"> 交易结果 </div>
 					<table width="100%" class="order_detail">
 						<thead>
 							<tr class="order_field">
@@ -265,10 +267,29 @@
 					<!--分页end-->
 				</div>
 
+				<div class="deal_item clearfix">
+					<div class="deal_item"> 汇总信息 </div>
+					<table width="100%" class="order_detail">
+						<thead>
+							<tr class="order_field">
+								<th width="10%">总笔数</th>
+								<th width="12%">总金额（元）</th>
+								<th width="10%">成功笔数</th>
+								<th width="12%">成功金额（元）</th>
+								<th width="12%">手续金额（元）</th>
+								<th width="10%">失败笔数</th>
+								<th width="12%">失败金额（元）</th>
+								<th width="10%">其他笔数</th>
+								<th width="12%">其他金额（元）</th>
+							</tr>
+						</thead>
+						<tbody id="tradeStat">
+						</tbody>
+					</table>
+				</div>
+
 			</div>
 		</div>
-		<!--电子对账单end-->
-		<!--我的账户/账户管理/账务明细begin-->
 	</div>
 	<!--content_end-->
 	<!--footer_begin-->
@@ -311,7 +332,7 @@
 			queryTradeController();
 		}
 		function queryTradeController() {
-			var selBusitype = $("#busiCode option:selected").val();
+			var selBusitype = $("#busicode option:selected").val();
 			if (selBusitype == "") {
 				$.MessageBox("请选择交易类型！");
 				return false;
@@ -360,19 +381,19 @@
 									for (var i = 0, l = dataStr.length; i < l; i++) {
 										output = output + '<tr height="36" class="bor_bottom" >';
 										output = output + '<td width="9%">' + dataStr[i]['ORDERID'] + '</td>';
-										output = output + '<td width="9%">' + dataStr[i]['RELATETRADETXN'] + '</td>';
-										output = output + '<td width="9%">' + '批次序列号' + '</td>';
-										output = output + '<td width="9%">' + '文件名' + '</td>';
-										output = output + '<td width="6%">' + dataStr[i]['TXNTIME'] + '</td>';
-										output = output + '<td width="6%">' + dataStr[i]['TXNTIME'] + '</td>';
-										output = output + '<td width="8%">' + dataStr[i]['RESPTIME'] + '</td>';
-										output = output + '<td width="8%">' + '清算日期' + '</td>';
-										output = output + '<td width="4%">' + '开户省' + '</td>';
-										output = output + '<td width="4%">' + '开户市' + '</td>';
-										output = output + '<td width="5%">' + '开户银行' + '</td>';
-										output = output + '<td width="9%">' + '账号' + '</td>';
-										output = output + '<td width="9%">' + '户名' + '</td>';
-										output = output + '<td width="5%">' + dataStr[i]['RESPMSG'] + '</td>';
+										output = output + '<td width="9%">' + dataStr[i]['TXNSEQNO'] + '</td>';
+										output = output + '<td width="9%">' + dataStr[i]['BATCHNO'] + '</td>';
+										output = output + '<td width="9%">' + dataStr[i]['FILENAME'] + '</td>';
+										output = output + '<td width="6%">' + changeDate(dataStr[i]['TXNDATE']) + '</td>';
+										output = output + '<td width="6%">' + changeTime(dataStr[i]['TXNTIME']) + '</td>';
+										output = output + '<td width="8%">' + changeDateTime(dataStr[i]['COMMITIME']) + '</td>';
+										output = output + '<td width="8%">' + changeDate(dataStr[i]['SETLDATE']) + '</td>';
+										output = output + '<td width="4%">' + dataStr[i]['BANKP'] + '</td>';
+										output = output + '<td width="4%">' + dataStr[i]['BANKC'] + '</td>';
+										output = output + '<td width="5%">' + dataStr[i]['BANKNODE'] + '</td>';
+										output = output + '<td width="9%">' + dataStr[i]['ACCOUNTNO'] + '</td>';
+										output = output + '<td width="9%">' + dataStr[i]['ACCOUNTNAME'] + '</td>';
+										output = output + '<td width="5%">' + dataStr[i]['STATUS'] + '</td>';
 										output = output + '</tr>';
 									}
 									$('#tradeContents').html(output);
@@ -383,31 +404,97 @@
 									}
 									initPage(pageCount, $("#pageIndex").val(),
 											"pager", 1);
+									getStat();
+									
 								}
 							});
 		}
 		
+		function getStat(){
+			$.ajax({
+				url:"<%=basePath%>trade/selTxnsStatPortal",
+				type:"post",
+				data:{
+					merid:$("#merid").val(),
+					busicode:$("#busicode").val(),
+					orderid:$("#orderid").val(),
+					batchno:$("#batchno").val(),
+					stime:$("#stime").val(),
+					etime:$("#etime").val(),
+					scommitime:$("#scommitime").val(),
+					ecommitime:$("#ecommitime").val()
+				},
+				success:function(data){
+					if (typeof(data.RET)=="undefined") {
+						//总笔数NUMS，总金额AMOUNTS，成功笔数ACCNUMS，成功金额ACCAMTS，手续金额FEES，失败笔数FNUMS，失败金额FAMTS，其他笔数OTHERNUMS，其他金额OTHERAMTS
+						var output = '';
+						output = output + '<tr height="36" class="bor_bottom" >';
+						output = output + '<td width="10%">' + data.NUMS + '</td>';
+						output = output + '<td width="12%">' + data.AMOUNTS/100 + '</td>';
+						output = output + '<td width="10%">' + data.ACCNUMS + '</td>';
+						output = output + '<td width="12%">' + data.ACCAMTS/100 + '</td>';
+						output = output + '<td width="12%">' + data.FEES/100 + '</td>';
+						output = output + '<td width="10%">' + data.FNUMS + '</td>';
+						output = output + '<td width="12%">' + data.FAMTS/100 + '</td>';
+						output = output + '<td width="10%">' + data.OTHERNUMS + '</td>';
+						output = output + '<td width="12%">' + data.OTHERAMTS/100 + '</td>';
+						output = output + '</tr>';
+						$('#tradeStat').html(output);
+					}else {
+						$.MessageBox(data.INFO);
+						return;
+					}
+					console.log(JSON.stringify(data));
+				},
+				error:function(){
+					console.log("汇总信息查询失败！");
+				}
+			})
+		};
+		
 		function reSize(){
 			$('#busicode').val('');
-			initTime();
-			$('#status').val('');
 			$('#orderid').val('');
-			$('#orderidog').val('');
+			$('#batchno').val('');
+			initTime();
 		}
 		// 格式化日期时间
-		function changeDateTime(value) {
+		function changeDateTime(value){
 			var dateString = value;
-			if (dateString == null) {
+			if(dateString==null){
 				return "";
-			} else {
-				year = dateString.substring(0, 4);//0123
-				month = dateString.substring(4, 6);//45
-				day = dateString.substring(6, 8);//67
-				hour = dateString.substring(8, 10);//89
-				minte = dateString.substring(10, 12);//10 11
-				s = dateString.substring(12, 14);// 11 12
-				return year + "-" + month + "-" + day + " " + hour + ":"
-						+ minte + ":" + s;
+			}else{
+				year=dateString.substring(0,4);//0123
+				month=dateString.substring(4,6);//45
+				day=dateString.substring(6,8);//67
+				hour=dateString.substring(8,10);//89
+				minte=dateString.substring(10,12);//10 11
+				s=dateString.substring(12,14);// 11 12
+				return year+"-"+month+"-"+day+" " + hour +":"+minte+":"+s;
+			}
+		}
+		// 格式化日期
+		function changeDate(value){
+			var dateString = value;
+			if(dateString==null){
+				return "";
+			}else{
+				year=dateString.substring(0,4);//0123
+				month=dateString.substring(4,6);//45
+				day=dateString.substring(6,8);//67
+				return year+"-"+month+"-"+day;
+			}
+		}
+		// 格式化时间
+		function changeTime(value){
+			var dateString = value;
+			if(dateString==null){
+				return "";
+			}else{
+				hour=dateString.substring(0,2);
+				minte=dateString.substring(2,4);
+				s=dateString.substring(4,6);
+				return hour +":"+minte+":"+s;
 			}
 		}
 	</script>
