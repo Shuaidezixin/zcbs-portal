@@ -30,7 +30,7 @@
 
 		<div class="sh_manage_tit">
 			<ul>
-				<li><a href="<%=basePath%>trade/showQueryTrade1" >委托机构交易查询</a></li>
+				<li><a href="<%=basePath%>trade/showQueryTrade" >委托机构交易查询</a></li>
 				<li><a href="javascript:void(0);" class="active">委托机构交易明细查询</a></li>
 			</ul>
 			<span class="col6 fr login_time" id="lastLogin"></span>

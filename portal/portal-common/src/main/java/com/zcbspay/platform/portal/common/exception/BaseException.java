@@ -5,7 +5,7 @@
  *
  * 2015年8月19日 
  * 
- * Copyright (c) 2015,zlebank.All rights reserved.
+ * Copyright (c) 2015,XXXXXX.All rights reserved.
  * 
  */
 package com.zcbspay.platform.portal.common.exception;

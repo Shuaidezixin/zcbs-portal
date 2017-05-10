@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.zcbspay.platform.portal.query.statistics.bean.TxnsForPortalBean;
 import com.zcbspay.platform.portal.query.statistics.service.QueryAndStatService;
@@ -24,18 +25,31 @@ public class TradeQueryController {
 
     @Autowired
 	private QueryAndStatService tradeService;
-   
     
+    @ResponseBody
 	@RequestMapping("/showQueryTrade")
-	public String showBusiRate() {
-		return "trade/queryTrade";
+	public ModelAndView showQueryTrade(String busicode) {
+    	ModelAndView modelAndView = new ModelAndView("trade/queryTrade");
+    	if (busicode == null) {
+			busicode = "";
+		}
+    	modelAndView.addObject("busicode", busicode);
+    	return modelAndView;
+		//return "trade/queryTrade";
 	}
 	
-	@RequestMapping("/showQueryTrade1")
-	public String showBusiRate1() {
-		return "trade/queryTrade1";
+    @ResponseBody
+	@RequestMapping("/showQueryBatchTrade")
+	public ModelAndView showQueryBatchTrade(String busicode) {
+    	ModelAndView modelAndView = new ModelAndView("trade/queryBatchTrade");
+    	if (busicode == null) {
+			busicode = "";
+		}
+    	modelAndView.addObject("busicode", busicode);
+    	return modelAndView;
+//		return "trade/queryBatchTrade";
 	}
-	
+		
 	@RequestMapping("/showQueryTradeDetail")
 	public String showQueryTradeDetail() {
 		return "trade/queryTradeDetail";

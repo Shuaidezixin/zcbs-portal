@@ -5,7 +5,7 @@
  *
  * 2015-7-13 
  * 
- * Copyright (c) 2015,zlebank.All rights reserved.
+ * Copyright (c) 2015,XXXXXX.All rights reserved.
  * 
  */
 package com.zcbspay.platform.portal.common.utils;

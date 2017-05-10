@@ -5,7 +5,7 @@
  *
  * 2016年1月29日 
  * 
- * Copyright (c) 2016,zlebank.All rights reserved.
+ * Copyright (c) 2016,XXXXXX.All rights reserved.
  * 
  */
 package com.zcbspay.platform.portal.common.utils;

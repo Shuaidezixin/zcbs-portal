@@ -1,5 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
+<%-- <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> --%>
+<%@ page isELIgnored="false" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%
 	String path = request.getContextPath();
@@ -39,7 +41,8 @@
 		<!--电子对账单begin-->
 		<div class="flow_item">
 			<div class="bill_box clearfix">
-				<form id="queryTradeForm" action="<%=basePath%>trade/tradeQuery" method="post">
+<%-- 				<form id="queryTradeForm" action="<%=basePath%>trade/tradeQuery" method="post"> --%>
+				<form id="queryTradeForm" method="post">
 					<input type="hidden" id="pageIndex" name="page" value="0" /> 
 					<input type="hidden" id="pageRows" name="rows" value="10" /> 
 					<input type="hidden" name="merid" value="200000000000610" /> 
@@ -51,13 +54,13 @@
 							<tr>
 								<td align="left">
 									<span class="mlr10 fl">
-										交易类型： 
-										<select id="busicode" class="selectStatus" style="width: 140px" name="busicode">
+										交易类型：
+										<select id="busicode" class="selectStatus" onchange="busicodeChange()" style="width: 140px" name="busicode">
 											<option value="">--请选择交易类型--</option>
-											<option value="11000001">实时代收</option>
-											<option value="11000002">实时代付</option>
-											<option value="11000003">批量代收</option>
-											<option value="11000004">批量代付</option>
+											<option value="11000001" <c:if test="${busicode eq 11000001}"> selected="selected"</c:if>>实时代收</option>
+											<option value="11000002" <c:if test="${busicode eq 11000002}"> selected="selected"</c:if>>实时代付</option>
+											<option value="11000003" <c:if test="${busicode eq 11000003}"> selected="selected"</c:if>>批量代收</option>
+											<option value="11000004" <c:if test="${busicode eq 11000004}"> selected="selected"</c:if>>批量代付</option>
 										</select>
 									</span>
 								</td>
@@ -150,12 +153,12 @@
 							<tr>
 								<td align="left">
 									<span class="mlr10 fl">
-										订单号: <input id="orderid" class="input_text2" name="orderid" value placeholder="" />
+										批次号: <input id="orderid" class="input_text2" name="orderid" value placeholder="" />
 									</span>
 								</td>
 								<td align="center">
 									<span class="mlr10 fl">
-										原订单号: <input id="orderidog" class="input_text2" name="orderidog" value placeholder="" />
+										原批次号: <input id="orderidog" class="input_text2" name="orderidog" value placeholder="" />
 									</span>
 								</td>
 								<td align="right">
@@ -174,16 +177,17 @@
 					<table width="100%" class="order_detail">
 						<thead>
 							<tr class="order_field">
-								<th width="11%">订单号</th>
-								<th width="11%">原订单号</th>
+								<th width="11%">批次号</th>
+								<th width="11%">原批次号</th>
 								<th width="11%">提交时间</th>
 								<th width="8%">交易类型</th>
 								<th width="8%">业务类型</th>
-								<th width="8%">金额(元)</th>
+								<th width="6%">交易笔数</th>
+								<th width="6%">总金额(元)</th>
 								<th width="11%">处理状态</th>
 								<th width="11%">渠道处理时间</th>
 								<th width="11%">渠道处理状态</th>
-								<th width="10%">操作</th>
+								<th width="6%">操作</th>
 							</tr>
 						</thead>
 						<tbody id="tradeContents">
@@ -335,6 +339,14 @@
 								}
 							});
 		}
+		
+		function busicodeChange(){
+			var busicode = $('#busicode').val();
+			if (busicode == '11000001' || busicode == '11000002') {
+				// 跳到实时页面
+				window.location.href="<%=basePath%>trade/showQueryTrade?busicode="+busicode; 
+			} 
+		};
 		
 		function reSize(){
 			$('#busicode').val('');
