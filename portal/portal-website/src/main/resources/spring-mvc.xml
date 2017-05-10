@@ -95,10 +95,10 @@
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<!-- 拦截订单类请求 -->
-			<mvc:mapping path="/**"/>
-			<mvc:exclude-mapping path="/login/*"/>  
-			<mvc:exclude-mapping path="/js/**"/>
-			<mvc:exclude-mapping path="/css/**"/>
+			<mvc:mapping path="/order/**"/>
+			<mvc:mapping path="/queryAndStat/**"/>
+			<mvc:mapping path="/trade/**"/>
+			<mvc:mapping path="/user/**"/>
 			<bean class="com.zcbspay.platform.portal.website.interceptor.LoginInterceptor"/>
 		</mvc:interceptor>
 	</mvc:interceptors>
