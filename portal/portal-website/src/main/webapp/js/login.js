@@ -1,5 +1,5 @@
 $(function () {
-    H_login = {};
+    /*H_login = {};
     H_login.openLogin = function(){
         $('.login-header a').click(function(){
             $('.login').show();
@@ -51,7 +51,7 @@ $(function () {
             }else{
             	 $.ajax({  
                      type: "post",  
-                     url: "login/login",
+                     url: '/login/login',
                      data: {memberid:usernumValue,loginName:usernameValue,pwd: passwordValue},//发送ajax请求  
                      success: function(result) {   
                          if (result.result == "success") { 
@@ -69,5 +69,5 @@ $(function () {
         this.openLogin();
         this.loginForm();
     };
-    H_login.run();
+    H_login.run();*/
 });

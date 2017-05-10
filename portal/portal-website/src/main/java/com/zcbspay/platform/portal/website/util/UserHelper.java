@@ -9,12 +9,6 @@ public class UserHelper {
 
 	public static UserBean getCurrentUser(HttpServletRequest request) {
 		Object object=request.getSession().getAttribute(Constants.LoginCanstant.LOGIN_USER);
-		if (object==null) {
-			UserBean userBean=new UserBean();
-			userBean.setMemberid("200000000000610");
-			return userBean;
-		}else{
-			return (UserBean)object ;
-		}
+		return (UserBean)object ;
 	}
 }

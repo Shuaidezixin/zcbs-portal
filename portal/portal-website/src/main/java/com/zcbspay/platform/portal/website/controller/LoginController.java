@@ -120,13 +120,13 @@ public class LoginController {
     }
     
     
-    /**
+	/**
 	 * 用户登出
 	 * @return
 	 */
-	@RequestMapping("/showForgetPwd")
-	public String showBill() {
-		return "user/reset_password";
+	@RequestMapping("/loginpage")
+	public String loginpage() {
+		return "../../login";
 	}
 
 	public String getIpAddr(HttpServletRequest request) {

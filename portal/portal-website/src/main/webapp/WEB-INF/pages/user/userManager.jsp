@@ -40,14 +40,13 @@
 						<input id="loginName" class="input_text2"value placeholder="" maxlength="11" /></span> 
 						<span class="mlr10 fl">用户名:
 						<input id="userName" class="input_text2" value placeholder="" maxlength="32" /></span> 
-						<span class="mlr10 fl">
+						<!-- <span class="mlr10 fl">
 							状态： 
 							<select id="status" class="selectStatus" style="width:112px" name="status">
-								<option value="">--请选择状态--</option>
-								<option value="11000001">在用</option>
-								<option value="11000002">注销</option>
+								<option value="00">正常</option>
+								<option value="01">注销</option>
 							</select>
-						</span>
+						</span> -->
 						<span class="fl mlr10"><input id="queryUser" class="inquire" type="submit" value="查询" /></span> 
 						<span class="fl mlr10"><input id="reSize" class="inquire" type="button" value="清除" /></span>
 					</div>
@@ -59,7 +58,7 @@
 									<th >用户名称</th>
 									<th >所属委托机构</th>
 									<th >状态</th>
-									<th >操作</th>
+<!-- 									<th >操作</th> -->
 								</tr>
 							</thead>
 							<tbody id="takeAddress" >
@@ -152,7 +151,6 @@ function output(tBody, items){
         '<td >'+items[i].USER_NAME+'</td>'+
         '<td >'+items[i].MEMBER_ID+'</td>'+
         '<td >'+statusName+'</td>'+
-        '<td >'+	activeOrLogOff+
 		'</td>'+
     	'</tr>');
 	}

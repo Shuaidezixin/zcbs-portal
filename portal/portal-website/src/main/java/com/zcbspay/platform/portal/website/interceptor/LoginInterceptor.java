@@ -17,12 +17,8 @@ public class LoginInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		if (UserHelper.getCurrentUser(request)==null) {
-			PrintWriter out = response.getWriter();  
-	        out.println("<html>");      
-	        out.println("<script>");      
-	        out.println("window.open ('"+request.getContextPath()+"'+'login.jsp','_top')");      
-	        out.println("</script>");      
-	        out.println("</html>");   
+	        //request.getRequestDispatcher("/login/loginpage").forward(request, response);
+	        response.sendRedirect(request.getContextPath()+"/login/loginpage");
 	        return false;
 		}else{
 			return true;

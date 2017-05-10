@@ -33,7 +33,7 @@
         <!--电子对账单begin-->
 	        <div class="flow_item">
 				<div class="bill_box clearfix">
-					<form id="queryTradeForm" action="/queryAndStat/txnsDeta" method="post">
+					<form id="queryTradeForm" action="<%=basePath%>queryAndStat/txnsDeta" method="post">
 					<input type="hidden" id="pageIndex" name="page" value="0"/> 
 					<input type="hidden" id="pageRows" name="rows" value="10"/> 
 					<input type="hidden" id="stime" name="stime" /> 
@@ -333,7 +333,7 @@
 		prepareParm();
 		$.ajax({
 			type: "POST",
-			url: "/queryAndStat/txnsDetaExcelForms",
+			url: "<%=basePath%>queryAndStat/txnsDetaExcelForms",
 			data :$("#queryTradeForm").serialize(),
 			dataType: "json",
 			success: function(json) {
@@ -348,7 +348,7 @@
 		prepareParm();
 		$.ajax({
 			type: "POST",
-			url: "/queryAndStat/txnsDetaTxtForms",
+			url: "<%=basePath%>queryAndStat/txnsDetaTxtForms",
 			data :$("#queryTradeForm").serialize(),
 			dataType: "json",
 			success: function(json) {
@@ -361,7 +361,7 @@
 	function getFileName(){
 		$.ajax({
 			type: "POST",
-			url: "/queryAndStat/getFileInfo?packageName="+"deta",
+			url: "<%=basePath%>queryAndStat/getFileInfo?packageName="+"deta",
 			dataType: "json",
 			success: function(json) {
 				$('#tradeFile').html("");

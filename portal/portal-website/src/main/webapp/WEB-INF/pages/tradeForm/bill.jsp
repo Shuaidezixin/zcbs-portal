@@ -34,7 +34,7 @@
 	        <div class="flow_item">
 				<div class="bill_box clearfix">
 					<input type="hidden" id="fileallName" name="page" value="0"/>
-					<form id="queryTradeForm" action="/queryAndStat/txnsBill" method="post">
+					<form id="queryTradeForm" action="<%=basePath%>queryAndStat/txnsBill" method="post">
 					<input type="hidden" id="pageIndex" name="page" value="0"/> 
 					<input type="hidden" id="pageRows" name="rows" value="10"/> 
 					<input type="hidden" id="stime" name="stime" /> 
@@ -217,7 +217,7 @@
 		prepareParm();
 		$.ajax({
 			type: "POST",
-			url: "/queryAndStat/txnsBillExcelForms",
+			url: "<%=basePath%>queryAndStat/txnsBillExcelForms",
 			data :$("#queryTradeForm").serialize(),
 			dataType: "json",
 			success: function(json) {
@@ -232,7 +232,7 @@
 		prepareParm();
 		$.ajax({
 			type: "POST",
-			url: "/queryAndStat/txnsBillTxtForms",
+			url: "<%=basePath%>queryAndStat/txnsBillTxtForms",
 			data :$("#queryTradeForm").serialize(),
 			dataType: "json",
 			success: function(json) {
@@ -245,7 +245,7 @@
 	function getFileName(){
 		$.ajax({
 			type: "POST",
-			url: "/queryAndStat/getFileInfo?packageName="+"bill",
+			url: "<%=basePath%>queryAndStat/getFileInfo?packageName="+"bill",
 			dataType: "json",
 			success: function(json) {
 				$('#tradeFile').html("");
