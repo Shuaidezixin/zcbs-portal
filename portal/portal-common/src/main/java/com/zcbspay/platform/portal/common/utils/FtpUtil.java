@@ -30,8 +30,9 @@ public class FtpUtil {
 	        
 	        
 	        
-	        boolean flag =downloadFile("192.168.1.104", 21, "bema", "121970", "/2013123", "abc.xls", "D:/tmp/in");
-	        getFileInfo("192.168.1.104", 21, "bema", "121970", "stat");
+	        boolean flag =downloadFile("192.168.1.125", 21, "root", "123456", "/2013123", "abc.xls", "");
+	        System.out.println(flag);
+	        //getFileInfo("192.168.1.104", 21, "bema", "121970", "stat");
 	        //System.out.println(flag);  
 	    } catch (Exception e) {  
 	        e.printStackTrace();  
@@ -50,7 +51,7 @@ public class FtpUtil {
 	 * @param input 输入流 
 	 * @return 成功返回true，否则返回false 
 	 */  
-	public static boolean uploadFile(String host, int port, String username, String password, String basePath,
+	public static boolean uploadFile(String host, int port, String username, String password, 
 			String filePath, String filename, InputStream input) {
 		boolean result = false;
 		FTPClient ftp = new FTPClient();

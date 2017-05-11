@@ -16,7 +16,6 @@ public class FtpBean
 
 	private String ftpPwd;
 
-	private String ftpPath;
 
 	public String getLocalPath() {
 		return localPath;
@@ -56,13 +55,5 @@ public class FtpBean
 
 	public void setFtpPwd(String ftpPwd) {
 		this.ftpPwd = ftpPwd;
-	}
-
-	public String getFtpPath() {
-		return ftpPath;
-	}
-
-	public void setFtpPath(String ftpPath) {
-		this.ftpPath = ftpPath;
 	}
 }

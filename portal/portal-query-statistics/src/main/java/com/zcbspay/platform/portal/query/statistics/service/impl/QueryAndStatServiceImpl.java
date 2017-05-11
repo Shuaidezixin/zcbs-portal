@@ -170,7 +170,7 @@ public class QueryAndStatServiceImpl implements QueryAndStatService {
 			Buff.close();
 			FileInputStream in = new FileInputStream(new File(ftp.getLocalPath() + fileName));
 			flag = FtpUtil.uploadFile(ftp.getFtpAddress(), ftp.getFtpPort(), ftp.getFtpUser(), ftp.getFtpPwd(),
-					ftp.getFtpPath(), prefix, fileName, in);
+					 prefix, fileName, in);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -205,7 +205,7 @@ public class QueryAndStatServiceImpl implements QueryAndStatService {
 			ExcelUtil.exportExcel(headers, dataList, out);
 			FileInputStream in = new FileInputStream(new File(ftp.getLocalPath() + fileName));
 			flag = FtpUtil.uploadFile(ftp.getFtpAddress(), ftp.getFtpPort(), ftp.getFtpUser(), ftp.getFtpPwd(),
-					ftp.getFtpPath(), prefix, fileName, in);
+					 prefix, fileName, in);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}

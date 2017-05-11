@@ -32,6 +32,13 @@
 	        <aop:after-throwing method="throwException" pointcut-ref="pointcut" throwing="ex" />
 	    </aop:aspect>
 	</aop:config>
+	<bean id="ftpBean" class="com.zcbspay.platform.portal.query.statistics.bean.FtpBean"> <!-- 这些配置Spring在启动时会去conn.properties中找 -->  
+	    <property name="localPath" value="${local.path}" />  
+	    <property name="ftpAddress" value="${ftp.address}" />  
+	    <property name="ftpPort" value="${ftp.port}" />  
+	    <property name="ftpUser" value="${ftp.user}" />
+	    <property name="ftpPwd" value="${ftp.pwd}" />  
+	 </bean>  
 	<import resource="classpath:spring-hibernate.xml"/>
 	<import resource="classpath:spring-dubbo.xml"/>
 </beans>

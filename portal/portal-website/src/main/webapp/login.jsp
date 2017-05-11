@@ -66,7 +66,7 @@ $(document).ready(function(){
                      data: {memberid:usernumValue,loginName:usernameValue,pwd: passwordValue},//发送ajax请求  
                      success: function(result) {   
                          if (result.result == "success") { 
-                             parent.document.location.href = '<%=basePath%>trade/showQueryTrade1';
+                             parent.document.location.href = '<%=basePath%>trade/showQueryTrade';
                          } else {
                         	 $('.login-msg').html(result.info);
                          } 
