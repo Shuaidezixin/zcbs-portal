@@ -3,14 +3,18 @@ package com.zcbspay.platform.portal.website.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.zcbspay.platform.portal.query.statistics.bean.TxnsForPortalBean;
 import com.zcbspay.platform.portal.query.statistics.service.QueryAndStatService;
+import com.zcbspay.platform.portal.website.util.UserHelper;
 
 /**
  * 交易查询模块
@@ -67,7 +71,8 @@ public class TradeQueryController {
      */
 	@ResponseBody
 	@RequestMapping("/tradeQuery")
-	public Map<String, Object> tradeQuery(String page,String rows,TxnsForPortalBean txnsForPortalBean) {
+	public Map<String, Object> tradeQuery(String page,String rows,TxnsForPortalBean txnsForPortalBean, HttpServletRequest request) {
+		txnsForPortalBean.setMerid(UserHelper.getCurrentUser(request).getMemberid());
 		return tradeService.selTxnsSingle(page,rows,txnsForPortalBean);
 	}
 	/**
@@ -82,8 +87,29 @@ public class TradeQueryController {
 	 */
 	@ResponseBody
 	@RequestMapping("/tradeQueryForBatch")
-	public Map<String, Object> tradeQueryForBatch(String page,String rows,TxnsForPortalBean txnsForPortalBean) {
-		return tradeService.selTxnsSingle(page,rows,txnsForPortalBean);
+	public Map<String, Object> tradeQueryForBatch(@RequestParam(defaultValue = "1") String page,@RequestParam(defaultValue = "2")String rows,TxnsForPortalBean txnsForPortalBean, HttpServletRequest request) {
+		txnsForPortalBean.setMerid(UserHelper.getCurrentUser(request).getMemberid());
+		return tradeService.selTxnsDeta(page,rows,txnsForPortalBean);
+	}
+	/**
+	 * 跳到批次明细查询  pck_sel_txns_deta
+	 * @author: 张连海
+	 * @param page
+	 * @param rows
+	 * @param txnsForPortalBean
+	 * @return modelAndView
+	 * @date: 2017年5月2日 下午2:23:40 
+	 * @version v1.0
+	 */
+	@ResponseBody
+	@RequestMapping("/toTradeQueryForBatch")
+	public ModelAndView toTradeQueryForBatch(@RequestParam(defaultValue = "1") String page, @RequestParam(defaultValue = "2") String rows, TxnsForPortalBean txnsForPortalBean, HttpServletRequest request) {
+		ModelAndView modelAndView = new ModelAndView("/trade/queryBatchTradeDetail");
+		txnsForPortalBean.setMerid(UserHelper.getCurrentUser(request).getMemberid());
+		Map<String, Object> batchDetail = tradeService.selTxnsDeta(page,rows,txnsForPortalBean);
+		modelAndView.addObject("batchDetail", batchDetail);
+		modelAndView.addObject("batchno", txnsForPortalBean.getBatchno());
+		return modelAndView;
 	}
 	
 	/**
@@ -98,7 +124,8 @@ public class TradeQueryController {
 	 */
 	@ResponseBody
 	@RequestMapping("/selTxnsInfo")
-	public Map<String, Object> selTxnsInfo(String page,String rows,TxnsForPortalBean txnsForPortalBean) {
+	public Map<String, Object> selTxnsInfo(String page,String rows,TxnsForPortalBean txnsForPortalBean, HttpServletRequest request) {
+		txnsForPortalBean.setMerid(UserHelper.getCurrentUser(request).getMemberid());
 		return tradeService.selTxnsInfo(page,rows,txnsForPortalBean);
 	}
 	/**
@@ -111,7 +138,8 @@ public class TradeQueryController {
 	 */
 	@ResponseBody
 	@RequestMapping("/selTxnsStatPortal")
-	public Map<String, Object> selTxnsStat(TxnsForPortalBean txnsForPortalBean) {
+	public Map<String, Object> selTxnsStat(TxnsForPortalBean txnsForPortalBean, HttpServletRequest request) {
+		txnsForPortalBean.setMerid(UserHelper.getCurrentUser(request).getMemberid());
 		return tradeService.selTxnsStat(txnsForPortalBean);
 	}
 

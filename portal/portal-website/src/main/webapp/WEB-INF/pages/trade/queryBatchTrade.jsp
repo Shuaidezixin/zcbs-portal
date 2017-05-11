@@ -41,8 +41,7 @@
 		<!--电子对账单begin-->
 		<div class="flow_item">
 			<div class="bill_box clearfix">
-<%-- 				<form id="queryTradeForm" action="<%=basePath%>trade/tradeQuery" method="post"> --%>
-				<form id="queryTradeForm" method="post">
+				<form id="queryTradeForm" action="<%=basePath%>trade/tradeQuery" method="post">
 					<input type="hidden" id="pageIndex" name="page" value="0" /> 
 					<input type="hidden" id="pageRows" name="rows" value="10" /> 
 					<input type="hidden" name="merid" value="200000000000610" /> 
@@ -289,42 +288,23 @@
 									var dataStr = data.rows;
 									var output = '';
 									for (var i = 0, l = dataStr.length; i < l; i++) {
-										output = output
-												+ '<tr height="36" class="bor_bottom" >';
-										output = output + '<td width="11%">'
-												+ dataStr[i]['ORDERID']
-												+ '</td>';
-										output = output + '<td width="11%">'
-												+ dataStr[i]['ORDERID_OG']
-												+ '</td>';
-										output = output
-												+ '<td width="11%">'
-												+ changeDateTime(dataStr[i]['TXNTIME'])
-												+ '</td>';
-										output = output + '<td width="8%">'
-												+ dataStr[i]['PAYNAME']
-												+ '</td>';
-										output = output + '<td width="8%">'
-												+ dataStr[i]['BUSINAME']
-												+ '</td>';
-										output = output + '<td width="8%">'
-												+ dataStr[i]['TXNAMT'] / 100
-												+ '</td>';
-										output = output + '<td width="11%">'
-												+ dataStr[i]['STATUS']
-												+ '</td>';
-										output = output
-												+ '<td width="11%">'
-												+ changeDateTime(dataStr[i]['COMMITIME'])
-												+ '</td>';
-										output = output + '<td width="11%">'
-												+ dataStr[i]['RESPMSG']
-												+ '</td>';
-										output = output
-												+ '<td width="10%">'
-												+ '<a href="#" onclick="showDetail('
-												+ dataStr[i]['TID']
-												+ ')" class="refund_sq">明细</a>'
+										output = output + '<tr height="36" class="bor_bottom" >';
+										output = output + '<td width="11%">' + dataStr[i]['ORDERID'] + '</td>';
+										output = output + '<td width="11%">' + dataStr[i]['ORDERID_OG'] + '</td>';
+										output = output + '<td width="11%">' + changeDateTime(dataStr[i]['TXNTIME']) + '</td>';
+										output = output + '<td width="8%">' + dataStr[i]['PAYNAME'] + '</td>';
+										output = output + '<td width="8%">' + dataStr[i]['BUSINAME'] + '</td>';
+										output = output + '<td width="6%">' + dataStr[i]['TXNNUMS'] + '</td>';
+										output = output + '<td width="6%">' + dataStr[i]['TXNAMT'] / 100 + '</td>';
+										output = output + '<td width="11%">' + dataStr[i]['STATUS'] + '</td>';
+										output = output + '<td width="11%">' + changeDateTime(dataStr[i]['COMMITIME']) + '</td>';
+										output = output + '<td width="11%">' + dataStr[i]['RESPMSG'] + '</td>';
+										// output = output + '<td width="6%">' + '<a href="#" onclick="showDetail(' + dataStr[i]['ORDERID'] + ')" class="refund_sq">明细</a>' + '</td>';
+										output = output 
+												+ '<td width="6%">' 
+												+ '<a href="<%=basePath%>trade/toTradeQueryForBatch?batchno=' 
+												+ dataStr[i]['ORDERID'] 
+												+ '" class="refund_sq">明细</a>' 
 												+ '</td>';
 										output = output + '</tr>';
 									}
@@ -347,6 +327,11 @@
 				window.location.href="<%=basePath%>trade/showQueryTrade?busicode="+busicode; 
 			} 
 		};
+		
+		<%-- function showDetail(batchno){
+			// 跳到明细
+			window.location.href="<%=basePath%>trade/toTradeQueryForBatch?batchno="+batchno; 
+		} --%>
 		
 		function reSize(){
 			$('#busicode').val('');

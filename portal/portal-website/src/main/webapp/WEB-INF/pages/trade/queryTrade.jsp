@@ -175,16 +175,16 @@
 					<table width="100%" class="order_detail">
 						<thead>
 							<tr class="order_field">
-								<th width="11%">订单号</th>
-								<th width="11%">原订单号</th>
-								<th width="11%">提交时间</th>
-								<th width="8%">交易类型</th>
-								<th width="8%">业务类型</th>
-								<th width="8%">金额(元)</th>
-								<th width="11%">处理状态</th>
-								<th width="11%">渠道处理时间</th>
+								<th width="12%">订单号</th>
+								<th width="12%">原订单号</th>
+								<th width="12%">提交时间</th>
+								<th width="10%">交易类型</th>
+								<th width="10%">业务类型</th>
+								<th width="9%">金额(元)</th>
+								<th width="12%">处理状态</th>
+								<th width="12%">渠道处理时间</th>
 								<th width="11%">渠道处理状态</th>
-								<th width="10%">操作</th>
+<!-- 								<th width="10%">操作</th> -->
 							</tr>
 						</thead>
 						<tbody id="tradeContents">
@@ -317,12 +317,12 @@
 										output = output + '<td width="11%">'
 												+ dataStr[i]['RESPMSG']
 												+ '</td>';
-										output = output
+										/* output = output
 												+ '<td width="10%">'
 												+ '<a href="#" onclick="showDetail('
 												+ dataStr[i]['TID']
 												+ ')" class="refund_sq">明细</a>'
-												+ '</td>';
+												+ '</td>'; */
 										output = output + '</tr>';
 									}
 									$('#tradeContents').html(output);
