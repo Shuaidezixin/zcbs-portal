@@ -1,5 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
 <%@ page isELIgnored="false" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%
@@ -57,28 +59,37 @@
 						<thead>
 							<tr class="order_field">
 								<th width="13%">订单号</th>
-								<th width="10%">提交时间</th>
+								<th width="11%">提交时间</th>
 								<th width="7%">交易金额(元)</th>
-								<th width="10%">处理时间</th>
+								<th width="11%">处理时间</th>
 								<th width="12%">交易应答</th>
-								<th width="10%">应答时间</th>
+								<th width="11%">应答时间</th>
 								<th width="12%">应答信息</th>
 								<th width="13%">渠道流水号</th>
-								<th width="13%">备注</th>
+								<th width="10%">备注</th>
 							</tr>
 						</thead>
 						<tbody id="tradeContents">
 							<c:forEach items="${batchDetail.rows}" var="row" varStatus="rowStatus">
 								<tr height="36" class="bor_bottom" >
 									<td width="13%">${row.ORDERID}</td>
-									<td width="10%">${row.COMMITIME}</td>
+									<td width="11%">
+										${fn:substring(row.COMMITIME,0,4)}-${fn:substring(row.COMMITIME,4,6)}-${fn:substring(row.COMMITIME,6,8)}
+										${fn:substring(row.COMMITIME,8,10)}:${fn:substring(row.COMMITIME,10,12)}:${fn:substring(row.COMMITIME,12,14)}
+									</td>
 									<td width="7%">${row.TXNAMT/100}</td>
-									<td width="10%">${row.TXNTIME}</td>
+									<td width="11%">
+										${fn:substring(row.TXNTIME,0,4)}-${fn:substring(row.TXNTIME,4,6)}-${fn:substring(row.TXNTIME,6,8)}
+										${fn:substring(row.TXNTIME,8,10)}:${fn:substring(row.TXNTIME,10,12)}:${fn:substring(row.TXNTIME,12,14)}
+									</td>
 									<td width="12%">${row.RESPCODE}</td>
-									<td width="10%">${row.RESPTIME}</td>
+									<td width="11%">
+										${fn:substring(row.RESPTIME,0,4)}-${fn:substring(row.RESPTIME,4,6)}-${fn:substring(row.RESPTIME,6,8)}
+										${fn:substring(row.RESPTIME,8,10)}:${fn:substring(row.RESPTIME,10,12)}:${fn:substring(row.RESPTIME,12,14)}
+									</td>
 									<td width="12%">${row.RESPMSG}</td>
 									<td width="13%">${row.RELATETRADETXN}</td>
-									<td width="13%">${row.NOTES}</td>
+									<td width="10%">${row.NOTES}</td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -136,14 +147,14 @@
 									for (var i = 0, l = dataStr.length; i < l; i++) {
 										output = output + '<tr height="36" class="bor_bottom" >';
 										output = output + '<td width="13%">' + dataStr[i]['ORDERID'] + '</td>';
-										output = output + '<td width="10%">' + dataStr[i]['COMMITIME'] + '</td>';
+										output = output + '<td width="11%">' + changeDateTime(dataStr[i]['COMMITIME']) + '</td>';
 										output = output + '<td width="7%">' + dataStr[i]['TXNAMT']/100 + '</td>';
-										output = output + '<td width="10%">' + dataStr[i]['TXNTIME'] + '</td>';
+										output = output + '<td width="11%">' + changeDateTime(dataStr[i]['TXNTIME']) + '</td>';
 										output = output + '<td width="12%">' + dataStr[i]['RESPCODE'] + '</td>';
-										output = output + '<td width="10%">' + dataStr[i]['RESPTIME'] + '</td>';
+										output = output + '<td width="11%">' + changeDateTime(dataStr[i]['RESPTIME']) + '</td>';
 										output = output + '<td width="12%">' + dataStr[i]['RESPMSG'] + '</td>';
 										output = output + '<td width="13%">' + dataStr[i]['RELATETRADETXN'] + '</td>';
-										output = output + '<td width="13%">' + dataStr[i]['NOTES'] + '</td>';
+										output = output + '<td width="10%">' + dataStr[i]['NOTES'] + '</td>';
 										output = output + '</tr>';
 									}
 									$('#tradeContents').html(output);
