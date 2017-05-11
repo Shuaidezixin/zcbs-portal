@@ -44,7 +44,6 @@
 				<form id="queryTradeForm" action="<%=basePath%>trade/tradeQuery" method="post">
 					<input type="hidden" id="pageIndex" name="page" value="0" /> 
 					<input type="hidden" id="pageRows" name="rows" value="10" /> 
-					<input type="hidden" name="merid" value="200000000000610" /> 
 					<input type="hidden" name="stime" id="stime" value="" /> 
 					<input type="hidden" name="etime" id="etime" value="" />
 
@@ -299,7 +298,6 @@
 										output = output + '<td width="11%">' + dataStr[i]['STATUS'] + '</td>';
 										output = output + '<td width="11%">' + changeDateTime(dataStr[i]['COMMITIME']) + '</td>';
 										output = output + '<td width="11%">' + dataStr[i]['RESPMSG'] + '</td>';
-										// output = output + '<td width="6%">' + '<a href="#" onclick="showDetail(' + dataStr[i]['ORDERID'] + ')" class="refund_sq">明细</a>' + '</td>';
 										output = output 
 												+ '<td width="6%">' 
 												+ '<a href="<%=basePath%>trade/toTradeQueryForBatch?batchno=' 

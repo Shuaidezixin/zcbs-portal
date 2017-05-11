@@ -87,7 +87,7 @@ public class TradeQueryController {
 	 */
 	@ResponseBody
 	@RequestMapping("/tradeQueryForBatch")
-	public Map<String, Object> tradeQueryForBatch(@RequestParam(defaultValue = "1") String page,@RequestParam(defaultValue = "2")String rows,TxnsForPortalBean txnsForPortalBean, HttpServletRequest request) {
+	public Map<String, Object> tradeQueryForBatch(@RequestParam(defaultValue = "1") String page,@RequestParam(defaultValue = "10")String rows,TxnsForPortalBean txnsForPortalBean, HttpServletRequest request) {
 		txnsForPortalBean.setMerid(UserHelper.getCurrentUser(request).getMemberid());
 		return tradeService.selTxnsDeta(page,rows,txnsForPortalBean);
 	}
@@ -103,7 +103,7 @@ public class TradeQueryController {
 	 */
 	@ResponseBody
 	@RequestMapping("/toTradeQueryForBatch")
-	public ModelAndView toTradeQueryForBatch(@RequestParam(defaultValue = "1") String page, @RequestParam(defaultValue = "2") String rows, TxnsForPortalBean txnsForPortalBean, HttpServletRequest request) {
+	public ModelAndView toTradeQueryForBatch(@RequestParam(defaultValue = "1") String page, @RequestParam(defaultValue = "10") String rows, TxnsForPortalBean txnsForPortalBean, HttpServletRequest request) {
 		ModelAndView modelAndView = new ModelAndView("/trade/queryBatchTradeDetail");
 		txnsForPortalBean.setMerid(UserHelper.getCurrentUser(request).getMemberid());
 		Map<String, Object> batchDetail = tradeService.selTxnsDeta(page,rows,txnsForPortalBean);

@@ -41,7 +41,7 @@
 			<div class="bill_box clearfix">
 				<form id="queryTradeForm" action="<%=basePath%>trade/tradeQueryForBatch" method="post">
 					<input type="hidden" id="pageIndex" name="page" value="0" /> 
-					<input type="hidden" id="pageRows" name="rows" value="2" /> 
+					<input type="hidden" id="pageRows" name="rows" value="10" /> 
 					<input type="hidden" id="batchno" name="batchno" value="${batchno }" /> 
 				</form>
 				<div class="deal_item clearfix">

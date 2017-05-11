@@ -41,7 +41,6 @@
 				<form id="queryTradeForm" action="<%=basePath%>trade/selTxnsInfo" method="post">
 					<input type="hidden" id="pageIndex" name="page" value="0" /> 
 					<input type="hidden" id="pageRows" name="rows" value="10" /> 
-					<input type="hidden" id="merid" name="merid" value="200000000000610" /> 
 					<input type="hidden" name="stime" id="stime" value="" /> 
 					<input type="hidden" name="etime" id="etime" value="" />
 					<input type="hidden" name="scommitime" id="scommitime" value="" />
