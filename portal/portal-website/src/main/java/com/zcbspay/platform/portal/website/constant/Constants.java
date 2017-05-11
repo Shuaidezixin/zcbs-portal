@@ -10,6 +10,8 @@ public class Constants {
         public static final String LOGIN_USER = "LOGIN_USER";
         
         public static final String LOGIN_USER_NAME="login_user_name";
+        
+        public static final String LOGIN_LAST_TIME="login_last_time";
 
         private LoginCanstant() {
         }

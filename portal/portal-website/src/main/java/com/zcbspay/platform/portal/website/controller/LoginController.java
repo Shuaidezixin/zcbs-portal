@@ -77,6 +77,7 @@ public class LoginController {
 			cookie.setMaxAge(30 * 60);// 设置为30min  
 	        cookie.setPath("/");  
 	        response.addCookie(cookie);  
+	        Cookie cookielasttime=null;
 	        Map<String, Object> userMap =userService.queryUsers(user, "1", "1");
 	        if (((List<?>)userMap.get("rows")).get(0)!=null) {
 	        	Map<String, Object> re=(Map<String, Object>) ((List<?>)userMap.get("rows")).get(0);
@@ -87,7 +88,12 @@ public class LoginController {
 				user.setEmail(re.get("USER_EMAIL")==null?null:re.get("USER_EMAIL").toString());
 				user.setStatus(re.get("STATUS").toString());
 				user.setNotes(re.get("NOTES")==null?null:re.get("NOTES").toString());
+				
+				cookielasttime=new Cookie(Constants.LoginCanstant.LOGIN_LAST_TIME, re.get("LAST_LOGINTIME")==null?"":re.get("LAST_LOGINTIME").toString());
+		        cookielasttime.setMaxAge(30 * 60);// 设置为30min  
+		        cookielasttime.setPath("/");  
 			}
+	        response.addCookie(cookielasttime);
 			request.getSession().setAttribute(Constants.LoginCanstant.LOGIN_USER, user);
 		}
 		return returnmap;

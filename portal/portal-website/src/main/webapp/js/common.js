@@ -21,26 +21,6 @@ $(document).ready(function() {
 		$("#open,#download,#business,#contract,#operation").removeClass();
 		$("#" + theRequest[1]).attr("class", "active");
 	}
-	$("#logOutConfirm").click(function() {
-        $.MessageBox({
-            buttonDone: "确定",
-            buttonFail: "取消",
-            message: "确定要退出吗?"
-        }).done(function() {
-        	$.ajax({
-    			type: "POST",
-    			url: "/login/logout",
-    			dataType: "json",
-    			success: function(json) {
-    				if(json.code==00){
-    					window.location='../../login.jsp';
-    				}
-    			}
-    		});
-        }).fail(function() {
-            
-        });
-    });
 });
 
 function selectLeftMenu(id) {

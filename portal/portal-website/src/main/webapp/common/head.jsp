@@ -14,7 +14,6 @@
 		<meta http-equiv="expires" content="0"/>    
 		<meta http-equiv="description" content="宜赋通门户网站"/>
 		<script type="text/javascript" src="<%=basePath%>js/jquery-1.8.3-min.js"></script>
-		<script type="text/javascript" src="<%=basePath%>js/login.js"></script>
 		<script type="text/javascript" src="<%=basePath%>js/resgin.js"></script>
 		<script type="text/javascript" src="<%=basePath%>js/jquery.validate.js"></script>
 		<script type="text/javascript" src="<%=basePath%>js/jquery.metadata.js"></script>
@@ -24,6 +23,5 @@
 		<script src="<%=basePath%>js/messagebox.js"></script> 
 		<link rel="stylesheet" type="text/css" href="<%=basePath%>css/css.css" />
 		<link rel="stylesheet" type="text/css" href="<%=basePath%>css/Pager.css" />
-		<%-- <link rel="stylesheet" href="<%=basePath%>css/bootstrap.min.css"/> --%>
 		<link  rel="stylesheet" href="<%=basePath%>css/messagebox.css" type="text/css"/>
 		<link  rel="stylesheet" href="<%=basePath%>css/opentip.css" type="text/css"/>

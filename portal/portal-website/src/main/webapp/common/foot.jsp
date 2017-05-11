@@ -5,6 +5,6 @@
 		<br>
 		<span>客服热线：</span> <span>工作时间：周一至周五早9：00-晚6:00 </span><span>联系邮箱:</span>
 		<br>
-		<span>CopyRight © 2015-2016 XXXXXX,All Rights Reserved.</span> <span>版权所有 宜赋通门户网站</span>
+		<span>CopyRight © 2016-2018 XXXXXX,All Rights Reserved.</span> <span>版权所有 上海宜赋通信信息技术有限公司</span>
 	</div>
 </div>
