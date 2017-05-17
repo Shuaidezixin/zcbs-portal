@@ -68,9 +68,7 @@ public class LoginController {
 	 */
 	@ResponseBody
 	@RequestMapping("/login")
-	public Map<String, Object> validateUser(UserBean user,HttpServletRequest request,String randcode,HttpServletResponse response) {
-		HttpSession session = request.getSession(true);
-		boolean loginFlag = false;
+	public Map<String, Object> validateUser(UserBean user,HttpServletRequest request,HttpServletResponse response) {
 		
 		String url="http://localhost:9911/fe/login/login";
 		
@@ -96,7 +94,14 @@ public class LoginController {
 	        cookie.setPath("/");  
 	        response.addCookie(cookie);  
 	        Cookie cookielasttime=null;
+	        
+	        HttpRequestParam httpRequestParam1= new HttpRequestParam("page",JSONObject.fromObject(user).toString());
+	        HttpRequestParam httpRequestParam2= new HttpRequestParam("userString",JSONObject.fromObject(user).toString());
+			list.add(httpRequestParam);
+	        
+	        
 	        Map<String, Object> userMap =userService.queryUsers(user, "1", "1");
+	        
 	        if (((List<?>)userMap.get("rows")).get(0)!=null) {
 	        	Map<String, Object> re=(Map<String, Object>) ((List<?>)userMap.get("rows")).get(0);
 				user.setUserId(re.get("USERID").toString());
