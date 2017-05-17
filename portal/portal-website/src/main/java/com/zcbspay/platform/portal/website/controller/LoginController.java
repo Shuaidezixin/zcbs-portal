@@ -2,6 +2,7 @@ package com.zcbspay.platform.portal.website.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -20,12 +21,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.zcbspay.platform.instead.common.utils.HttpRequestParam;
+import com.zcbspay.platform.instead.common.utils.HttpUtils;
 import com.zcbspay.platform.portal.system.bean.UserBean;
 import com.zcbspay.platform.portal.system.service.UserService;
 import com.zcbspay.platform.portal.website.constant.Constants;
 import com.zcbspay.platform.portal.website.util.CookieUtils;
 import com.zcbspay.platform.portal.website.util.MD5Util;
 
+import net.sf.json.JSONObject;
 import net.sf.json.util.JSONUtils;
 
 @Controller
@@ -35,8 +39,6 @@ public class LoginController {
 
     @Autowired
 	private UserService userService;
-    
-    
     
     /**
 	 * 验证用户登录信息
@@ -53,12 +55,9 @@ public class LoginController {
 		userBean.setUserName("bema");
 		userBean.setLoginName("bema");
 		userBean.setUserId("2");
-		
 		//System.out.println(JSONUtils.valueToString(userService.saveUser(userBean)));
-		
 		//System.out.println(JSONUtils.valueToString(userService.updateUser(userBean)));
 		//System.out.println(JSONUtils.valueToString(userService.queryUsers(userBean, "1", "10")));
-		
 		System.out.println(JSONUtils.valueToString(userService.login(userBean)));
 	}
 
@@ -71,6 +70,18 @@ public class LoginController {
 	public Map<String, Object> validateUser(UserBean user,HttpServletRequest request,String randcode,HttpServletResponse response) {
 		HttpSession session = request.getSession(true);
 		boolean loginFlag = false;
+		
+		String url="http://localhost:9911/fe/login";
+		
+		HttpRequestParam httpRequestParam= new HttpRequestParam("data",JSONObject.fromObject(batch).toString());
+		List<HttpRequestParam> list = new ArrayList<>();
+		list.add(httpRequestParam);
+		
+		HttpUtils httpUtils = new HttpUtils();
+		httpUtils.openConnection();
+		String responseContent = httpUtils.executeHttpPost(url,list,Constants.Encoding.UTF_8);
+		httpUtils.closeConnection();
+		
 		Map<String, Object> returnmap = userService.login(user);
 		if (returnmap.get("code").equals("00")) {
 			Cookie cookie=new Cookie(Constants.LoginCanstant.LOGIN_USER_NAME, user.getLoginName());
