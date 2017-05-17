@@ -7,6 +7,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
@@ -26,13 +28,11 @@ public class FtpUtil {
 	public static void main(String[] args) {
 		try {  
 	        //FileInputStream in=new FileInputStream(new File("D:\\tmp\\abc.xls"));  
-	        //boolean flag = uploadFile("192.168.1.104", 21, "bema", "121970", "D:/ftp/in","/2013123", "abc.xls", in);  
-	        
-	        
-	        
-	        boolean flag =downloadFile("192.168.1.125", 21, "root", "123456", "/2013123", "abc.xls", "");
-	        System.out.println(flag);
-	        //getFileInfo("192.168.1.104", 21, "bema", "121970", "stat");
+	        //boolean flag = uploadFile("192.168.2.104", 21, "bema", "121970", "D:/ftp/in","/2013123", "abc.xls", in);  
+	        //boolean flag =downloadFile("192.168.2.125", 21, "root", "123456", "/2013123", "abc.xls", null);
+	        //System.out.println(flag);
+	        //getFileInfo("192.168.2.104", 21, "bema", "121970", "stat");
+			System.out.println(File.separatorChar);
 	        //System.out.println(flag);  
 	    } catch (Exception e) {  
 	        e.printStackTrace();  
@@ -144,7 +144,7 @@ public class FtpUtil {
 			FTPFile[] fs = ftp.listFiles();
 			for (FTPFile ff : fs) {
 				if (ff.getName().equals(fileName)) {
-					File localFile = new File(localPath + "/" + ff.getName());
+					File localFile = new File(localPath + File.separatorChar + ff.getName());
 					OutputStream is = new FileOutputStream(localFile);
 					ftp.retrieveFile(ff.getName(), is);
 					is.close();
@@ -203,6 +203,4 @@ public class FtpUtil {
 		
 		return  filename;
 	}
-	
-	
 }

@@ -15,18 +15,19 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.http.HttpException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.zcbspay.platform.instead.common.utils.HttpRequestParam;
-import com.zcbspay.platform.instead.common.utils.HttpUtils;
 import com.zcbspay.platform.portal.system.bean.UserBean;
 import com.zcbspay.platform.portal.system.service.UserService;
 import com.zcbspay.platform.portal.website.constant.Constants;
 import com.zcbspay.platform.portal.website.util.CookieUtils;
+import com.zcbspay.platform.portal.website.util.HttpRequestParam;
+import com.zcbspay.platform.portal.website.util.HttpUtils;
 import com.zcbspay.platform.portal.website.util.MD5Util;
 
 import net.sf.json.JSONObject;
@@ -71,18 +72,24 @@ public class LoginController {
 		HttpSession session = request.getSession(true);
 		boolean loginFlag = false;
 		
-		String url="http://localhost:9911/fe/login";
+		String url="http://localhost:9911/fe/login/login";
 		
-		HttpRequestParam httpRequestParam= new HttpRequestParam("data",JSONObject.fromObject(batch).toString());
+		HttpRequestParam httpRequestParam= new HttpRequestParam("userString",JSONObject.fromObject(user).toString());
 		List<HttpRequestParam> list = new ArrayList<>();
 		list.add(httpRequestParam);
 		
 		HttpUtils httpUtils = new HttpUtils();
 		httpUtils.openConnection();
-		String responseContent = httpUtils.executeHttpPost(url,list,Constants.Encoding.UTF_8);
+		String responseContent=null;
+		try {
+			 responseContent = httpUtils.executeHttpPost(url,list,Constants.Encoding.UTF_8);
+		} catch (HttpException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		httpUtils.closeConnection();
 		
-		Map<String, Object> returnmap = userService.login(user);
+		Map<String, Object> returnmap = (Map<String, Object>) JSONObject.toBean(JSONObject.fromObject(responseContent),Map.class); //userService.login(user);
 		if (returnmap.get("code").equals("00")) {
 			Cookie cookie=new Cookie(Constants.LoginCanstant.LOGIN_USER_NAME, user.getLoginName());
 			cookie.setMaxAge(30 * 60);// 设置为30min  

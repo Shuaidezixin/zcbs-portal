@@ -249,7 +249,7 @@
 		var selStatCircle=$("#selStatCircle option:selected").val();
 		var beginDate;
 		var endDate;
-		if(selStatCircle="00"){
+		if(selStatCircle=="00"){
 			beginDate = $('#time').val().replace("-","").replace("-","");
 			endDate = $('#time2').val().replace("-","").replace("-","");;
 		}
