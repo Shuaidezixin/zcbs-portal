@@ -25,6 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.zcbspay.platform.portal.system.bean.UserBean;
 import com.zcbspay.platform.portal.system.service.UserService;
 import com.zcbspay.platform.portal.website.constant.Constants;
+import com.zcbspay.platform.portal.website.util.ConfigParams;
 import com.zcbspay.platform.portal.website.util.CookieUtils;
 import com.zcbspay.platform.portal.website.util.HttpRequestParam;
 import com.zcbspay.platform.portal.website.util.HttpUtils;
@@ -38,16 +39,20 @@ import net.sf.json.util.JSONUtils;
 @SuppressWarnings("all")
 public class LoginController {
 
-    @Autowired
-	private UserService userService;
-    
-    /**
+	// @Autowired
+	// private UserService userService;
+
+	@Autowired
+	private ConfigParams configParams;
+
+	/**
 	 * 验证用户登录信息
+	 * 
 	 * @return
 	 */
 	@ResponseBody
 	@RequestMapping("/test")
-	public void test(UserBean userBean,HttpServletRequest request,String randcode) {
+	public void test(UserBean userBean, HttpServletRequest request, String randcode) {
 		userBean.setCreateTime("19891212");
 		userBean.setCreator("1");
 		userBean.setEmail("bema@126.com");
@@ -56,101 +61,106 @@ public class LoginController {
 		userBean.setUserName("bema");
 		userBean.setLoginName("bema");
 		userBean.setUserId("2");
-		//System.out.println(JSONUtils.valueToString(userService.saveUser(userBean)));
-		//System.out.println(JSONUtils.valueToString(userService.updateUser(userBean)));
-		//System.out.println(JSONUtils.valueToString(userService.queryUsers(userBean, "1", "10")));
-		System.out.println(JSONUtils.valueToString(userService.login(userBean)));
+		// System.out.println(JSONUtils.valueToString(userService.saveUser(userBean)));
+		// System.out.println(JSONUtils.valueToString(userService.updateUser(userBean)));
+		// System.out.println(JSONUtils.valueToString(userService.queryUsers(userBean,
+		// "1", "10")));
+		// System.out.println(JSONUtils.valueToString(userService.login(userBean)));
 	}
 
 	/**
 	 * 验证用户登录信息
+	 * 
 	 * @return
 	 */
 	@ResponseBody
 	@RequestMapping("/login")
-	public Map<String, Object> validateUser(UserBean user,HttpServletRequest request,HttpServletResponse response) {
-		
-		String url="http://localhost:9911/fe/login/login";
-		
-		HttpRequestParam httpRequestParam= new HttpRequestParam("userString",JSONObject.fromObject(user).toString());
+	public Map<String, Object> validateUser(UserBean user, HttpServletRequest request, HttpServletResponse response) {
+		String url = configParams.getUrls().get("basepath") + configParams.getUrls().get("login.login");// "http://localhost:9911/fe/login/login";//
+		HttpRequestParam httpRequestParam = new HttpRequestParam("userBeanStr", JSONObject.fromObject(user).toString());
 		List<HttpRequestParam> list = new ArrayList<>();
 		list.add(httpRequestParam);
-		
 		HttpUtils httpUtils = new HttpUtils();
-		httpUtils.openConnection();
-		String responseContent=null;
+		Map<String, Object> returnmap=null;
+		String responseContent = null;
 		try {
-			 responseContent = httpUtils.executeHttpPost(url,list,Constants.Encoding.UTF_8);
-		} catch (HttpException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		httpUtils.closeConnection();
-		
-		Map<String, Object> returnmap = (Map<String, Object>) JSONObject.toBean(JSONObject.fromObject(responseContent),Map.class); //userService.login(user);
-		if (returnmap.get("code").equals("00")) {
-			Cookie cookie=new Cookie(Constants.LoginCanstant.LOGIN_USER_NAME, user.getLoginName());
-			cookie.setMaxAge(30 * 60);// 设置为30min  
-	        cookie.setPath("/");  
-	        response.addCookie(cookie);  
-	        Cookie cookielasttime=null;
-	        
-	        HttpRequestParam httpRequestParam1= new HttpRequestParam("page",JSONObject.fromObject(user).toString());
-	        HttpRequestParam httpRequestParam2= new HttpRequestParam("userString",JSONObject.fromObject(user).toString());
-			list.add(httpRequestParam);
-	        
-	        
-	        Map<String, Object> userMap =userService.queryUsers(user, "1", "1");
-	        
-	        if (((List<?>)userMap.get("rows")).get(0)!=null) {
-	        	Map<String, Object> re=(Map<String, Object>) ((List<?>)userMap.get("rows")).get(0);
-				user.setUserId(re.get("USERID").toString());
-				user.setUserName(re.get("USER_NAME").toString());
-				user.setPhone(re.get("USER_PHONE")==null?null:re.get("USER_PHONE").toString());
-				user.setErrorTime(re.get("ERROR_TIMES")==null?null:re.get("ERROR_TIMES").toString());
-				user.setEmail(re.get("USER_EMAIL")==null?null:re.get("USER_EMAIL").toString());
-				user.setStatus(re.get("STATUS").toString());
-				user.setNotes(re.get("NOTES")==null?null:re.get("NOTES").toString());
-				
-				cookielasttime=new Cookie(Constants.LoginCanstant.LOGIN_LAST_TIME, re.get("LAST_LOGINTIME")==null?"":re.get("LAST_LOGINTIME").toString());
-		        cookielasttime.setMaxAge(30 * 60);// 设置为30min  
-		        cookielasttime.setPath("/");  
+			httpUtils.openConnection();
+			responseContent = httpUtils.executeHttpPost(url, list, Constants.Encoding.UTF_8);
+			returnmap= (Map<String, Object>) JSONObject
+					.toBean(JSONObject.fromObject(responseContent), Map.class); // userService.login(user);
+			if (returnmap.get("code").equals("00")) {
+				Cookie cookie = new Cookie(Constants.LoginCanstant.LOGIN_USER_NAME, user.getLoginName());
+				cookie.setMaxAge(30 * 60);// 设置为30min
+				cookie.setPath("/");
+				response.addCookie(cookie);
+				Cookie cookielasttime = null;
+
+				HttpRequestParam httpRequestParam1 = new HttpRequestParam("page", "1");
+				HttpRequestParam httpRequestParam2 = new HttpRequestParam("rows", "1");
+				list.add(httpRequestParam1);
+				list.add(httpRequestParam2);
+				url = configParams.getUrls().get("basepath") + configParams.getUrls().get("user.queryUsers");// "http://localhost:9911/fe/user/queryUsers";//
+				responseContent = httpUtils.executeHttpPost(url, list, Constants.Encoding.UTF_8);
+				Map<String, Class> mapClass = new HashMap<String, Class>();
+				mapClass.put("rows", Map.class);
+				Map<String, Object> userMap = (Map<String, Object>) JSONObject
+						.toBean(JSONObject.fromObject(responseContent), Map.class, mapClass);
+				if (((List<?>) userMap.get("rows")).get(0) != null) {
+					Map<String, Object> re = (Map<String, Object>) ((List<?>) userMap.get("rows")).get(0);
+					user.setUserId(re.get("USERID").toString());
+					user.setUserName(re.get("USER_NAME").toString());
+					user.setPhone(re.get("USER_PHONE") == null ? null : re.get("USER_PHONE").toString());
+					user.setErrorTime(re.get("ERROR_TIMES") == null ? null : re.get("ERROR_TIMES").toString());
+					user.setEmail(re.get("USER_EMAIL") == null ? null : re.get("USER_EMAIL").toString());
+					user.setStatus(re.get("STATUS").toString());
+					user.setNotes(re.get("NOTES") == null ? null : re.get("NOTES").toString());
+
+					cookielasttime = new Cookie(Constants.LoginCanstant.LOGIN_LAST_TIME,
+							re.get("LAST_LOGINTIME") == null ? "" : re.get("LAST_LOGINTIME").toString());
+					cookielasttime.setMaxAge(30 * 60);// 设置为30min
+					cookielasttime.setPath("/");
+				}
+				response.addCookie(cookielasttime);
+				request.getSession().setAttribute(Constants.LoginCanstant.LOGIN_USER, user);
 			}
-	        response.addCookie(cookielasttime);
-			request.getSession().setAttribute(Constants.LoginCanstant.LOGIN_USER, user);
+		} catch (HttpException e) {
+			e.printStackTrace();
+		} finally {
+			httpUtils.closeConnection();
 		}
 		return returnmap;
 	}
 
 	/**
 	 * 用户登出
+	 * 
 	 * @return
 	 */
-    @ResponseBody
+	@ResponseBody
 	@RequestMapping("/logout")
-	public Map<String, Object> logout(HttpServletRequest request,HttpServletResponse response) {
-    	Map<String, Object> result=new  HashMap<>();
+	public Map<String, Object> logout(HttpServletRequest request, HttpServletResponse response) {
+		Map<String, Object> result = new HashMap<>();
 		HttpSession session = request.getSession(true);
-        if (!isNull(session.getAttribute(Constants.LoginCanstant.LOGIN_USER))) {
-        	session.invalidate();
-        }
-        Cookie[] cookies = request.getCookies();
-        if (cookies!=null) {
-        	for (Cookie cookie : cookies) {
-                if (cookie.getName().equals(Constants.LoginCanstant.LOGIN_USER_NAME)) {
-                    cookie.setMaxAge(0);
-                    response.addCookie(cookie);
-                }
-            }
+		if (!isNull(session.getAttribute(Constants.LoginCanstant.LOGIN_USER))) {
+			session.invalidate();
 		}
-        result.put("code", 00);
-        result.put("info", "成功");
-        return result;
-    }
-    
-    
+		Cookie[] cookies = request.getCookies();
+		if (cookies != null) {
+			for (Cookie cookie : cookies) {
+				if (cookie.getName().equals(Constants.LoginCanstant.LOGIN_USER_NAME)) {
+					cookie.setMaxAge(0);
+					response.addCookie(cookie);
+				}
+			}
+		}
+		result.put("code", 00);
+		result.put("info", "成功");
+		return result;
+	}
+
 	/**
 	 * 用户登出
+	 * 
 	 * @return
 	 */
 	@RequestMapping("/loginpage")
@@ -181,6 +191,7 @@ public class LoginController {
 		}
 		return ip;
 	}
+
 	private boolean isNull(Object value) {
 		if (value == null || value.toString().equals("")) {
 			return true;
@@ -189,5 +200,5 @@ public class LoginController {
 		}
 
 	}
-	
+
 }

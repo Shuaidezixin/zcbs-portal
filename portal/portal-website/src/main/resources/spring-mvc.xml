@@ -37,7 +37,13 @@
 			expression="org.springframework.web.bind.annotation.ControllerAdvice" />
 	</context:component-scan>
 	<mvc:default-servlet-handler />
-	<mvc:annotation-driven />
+	<mvc:annotation-driven>
+	    <mvc:message-converters register-defaults="true">
+		    <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+		      <property name="supportedMediaTypes" value = "text/plain;charset=UTF-8" />
+		    </bean>
+	   </mvc:message-converters>
+     </mvc:annotation-driven>
 	
 	<!-- 对模型视图名称的解析，即在模型视图名称添加前后缀 -->
 	<mvc:resources mapping="/js/**" location="/js/" />
@@ -77,8 +83,6 @@
         	<bean class="com.zcbspay.platform.portal.website.converter.JsonObjectMapper"></bean>  
 		</property>  
 	</bean>
-	
-	
 	<!-- Jedis ConnectionFactory -->
 <bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
 	<property name="hostName" value="192.168.2.118"/>
@@ -105,8 +109,4 @@
 			<bean class="com.zcbspay.platform.portal.website.interceptor.LoginInterceptor"/>
 		</mvc:interceptor>
 	</mvc:interceptors>
-	
-	
-	
-	
 </beans>
