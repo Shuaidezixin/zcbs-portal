@@ -74,8 +74,6 @@ public class OrderController {
 	@RequestMapping("/orderForBatchAndSingle")
 	public String orderForBatchAndSingle(String page, String rows, TxnsForPortalBean txnsForPortalBean,HttpServletRequest request) {
 		txnsForPortalBean.setMerid(UserHelper.getCurrentUser(request).getMemberid());
-		//return queryAndStatService.orderForBatchAndSingle(page, rows, txnsForPortalBean);
-		
 		String url=configParams.getUrls().get("basepath")+configParams.getUrls().get("order.batchAndSingle");//"http://localhost:9911/fe/order/orderForBatchAndSingle";//
 		
 		HttpRequestParam httpRequestParam= new HttpRequestParam("txnsForPortalBeanStr",JSONObject.fromObject(txnsForPortalBean).toString());
@@ -88,17 +86,20 @@ public class OrderController {
 		list.add(httpRequestParam);
 		
 		HttpUtils httpUtils = new HttpUtils();
-		httpUtils.openConnection();
+		
 		String responseContent=null;
+		Map<String, Object> map= null;
 		try {
-			 responseContent = httpUtils.executeHttpPost(url,list,Constants.Encoding.UTF_8);
+			httpUtils.openConnection();
+			responseContent = httpUtils.executeHttpPost(url,list,Constants.Encoding.UTF_8);
+			Map<String, Class> mapClass=new HashMap<String,Class>();
+			mapClass.put("rows", Map.class);
+			map=(Map<String, Object>) JSONObject.toBean(JSONObject.fromObject(responseContent),Map.class,mapClass);
 		} catch (HttpException e) {
 			e.printStackTrace();
+		}finally{
+			httpUtils.closeConnection();
 		}
-		httpUtils.closeConnection();
-		Map<String, Class> mapClass=new HashMap<String,Class>();
-		mapClass.put("rows", Map.class);
-		Map<String, Object> map= (Map<String, Object>) JSONObject.toBean(JSONObject.fromObject(responseContent),Map.class,mapClass);
 		return JSONObject.fromObject(map).toString();
 	}
 }

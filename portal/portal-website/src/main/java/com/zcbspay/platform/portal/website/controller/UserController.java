@@ -70,18 +70,20 @@ public class UserController {
 		list.add(httpRequestParam2);
 		
 		HttpUtils httpUtils = new HttpUtils();
-		httpUtils.openConnection();
 		String responseContent=null;
+		Map<String, Object> map =null;
 		try {
-			 responseContent = httpUtils.executeHttpPost(url,list,Constants.Encoding.UTF_8);
+			httpUtils.openConnection();
+			responseContent = httpUtils.executeHttpPost(url,list,Constants.Encoding.UTF_8);
+			Map<String, Class> mapClass = new HashMap<String, Class>();
+			mapClass.put("rows", Map.class);
+			map = (Map<String, Object>) JSONObject.toBean(JSONObject.fromObject(responseContent),
+					Map.class, mapClass);
 		} catch (HttpException e) {
 			e.printStackTrace();
+		}finally{
+			httpUtils.closeConnection();
 		}
-		httpUtils.closeConnection();
-		Map<String, Class> mapClass = new HashMap<String, Class>();
-		mapClass.put("rows", Map.class);
-		Map<String, Object> map = (Map<String, Object>) JSONObject.toBean(JSONObject.fromObject(responseContent),
-				Map.class, mapClass);
 		return JSONObject.fromObject(map).toString();
 		//return userService.queryUsers(userBean, page, rows);
 	}
@@ -129,15 +131,14 @@ public class UserController {
 		list.add(httpRequestParam);
 
 		HttpUtils httpUtils = new HttpUtils();
-		httpUtils.openConnection();
+		
 		String responseContent = null;
 		Map<String, Object> message = new HashMap<>();
 		try {
+			httpUtils.openConnection();
 			responseContent = httpUtils.executeHttpPost(LoginUrl, list, Constants.Encoding.UTF_8);
-
 			Map<String, Object> returnMap = (Map<String, Object>) JSONObject
 					.toBean(JSONObject.fromObject(responseContent), Map.class);
-			
 			if (returnMap.get("code").equals("00")) {
 				loginUser.setPwd(passwordnew);
 				httpRequestParam = new HttpRequestParam("userBeanStr", JSONObject.fromObject(loginUser).toString());

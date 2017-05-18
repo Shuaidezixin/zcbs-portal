@@ -450,9 +450,9 @@ public class QueryAndStatController {
 		list.add(httpRequestParam);
 
 		HttpUtils httpUtils = new HttpUtils();
-		httpUtils.openConnection();
 		String responseContent = null;
 		try {
+			httpUtils.openConnection();
 			responseContent = httpUtils.executeHttpPost(url, list, Constants.Encoding.UTF_8);
 		} catch (HttpException e) {
 			e.printStackTrace();
