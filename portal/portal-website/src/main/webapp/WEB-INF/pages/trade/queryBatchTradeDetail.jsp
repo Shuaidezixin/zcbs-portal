@@ -22,22 +22,22 @@
 	<script type="text/javascript" src="<%=basePath%>js/pages.js"></script>
 	<script type="text/javascript" src="<%=basePath%>js/timeUtil.js"></script>
 	<!--header_begin-->
-	<jsp:include page="../../../common/header.jsp"></jsp:include>
+<%-- 	<jsp:include page="../../../common/header.jsp"></jsp:include> --%>
 	<!--header_end-->
 	<!--会员中心nav_begin-->
-	<jsp:include page="../../../common/menu.jsp"></jsp:include>
+<%-- 	<jsp:include page="../../../common/menu.jsp"></jsp:include> --%>
 
 
 	<!--content_begin-->
 	<div class="w1200 mtb20 clearfix minheight_body">
 
-		<div class="sh_manage_tit">
+		<%-- <div class="sh_manage_tit">
 			<ul>
 				<li><a href="javascript:void(0);" class="active">委托机构交易查询</a></li>
 				<li><a href="<%=basePath%>trade/showQueryTradeDetail">委托机构交易明细查询</a></li>
 			</ul>
 			<span class="col6 fr login_time" id="lastLogin"></span>
-		</div>
+		</div> --%>
 
 		<div class="flow_item">
 			<div class="bill_box clearfix">
@@ -51,7 +51,7 @@
 						<table width="100%">
 							<tr>
 								<td align="left">批次号为【${batchno}】的交易明细：</td>
-								<td align="right"><input class="inquire" type="button" id="btnquery" onclick="goBack()" value="返回" /></td>
+								<td align="right"><input class="inquire" type="button" id="btnquery" onclick="window.close();" value="关闭" /></td>
 							</tr>
 						</table>
 					</div>
@@ -72,24 +72,39 @@
 						<tbody id="tradeContents">
 							<c:forEach items="${batchDetail.rows}" var="row" varStatus="rowStatus">
 								<tr height="36" class="bor_bottom" >
-									<td width="13%">${row.ORDERID}</td>
+									<td width="13%">${row.ORDERID eq "null" ? "" : row.ORDERID}</td>
 									<td width="11%">
-										${fn:substring(row.COMMITIME,0,4)}-${fn:substring(row.COMMITIME,4,6)}-${fn:substring(row.COMMITIME,6,8)}
-										${fn:substring(row.COMMITIME,8,10)}:${fn:substring(row.COMMITIME,10,12)}:${fn:substring(row.COMMITIME,12,14)}
+										<c:choose>
+											<c:when test="${row.COMMITIME eq 'null'}"></c:when>
+											<c:otherwise>
+												${fn:substring(row.COMMITIME,0,4)}-${fn:substring(row.COMMITIME,4,6)}-${fn:substring(row.COMMITIME,6,8)}
+												${fn:substring(row.COMMITIME,8,10)}:${fn:substring(row.COMMITIME,10,12)}:${fn:substring(row.COMMITIME,12,14)}
+											</c:otherwise>
+										</c:choose>
 									</td>
-									<td width="7%">${row.TXNAMT/100}</td>
+									<td width="7%">${row.TXNAMT eq null ? "" : row.TXNAMT/100}</td>
 									<td width="11%">
-										${fn:substring(row.TXNTIME,0,4)}-${fn:substring(row.TXNTIME,4,6)}-${fn:substring(row.TXNTIME,6,8)}
-										${fn:substring(row.TXNTIME,8,10)}:${fn:substring(row.TXNTIME,10,12)}:${fn:substring(row.TXNTIME,12,14)}
+										<c:choose>
+											<c:when test="${row.TXNTIME eq 'null'}"></c:when>
+											<c:otherwise>
+												${fn:substring(row.TXNTIME,0,4)}-${fn:substring(row.TXNTIME,4,6)}-${fn:substring(row.TXNTIME,6,8)}
+												${fn:substring(row.TXNTIME,8,10)}:${fn:substring(row.TXNTIME,10,12)}:${fn:substring(row.TXNTIME,12,14)}
+											</c:otherwise>
+										</c:choose>
 									</td>
-									<td width="12%">${row.RESPCODE}</td>
+									<td width="12%">${row.RESPCODE eq "null" ? "" : row.RESPCODE}</td>
 									<td width="11%">
-										${fn:substring(row.RESPTIME,0,4)}-${fn:substring(row.RESPTIME,4,6)}-${fn:substring(row.RESPTIME,6,8)}
-										${fn:substring(row.RESPTIME,8,10)}:${fn:substring(row.RESPTIME,10,12)}:${fn:substring(row.RESPTIME,12,14)}
+										<c:choose>
+											<c:when test="${row.RESPTIME eq 'null'}"></c:when>
+											<c:otherwise>
+												${fn:substring(row.RESPTIME,0,4)}-${fn:substring(row.RESPTIME,4,6)}-${fn:substring(row.RESPTIME,6,8)}
+												${fn:substring(row.RESPTIME,8,10)}:${fn:substring(row.RESPTIME,10,12)}:${fn:substring(row.RESPTIME,12,14)}
+											</c:otherwise>
+										</c:choose>
 									</td>
-									<td width="12%">${row.RESPMSG}</td>
-									<td width="13%">${row.RELATETRADETXN}</td>
-									<td width="10%">${row.NOTES}</td>
+									<td width="12%">${row.RESPMSG eq "null" ? "" : row.RESPMSG}</td>
+									<td width="13%">${row.RELATETRADETXN eq "null" ? "" : row.RELATETRADETXN}</td>
+									<td width="10%">${row.NOTES eq "null" ? "" : row.NOTES}</td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -106,7 +121,7 @@
 	</div>
 	<!--content_end-->
 	<!--footer_begin-->
-	<jsp:include page="../../../common/foot.jsp"></jsp:include>
+<%-- 	<jsp:include page="../../../common/foot.jsp"></jsp:include> --%>
 	<!--footer_end-->
 	<script type="text/javascript">
 		$(window).load(function() {
@@ -146,15 +161,15 @@
 									var output = '';
 									for (var i = 0, l = dataStr.length; i < l; i++) {
 										output = output + '<tr height="36" class="bor_bottom" >';
-										output = output + '<td width="13%">' + dataStr[i]['ORDERID'] + '</td>';
-										output = output + '<td width="11%">' + changeDateTime(dataStr[i]['COMMITIME']) + '</td>';
-										output = output + '<td width="7%">' + dataStr[i]['TXNAMT']/100 + '</td>';
-										output = output + '<td width="11%">' + changeDateTime(dataStr[i]['TXNTIME']) + '</td>';
-										output = output + '<td width="12%">' + dataStr[i]['RESPCODE'] + '</td>';
+										output = output + '<td width="13%">' + (dataStr[i]['ORDERID']==null?"":dataStr[i]['ORDERID']) + '</td>';
+										output = output + '<td width="11%">' + (dataStr[i]['COMMITIME']==null?"":changeDateTime(dataStr[i]['COMMITIME'])) + '</td>';
+										output = output + '<td width="7%">' + (dataStr[i]['TXNAMT']==null?"":(dataStr[i]['TXNAMT']/100)) + '</td>';
+										output = output + '<td width="11%">' + (dataStr[i]['TXNTIME']==null?"":changeDateTime(dataStr[i]['TXNTIME'])) + '</td>';
+										output = output + '<td width="12%">' + (dataStr[i]['RESPCODE']==null?"":dataStr[i]['RESPCODE']) + '</td>';
 										output = output + '<td width="11%">' + changeDateTime(dataStr[i]['RESPTIME']) + '</td>';
-										output = output + '<td width="12%">' + dataStr[i]['RESPMSG'] + '</td>';
-										output = output + '<td width="13%">' + dataStr[i]['RELATETRADETXN'] + '</td>';
-										output = output + '<td width="10%">' + dataStr[i]['NOTES'] + '</td>';
+										output = output + '<td width="12%">' + (dataStr[i]['RESPMSG']==null?"":dataStr[i]['RESPMSG']) + '</td>';
+										output = output + '<td width="13%">' + (dataStr[i]['RELATETRADETXN']==null?"":dataStr[i]['RELATETRADETXN']) + '</td>';
+										output = output + '<td width="10%">' + (dataStr[i]['NOTES']==null?"":dataStr[i]['NOTES']) + '</td>';
 										output = output + '</tr>';
 									}
 									$('#tradeContents').html(output);

@@ -271,6 +271,7 @@
 									alert(XMLHttpRequest.status);
 								},
 								success : function(data) {
+									//data= JSON.parse(data);
 									if (data.total == "0") {
 										if (data.rows.length == 0) {
 											$('#tradeContents').html('');
@@ -288,33 +289,33 @@
 										output = output
 												+ '<tr height="36" class="bor_bottom" >';
 										output = output + '<td width="11%">'
-												+ dataStr[i]['ORDERID']
+												+ (dataStr[i]['ORDERID']==null?"":dataStr[i]['ORDERID'])
 												+ '</td>';
 										output = output + '<td width="11%">'
-												+ dataStr[i]['ORDERID_OG']
+												+ (dataStr[i]['ORDERID_OG']==null?"":dataStr[i]['ORDERID_OG'])
 												+ '</td>';
 										output = output
 												+ '<td width="11%">'
-												+ changeDateTime(dataStr[i]['TXNTIME'])
+												+ (dataStr[i]['TXNTIME']==null?"":changeDateTime(dataStr[i]['TXNTIME']))
 												+ '</td>';
 										output = output + '<td width="8%">'
-												+ dataStr[i]['PAYNAME']
+												+ (dataStr[i]['PAYNAME']==null?"":dataStr[i]['PAYNAME'])
 												+ '</td>';
 										output = output + '<td width="8%">'
-												+ dataStr[i]['BUSINAME']
+												+ (dataStr[i]['BUSINAME']==null?"":dataStr[i]['BUSINAME'])
 												+ '</td>';
 										output = output + '<td width="8%">'
-												+ dataStr[i]['TXNAMT'] / 100
+												+ (dataStr[i]['TXNAMT']==null?"":(dataStr[i]['TXNAMT']/100))
 												+ '</td>';
 										output = output + '<td width="11%">'
-												+ dataStr[i]['STATUS']
+												+ (dataStr[i]['STATUS']==null?"":dataStr[i]['STATUS'])
 												+ '</td>';
 										output = output
 												+ '<td width="11%">'
-												+ changeDateTime(dataStr[i]['COMMITIME'])
+												+ (dataStr[i]['COMMITIME']==null?"":changeDateTime(dataStr[i]['COMMITIME']))
 												+ '</td>';
 										output = output + '<td width="11%">'
-												+ dataStr[i]['RESPMSG']
+												+ (dataStr[i]['RESPMSG']==null?"":dataStr[i]['RESPMSG'])
 												+ '</td>';
 										/* output = output
 												+ '<td width="10%">'

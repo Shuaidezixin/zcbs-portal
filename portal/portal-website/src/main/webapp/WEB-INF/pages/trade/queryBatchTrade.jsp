@@ -288,21 +288,21 @@
 									var output = '';
 									for (var i = 0, l = dataStr.length; i < l; i++) {
 										output = output + '<tr height="36" class="bor_bottom" >';
-										output = output + '<td width="11%">' + dataStr[i]['ORDERID'] + '</td>';
-										output = output + '<td width="11%">' + dataStr[i]['ORDERID_OG'] + '</td>';
-										output = output + '<td width="11%">' + changeDateTime(dataStr[i]['TXNTIME']) + '</td>';
-										output = output + '<td width="8%">' + dataStr[i]['PAYNAME'] + '</td>';
-										output = output + '<td width="8%">' + dataStr[i]['BUSINAME'] + '</td>';
-										output = output + '<td width="6%">' + dataStr[i]['TXNNUMS'] + '</td>';
-										output = output + '<td width="6%">' + dataStr[i]['TXNAMT'] / 100 + '</td>';
-										output = output + '<td width="11%">' + dataStr[i]['STATUS'] + '</td>';
-										output = output + '<td width="11%">' + changeDateTime(dataStr[i]['COMMITIME']) + '</td>';
-										output = output + '<td width="11%">' + dataStr[i]['RESPMSG'] + '</td>';
+										output = output + '<td width="11%">' + (dataStr[i]['ORDERID']==null?"":dataStr[i]['ORDERID']) + '</td>';
+										output = output + '<td width="11%">' + (dataStr[i]['ORDERID_OG']==null?"":dataStr[i]['ORDERID_OG']) + '</td>';
+										output = output + '<td width="11%">' + (dataStr[i]['TXNTIME']==null?"":changeDateTime(dataStr[i]['TXNTIME'])) + '</td>';
+										output = output + '<td width="8%">' + (dataStr[i]['PAYNAME']==null?"":dataStr[i]['PAYNAME']) + '</td>';
+										output = output + '<td width="8%">' + (dataStr[i]['BUSINAME']==null?"":dataStr[i]['BUSINAME']) + '</td>';
+										output = output + '<td width="6%">' + (dataStr[i]['TXNNUMS']==null?"":dataStr[i]['TXNNUMS']) + '</td>';
+										output = output + '<td width="6%">' + (dataStr[i]['TXNAMT']==null?"":(dataStr[i]['TXNAMT']/100)) + '</td>';
+										output = output + '<td width="11%">' + (dataStr[i]['STATUS']==null?"":dataStr[i]['STATUS']) + '</td>';
+										output = output + '<td width="11%">' + (dataStr[i]['COMMITIME']==null?"":changeDateTime(dataStr[i]['COMMITIME'])) + '</td>';
+										output = output + '<td width="11%">' + (dataStr[i]['RESPMSG']==null?"":dataStr[i]['RESPMSG']) + '</td>';
 										output = output 
 												+ '<td width="6%">' 
 												+ '<a href="<%=basePath%>trade/toTradeQueryForBatch?batchno=' 
 												+ dataStr[i]['ORDERID'] 
-												+ '" class="refund_sq">明细</a>' 
+												+ '" class="refund_sq" target="_blank">明细</a>' 
 												+ '</td>';
 										output = output + '</tr>';
 									}
