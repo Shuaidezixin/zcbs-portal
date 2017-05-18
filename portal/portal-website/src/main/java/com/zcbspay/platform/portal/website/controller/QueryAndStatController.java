@@ -122,7 +122,7 @@ public class QueryAndStatController {
 	@ResponseBody
 	@RequestMapping("/txnsDeta")
 	public String txnsDeta(String page, String rows, TxnsForPortalBean txnsForPortalBean, HttpServletRequest request) {
-		String url = configParams.getUrls().get("basepath")+configParams.getUrls().get("queryAndStat.txnsDeta");//"http://localhost:9911/fe/queryAndStat/txnsDeta";//
+		String url = configParams.getUrl("queryAndStat.txnsDeta");//"http://localhost:9911/fe/queryAndStat/txnsDeta";//
 		return JSONObject.fromObject(excuteHttp(page, rows, txnsForPortalBean, request, url)).toString();
 	}
 
@@ -141,7 +141,7 @@ public class QueryAndStatController {
 	@RequestMapping("/txnsDetaExcelForms")
 	public Map<String, Object> txnsDetaExcelForms(String page, String rows, TxnsForPortalBean txnsForPortalBean,
 			HttpServletRequest request) {
-		String url =configParams.getUrls().get("basepath")+configParams.getUrls().get("queryAndStat.txnsDeta");// "http://localhost:9911/fe/queryAndStat/txnsDeta";//queryAndStat.txnsDeta
+		String url =configParams.getUrl("queryAndStat.txnsDeta");// "http://localhost:9911/fe/queryAndStat/txnsDeta";//queryAndStat.txnsDeta
 		String[] headers = { "MERCHNAME", "REMARKS", "BUSICODE", "TXNDATE", "RETINFO", "RN", "STATUS", "BUSINAME",
 				"COMMITIME", "TXNSEQNO", "RETCODE", "RETTIME", "ORDERID", "TXNAMT", "NOTES" };
 		return createExcel("deta", txnsForPortalBean, request, url, headers);
@@ -162,7 +162,7 @@ public class QueryAndStatController {
 	@RequestMapping("/txnsDetaTxtForms")
 	public Map<String, Object> txnsDetaTxtForms(String page, String rows, TxnsForPortalBean txnsForPortalBean,
 			HttpServletRequest request) {
-		String url = configParams.getUrls().get("basepath")+configParams.getUrls().get("queryAndStat.txnsDeta");//"http://localhost:9911/fe/queryAndStat/txnsDeta";//queryAndStat.txnsDeta
+		String url = configParams.getUrl("queryAndStat.txnsDeta");//"http://localhost:9911/fe/queryAndStat/txnsDeta";//queryAndStat.txnsDeta
 		return createTxt("deta", request, txnsForPortalBean, url);
 	}
 
@@ -181,7 +181,7 @@ public class QueryAndStatController {
 	@ResponseBody
 	@RequestMapping("/txnsStat")
 	public String txnsStat(String page, String rows, TxnsForPortalBean txnsForPortalBean, HttpServletRequest request) {
-		String url = configParams.getUrls().get("basepath")+configParams.getUrls().get("queryAndStat.txnsStat");//"http://localhost:9911/fe/queryAndStat/txnsStat";//
+		String url = configParams.getUrl("queryAndStat.txnsStat");//"http://localhost:9911/fe/queryAndStat/txnsStat";//
 		return JSONObject.fromObject(excuteHttp(page, rows, txnsForPortalBean, request, url)).toString();
 	}
 
@@ -200,7 +200,7 @@ public class QueryAndStatController {
 	@RequestMapping("/txnsStatExcelForms")
 	public Map<String, Object> txnsStatExcelForms(String page, String rows, TxnsForPortalBean txnsForPortalBean,
 			HttpServletRequest request) {
-		String url =configParams.getUrls().get("basepath")+configParams.getUrls().get("queryAndStat.txnsStat");// "http://localhost:9911/fe/queryAndStat/txnsStat";//queryAndStat.txnsStat
+		String url =configParams.getUrl("queryAndStat.txnsStat");// "http://localhost:9911/fe/queryAndStat/txnsStat";//queryAndStat.txnsStat
 		String[] headers = { "CANCELFAILNUM", "MERCHNAME", "ALLNUM", "REMARKS", "MERID", "CANCELNUM", "RN", "SUCCNUM",
 				"BUSINAME", "CANCELFAILAMT", "CANCELSUCCNUM", "CYCEL", "CANCELSUCCAMT", "SUCCAMT", "FIALAMT", "FAILNUM",
 				"NOTES" };
@@ -222,7 +222,7 @@ public class QueryAndStatController {
 	@RequestMapping("/txnsStatTxtForms")
 	public Map<String, Object> txnsStatTxtForms(String page, String rows, TxnsForPortalBean txnsForPortalBean,
 			HttpServletRequest request) {
-		String url =configParams.getUrls().get("basepath")+configParams.getUrls().get("queryAndStat.txnsStat");// "http://localhost:9911/fe/queryAndStat/txnsStat";//queryAndStat.txnsStat
+		String url =configParams.getUrl("queryAndStat.txnsStat");// "http://localhost:9911/fe/queryAndStat/txnsStat";//queryAndStat.txnsStat
 		return createTxt("stat", request, txnsForPortalBean, url);
 	}
 
@@ -241,7 +241,7 @@ public class QueryAndStatController {
 	@ResponseBody
 	@RequestMapping("/txnsSetl")
 	public String txnsSetl(String page, String rows, TxnsForPortalBean txnsForPortalBean, HttpServletRequest request) {
-		String url =configParams.getUrls().get("basepath")+configParams.getUrls().get("queryAndStat.txnsSetl");// "http://localhost:9911/fe/queryAndStat/txnsSetl";//
+		String url =configParams.getUrl("queryAndStat.txnsSetl");// "http://localhost:9911/fe/queryAndStat/txnsSetl";//
 		return JSONObject.fromObject(excuteHttp(page, rows, txnsForPortalBean, request, url)).toString();
 	}
 
@@ -260,7 +260,7 @@ public class QueryAndStatController {
 	@RequestMapping("/txnsSetlExcelForms")
 	public Map<String, Object> txnsSetlExcelForms(String page, String rows, TxnsForPortalBean txnsForPortalBean,
 			HttpServletRequest request) {
-		String url =configParams.getUrls().get("basepath")+configParams.getUrls().get("queryAndStat.txnsSetl");// "http://localhost:9911/fe/queryAndStat/txnsSetl";//queryAndStat.txnsSetl
+		String url =configParams.getUrl("queryAndStat.txnsSetl");// "http://localhost:9911/fe/queryAndStat/txnsSetl";//queryAndStat.txnsSetl
 		String[] headers = { "MERCHNAME", "ALLNUM", "CANCELAMT", "REFUNDNUM", "REMARKS", "MERID", "CANCELNUM", "FEES",
 				"STIME", "ALLAMT", "SUCCNUM", "REFUNDAMT", "ETIME", "SUCCAMT", "SETLAMT", "ROWNUM", "NOTES" };
 		return createExcel("setl", txnsForPortalBean, request, url, headers);
@@ -281,7 +281,7 @@ public class QueryAndStatController {
 	@RequestMapping("/txnsSetlTxtForms")
 	public Map<String, Object> txnsSetlTxtForms(String page, String rows, TxnsForPortalBean txnsForPortalBean,
 			HttpServletRequest request) {
-		String url =configParams.getUrls().get("basepath")+configParams.getUrls().get("queryAndStat.txnsSetl");// "http://localhost:9911/fe/queryAndStat/txnsSetl";//queryAndStat.txnsSetl
+		String url =configParams.getUrl("queryAndStat.txnsSetl");// "http://localhost:9911/fe/queryAndStat/txnsSetl";//queryAndStat.txnsSetl
 		return createTxt("setl", request, txnsForPortalBean, url);
 	}
 
@@ -300,7 +300,7 @@ public class QueryAndStatController {
 	@ResponseBody
 	@RequestMapping("/txnsBill")
 	public String txnsBill(String page, String rows, TxnsForPortalBean txnsForPortalBean, HttpServletRequest request) {
-		String url = configParams.getUrls().get("basepath")+configParams.getUrls().get("queryAndStat.txnsBill");//"http://localhost:9911/fe/queryAndStat/txnsBill";//
+		String url = configParams.getUrl("queryAndStat.txnsBill");//"http://localhost:9911/fe/queryAndStat/txnsBill";//
 		return JSONObject.fromObject(excuteHttp(page, rows, txnsForPortalBean, request, url)).toString();
 	}
 
@@ -319,7 +319,7 @@ public class QueryAndStatController {
 	@RequestMapping("/txnsBillExcelForms")
 	public Map<String, Object> txnsBillExcelForms(String page, String rows, TxnsForPortalBean txnsForPortalBean,
 			HttpServletRequest request) {
-		String url =configParams.getUrls().get("basepath")+configParams.getUrls().get("queryAndStat.txnsBill");// "http://localhost:9911/fe/queryAndStat/txnsBill";//queryAndStat.txnsBill
+		String url =configParams.getUrl("queryAndStat.txnsBill");// "http://localhost:9911/fe/queryAndStat/txnsBill";//queryAndStat.txnsBill
 		String[] headers = { "SETL", "CURRENCY", "TXNDATE", "TXNFEE", "ACCSETTLEDATE", "RN", "AMOUNT", "BUSINAME",
 				"TXNSEQNO", "ACCORDNO" };
 		return createExcel("bill", txnsForPortalBean, request, url, headers);
@@ -340,7 +340,7 @@ public class QueryAndStatController {
 	@RequestMapping("/txnsBillTxtForms")
 	public Map<String, Object> txnsBillTxtForms(HttpServletRequest request, String page, String rows,
 			TxnsForPortalBean txnsForPortalBean) {
-		String url = configParams.getUrls().get("basepath")+configParams.getUrls().get("queryAndStat.txnsBill");//"http://localhost:9911/fe/queryAndStat/txnsBill";//queryAndStat.txnsBill
+		String url = configParams.getUrl("queryAndStat.txnsBill");//"http://localhost:9911/fe/queryAndStat/txnsBill";//queryAndStat.txnsBill
 		return createTxt("bill", request, txnsForPortalBean, url);
 	}
 

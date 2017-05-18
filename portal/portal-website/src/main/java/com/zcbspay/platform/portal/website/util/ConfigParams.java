@@ -12,7 +12,7 @@ import javax.servlet.jsp.jstl.core.Config;
 public class ConfigParams {
 	private Map<String, String> urls=new HashMap<>();
 	
-	public Map<String, String> getUrls() {
+	private Map<String, String> getUrls() {
 		return urls;
 	}
 
@@ -37,4 +37,8 @@ public class ConfigParams {
 		}
 		setUrls(map);
 	} 
+	
+	public String getUrl(String pathName){
+		return getUrls().get("basepath")+getUrls().get(pathName);
+	}
 }

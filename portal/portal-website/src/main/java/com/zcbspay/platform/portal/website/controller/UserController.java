@@ -60,7 +60,7 @@ public class UserController {
 	@ResponseBody
 	@RequestMapping("/queryUsers")
 	public String queryUsers(UserBean userBean, String page, String rows) {
-		String url=configParams.getUrls().get("basepath")+configParams.getUrls().get("user.queryUsers");//"http://localhost:9911/fe/user/queryUsers";//user.queryUsers
+		String url=configParams.getUrl("user.queryUsers");//"http://localhost:9911/fe/user/queryUsers";//user.queryUsers
 		HttpRequestParam httpRequestParam= new HttpRequestParam("userBeanStr",JSONObject.fromObject(userBean).toString());
 		HttpRequestParam httpRequestParam1= new HttpRequestParam("page",page);
 		HttpRequestParam httpRequestParam2= new HttpRequestParam("rows",rows);
@@ -116,8 +116,8 @@ public class UserController {
 	@RequestMapping("/modifyPwd")
 	public Map<String, Object> modifyPwd(String password, String passwordnew, String confirm_passwordnew,
 			HttpServletRequest request) {
-		String LoginUrl =configParams.getUrls().get("basepath")+configParams.getUrls().get("login.login");// "http://localhost:9911/fe/login/login";
-		String modifyPwd =configParams.getUrls().get("basepath")+configParams.getUrls().get("user.modifyPwd");// "http://localhost:9911/fe/user/modifyPwd";//
+		String LoginUrl =configParams.getUrl("login.login");// "http://localhost:9911/fe/login/login";
+		String modifyPwd =configParams.getUrl("user.modifyPwd");// "http://localhost:9911/fe/user/modifyPwd";//
 
 		UserBean userBean = new UserBean();
 		UserBean loginUser = UserHelper.getCurrentUser(request);

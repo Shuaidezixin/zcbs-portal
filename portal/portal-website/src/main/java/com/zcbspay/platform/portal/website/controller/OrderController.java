@@ -74,7 +74,7 @@ public class OrderController {
 	@RequestMapping("/orderForBatchAndSingle")
 	public String orderForBatchAndSingle(String page, String rows, TxnsForPortalBean txnsForPortalBean,HttpServletRequest request) {
 		txnsForPortalBean.setMerid(UserHelper.getCurrentUser(request).getMemberid());
-		String url=configParams.getUrls().get("basepath")+configParams.getUrls().get("order.batchAndSingle");//"http://localhost:9911/fe/order/orderForBatchAndSingle";//
+		String url=configParams.getUrl("order.batchAndSingle");//"http://localhost:9911/fe/order/orderForBatchAndSingle";//
 		
 		HttpRequestParam httpRequestParam= new HttpRequestParam("txnsForPortalBeanStr",JSONObject.fromObject(txnsForPortalBean).toString());
 		HttpRequestParam httpRequestParam1= new HttpRequestParam("page",page);

@@ -76,7 +76,7 @@ public class LoginController {
 	@ResponseBody
 	@RequestMapping("/login")
 	public Map<String, Object> validateUser(UserBean user, HttpServletRequest request, HttpServletResponse response) {
-		String url = configParams.getUrls().get("basepath") + configParams.getUrls().get("login.login");// "http://localhost:9911/fe/login/login";//
+		String url = configParams.getUrl("login.login");// "http://localhost:9911/fe/login/login";//
 		HttpRequestParam httpRequestParam = new HttpRequestParam("userBeanStr", JSONObject.fromObject(user).toString());
 		List<HttpRequestParam> list = new ArrayList<>();
 		list.add(httpRequestParam);
@@ -99,7 +99,7 @@ public class LoginController {
 				HttpRequestParam httpRequestParam2 = new HttpRequestParam("rows", "1");
 				list.add(httpRequestParam1);
 				list.add(httpRequestParam2);
-				url = configParams.getUrls().get("basepath") + configParams.getUrls().get("user.queryUsers");// "http://localhost:9911/fe/user/queryUsers";//
+				url = configParams.getUrl("user.queryUsers");// "http://localhost:9911/fe/user/queryUsers";//
 				responseContent = httpUtils.executeHttpPost(url, list, Constants.Encoding.UTF_8);
 				Map<String, Class> mapClass = new HashMap<String, Class>();
 				mapClass.put("rows", Map.class);

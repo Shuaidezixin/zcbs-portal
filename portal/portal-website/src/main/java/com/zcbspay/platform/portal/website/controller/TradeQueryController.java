@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.zcbspay.platform.portal.query.statistics.bean.TxnsForPortalBean;
 import com.zcbspay.platform.portal.query.statistics.service.QueryAndStatService;
 import com.zcbspay.platform.portal.website.constant.PathConstants;
+import com.zcbspay.platform.portal.website.util.ConfigParams;
 import com.zcbspay.platform.portal.website.util.HttpUtils;
 import com.zcbspay.platform.portal.website.util.JSONUtils;
 import com.zcbspay.platform.portal.website.util.UserHelper;
@@ -37,6 +38,9 @@ import net.sf.json.JSONObject;
 @SuppressWarnings("all")
 public class TradeQueryController {
 	private static final Logger logger = LoggerFactory.getLogger(TradeQueryController.class);
+	
+	@Autowired
+	private ConfigParams configParams;
 
 	@Autowired
 	private QueryAndStatService tradeService;
@@ -91,7 +95,7 @@ public class TradeQueryController {
 		paramMap.put("data", JSONObject.fromObject(txnsForPortalBean).toString());
 		try {
 			httpUtils.openConnection();
-			String result = httpUtils.post(getUrlFormXml("selTxnsSingleUrl"), paramMap);
+			String result = httpUtils.post(configParams.getUrl("trade.selTxnsSingleUrl"), paramMap);
 			Map<String, Class> mapClass=new HashMap<String,Class>();
 			mapClass.put("rows", Map.class);
 			Map<String, Object> map= (Map<String, Object>) JSONObject.toBean(JSONObject.fromObject(result),Map.class,mapClass);
@@ -136,7 +140,7 @@ public class TradeQueryController {
 		paramMap.put("data", JSONObject.fromObject(txnsForPortalBean).toString());
 		try {
 			httpUtils.openConnection();
-			String result = httpUtils.post(getUrlFormXml("selTxnsDetaUrl"), paramMap);
+			String result = httpUtils.post(configParams.getUrl("trade.selTxnsDetaUrl"), paramMap);
 			Map<String, Class> mapClass=new HashMap<String,Class>();
 			mapClass.put("rows", Map.class);
 			Map<String, Object> map= (Map<String, Object>) JSONObject.toBean(JSONObject.fromObject(result),Map.class,mapClass);
@@ -183,7 +187,7 @@ public class TradeQueryController {
 		paramMap.put("data", JSONObject.fromObject(txnsForPortalBean).toString());
 		try {
 			httpUtils.openConnection();
-			String result = httpUtils.post(getUrlFormXml("selTxnsDetaUrl"), paramMap);
+			String result = httpUtils.post(configParams.getUrl("trade.selTxnsDetaUrl"), paramMap);
 			Map<String, Class> mapClass=new HashMap<String,Class>();
 			mapClass.put("rows", Map.class);
 			Map<String, Object> map= (Map<String, Object>) JSONObject.toBean(JSONObject.fromObject(result),Map.class,mapClass);
@@ -222,7 +226,7 @@ public class TradeQueryController {
 		paramMap.put("data", JSONObject.fromObject(txnsForPortalBean).toString());
 		try {
 			httpUtils.openConnection();
-			String result = httpUtils.post(getUrlFormXml("selTxnsInfoUrl"), paramMap);
+			String result = httpUtils.post(configParams.getUrl("trade.selTxnsInfoUrl"), paramMap);
 			Map<String, Class> mapClass=new HashMap<String,Class>();
 			mapClass.put("rows", Map.class);
 			Map<String, Object> map= (Map<String, Object>) JSONObject.toBean(JSONObject.fromObject(result),Map.class,mapClass);
@@ -261,7 +265,7 @@ public class TradeQueryController {
 		paramMap.put("data", JSONObject.fromObject(txnsForPortalBean).toString());
 		try {
 			httpUtils.openConnection();
-			String result = httpUtils.post(getUrlFormXml("selTxnsStatUrl"), paramMap);
+			String result = httpUtils.post(configParams.getUrl("trade.selTxnsStatUrl"), paramMap);
 			return JSONObject.fromObject(result);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -277,17 +281,4 @@ public class TradeQueryController {
 			httpUtils.closeConnection();
 		}
 	}
-	
-	private String getUrlFormXml(String pathKey){
-		JSONArray arr = null;
-		try {
-			arr = JSONUtils.xml2json(PathConstants.portalConfig);
-		} catch (Exception e1) {
-			throw new RuntimeException(e1);
-		}
-		JSONObject obj = JSONObject.fromObject(arr.get(0));
-		String rootUrl = JSONUtils.elemText(obj, "rootUrl");
-		String relativeUrl = JSONUtils.elemText(obj, pathKey);
-		return rootUrl + relativeUrl;
-	};
 }
