@@ -25,6 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.zcbspay.platform.portal.system.bean.UserBean;
 import com.zcbspay.platform.portal.system.service.UserService;
 import com.zcbspay.platform.portal.website.constant.Constants;
+import com.zcbspay.platform.portal.website.util.ConfigParams;
 import com.zcbspay.platform.portal.website.util.CookieUtils;
 import com.zcbspay.platform.portal.website.util.HttpRequestParam;
 import com.zcbspay.platform.portal.website.util.HttpUtils;
@@ -38,8 +39,11 @@ import net.sf.json.util.JSONUtils;
 @SuppressWarnings("all")
 public class LoginController {
 
-    @Autowired
-	private UserService userService;
+    //@Autowired
+	//private UserService userService;
+	
+	@Autowired
+	private ConfigParams configParams;
     
     /**
 	 * 验证用户登录信息
@@ -59,7 +63,7 @@ public class LoginController {
 		//System.out.println(JSONUtils.valueToString(userService.saveUser(userBean)));
 		//System.out.println(JSONUtils.valueToString(userService.updateUser(userBean)));
 		//System.out.println(JSONUtils.valueToString(userService.queryUsers(userBean, "1", "10")));
-		System.out.println(JSONUtils.valueToString(userService.login(userBean)));
+		//System.out.println(JSONUtils.valueToString(userService.login(userBean)));
 	}
 
 	/**
@@ -70,9 +74,9 @@ public class LoginController {
 	@RequestMapping("/login")
 	public Map<String, Object> validateUser(UserBean user,HttpServletRequest request,HttpServletResponse response) {
 		
-		String url="http://localhost:9911/fe/login/login";
+		String url=configParams.getUrls().get("basepath")+configParams.getUrls().get("login.login");//"http://localhost:9911/fe/login/login";//  
 		
-		HttpRequestParam httpRequestParam= new HttpRequestParam("userString",JSONObject.fromObject(user).toString());
+		HttpRequestParam httpRequestParam= new HttpRequestParam("userBeanStr",JSONObject.fromObject(user).toString());
 		List<HttpRequestParam> list = new ArrayList<>();
 		list.add(httpRequestParam);
 		
@@ -82,7 +86,6 @@ public class LoginController {
 		try {
 			 responseContent = httpUtils.executeHttpPost(url,list,Constants.Encoding.UTF_8);
 		} catch (HttpException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		httpUtils.closeConnection();
@@ -95,13 +98,23 @@ public class LoginController {
 	        response.addCookie(cookie);  
 	        Cookie cookielasttime=null;
 	        
-	        HttpRequestParam httpRequestParam1= new HttpRequestParam("page",JSONObject.fromObject(user).toString());
-	        HttpRequestParam httpRequestParam2= new HttpRequestParam("userString",JSONObject.fromObject(user).toString());
-			list.add(httpRequestParam);
-	        
-	        
-	        Map<String, Object> userMap =userService.queryUsers(user, "1", "1");
-	        
+	        HttpRequestParam httpRequestParam1= new HttpRequestParam("page","1");
+	        HttpRequestParam httpRequestParam2= new HttpRequestParam("rows","1");
+			list.add(httpRequestParam1);
+			list.add(httpRequestParam2);
+	        url=configParams.getUrls().get("basepath")+configParams.getUrls().get("user.queryUsers");//"http://localhost:9911/fe/user/queryUsers";//
+	        httpUtils.openConnection();
+			try {
+				 responseContent = httpUtils.executeHttpPost(url,list,Constants.Encoding.UTF_8);
+			} catch (HttpException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			httpUtils.closeConnection();
+	        //Map<String, Object> userMap =userService.queryUsers(user, "1", "1");
+			Map<String, Class> mapClass=new HashMap<String,Class>();
+			mapClass.put("rows", Map.class);
+			Map<String, Object> userMap=(Map<String, Object>) JSONObject.toBean(JSONObject.fromObject(responseContent),Map.class,mapClass);
 	        if (((List<?>)userMap.get("rows")).get(0)!=null) {
 	        	Map<String, Object> re=(Map<String, Object>) ((List<?>)userMap.get("rows")).get(0);
 				user.setUserId(re.get("USERID").toString());

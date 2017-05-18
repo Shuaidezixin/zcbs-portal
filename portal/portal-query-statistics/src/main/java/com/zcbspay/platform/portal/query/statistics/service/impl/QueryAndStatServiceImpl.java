@@ -58,11 +58,11 @@ public class QueryAndStatServiceImpl implements QueryAndStatService {
 	public File downForms(String fileName,String packageName) {
 		File file = null;
 		file = new File(ftp.getLocalPath() + File.separatorChar + fileName);
-		if (!file.exists()) {
+		//if (!file.exists()) {
 			FtpUtil.downloadFile(ftp.getFtpAddress(), ftp.getFtpPort(), ftp.getFtpUser(), ftp.getFtpPwd(),
 					File.separatorChar  + packageName, fileName, ftp.getLocalPath());
 			file = new File(ftp.getLocalPath() + File.separatorChar + fileName);
-		}
+		//}
 		return file;
 	}
 

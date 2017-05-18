@@ -27,7 +27,7 @@ import com.zcbspay.platform.portal.website.util.UserHelper;
 @SuppressWarnings("all")
 public class TradeQueryController {
 
-    @Autowired
+    //@Autowired
 	private QueryAndStatService tradeService;
     
     @ResponseBody

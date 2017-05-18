@@ -152,8 +152,8 @@
 		                        <tr class="order_field">
 		                            <th >报表名称</th>
 		                            <th >报表类型</th>
-		                            <th >报表格式</th>
 		                            <th >报表数据日期</th>
+		                            <th >报表格式</th>
 		                            <th >操作</th>
 		                        </tr>
 		                    </thead>
@@ -337,6 +337,7 @@
 		    	 alert(XMLHttpRequest.status);
 		    	   },
 			success : function(data){
+				data= JSON.parse(data);
 				if(data.total==0 && data.rows.length==1){
 					$.MessageBox(data.rows[0].INFO);
 					return;

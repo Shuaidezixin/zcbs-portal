@@ -33,6 +33,7 @@
         <!--电子对账单begin-->
 	        <div class="flow_item">
 				<div class="bill_box clearfix">
+					<input type="hidden" id="fileallName" name="page" value="0"/>
 					<form id="queryTradeForm" action="<%=basePath%>queryAndStat/txnsDeta" method="post">
 					<input type="hidden" id="pageIndex" name="page" value="0"/> 
 					<input type="hidden" id="pageRows" name="rows" value="10"/> 
@@ -226,8 +227,8 @@
 		                        <tr class="order_field">
 		                            <th >报表名称</th>
 		                            <th >报表类型</th>
-		                            <th >报表格式</th>
 		                            <th >报表数据日期</th>
+		                            <th >报表格式</th>
 		                            <th >操作</th>
 		                        </tr>
 		                    </thead>
@@ -397,6 +398,7 @@
 		    	 alert(XMLHttpRequest.status);
 		    	   },
 			success : function(data){
+				data= JSON.parse(data);
 				if(data.total==0 && data.rows.length==1){
 					$.MessageBox(data.rows[0].INFO);
 					return;

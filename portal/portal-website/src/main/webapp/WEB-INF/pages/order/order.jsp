@@ -222,6 +222,7 @@
 		    	 alert(XMLHttpRequest.status);
 		    	   },
 			success : function(data){
+				data= JSON.parse(data);
 				if(data.total==0 && data.rows.length==1){
 					$.MessageBox(data.rows[0].INFO);
 					return;

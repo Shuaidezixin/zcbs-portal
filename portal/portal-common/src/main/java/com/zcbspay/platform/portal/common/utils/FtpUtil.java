@@ -1,5 +1,7 @@
 package com.zcbspay.platform.portal.common.utils;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -7,13 +9,20 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PipedInputStream;
+import java.io.PipedOutputStream;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 import org.apache.commons.net.ftp.FTPReply;
+
+import com.zcbspay.platform.portal.common.utils.excel.ExcelLogs;
+import com.zcbspay.platform.portal.common.utils.excel.ExcelUtil;
 
 /**
  * ftp上传下载工具类
@@ -126,9 +135,9 @@ public class FtpUtil {
 	 * @param localPath 下载后保存到本地的路径 
 	 * @return 
 	 */  
-	public static boolean downloadFile(String host, int port, String username, String password, String remotePath,
+	public static List<?> downloadFile(String host, int port, String username, String password, String remotePath,
 			String fileName, String localPath) {
-		boolean result = false;
+		List<?> list=null;
 		FTPClient ftp = new FTPClient();
 		try {
 			int reply;
@@ -138,21 +147,24 @@ public class FtpUtil {
 			reply = ftp.getReplyCode();
 			if (!FTPReply.isPositiveCompletion(reply)) {
 				ftp.disconnect();
-				return result;
+				return list;
 			}
 			ftp.changeWorkingDirectory(remotePath);// 转移到FTP服务器目录
 			FTPFile[] fs = ftp.listFiles();
 			for (FTPFile ff : fs) {
 				if (ff.getName().equals(fileName)) {
-					File localFile = new File(localPath + File.separatorChar + ff.getName());
-					OutputStream is = new FileOutputStream(localFile);
-					ftp.retrieveFile(ff.getName(), is);
-					is.close();
+					//File localFile = new File(localPath + File.separatorChar + ff.getName());
+					OutputStream out =new ByteArrayOutputStream();// new FileOutputStream(localFile);
+					ftp.retrieveFile(ff.getName(), out);
+					ByteArrayOutputStream   baos=new   ByteArrayOutputStream();
+			        baos=(ByteArrayOutputStream) out;
+			        ByteArrayInputStream in = new ByteArrayInputStream(baos.toByteArray());
+				    list =(List<?>) ExcelUtil.importExcel(Map.class, in, "", new ExcelLogs());
+					out.close();
 				}
 			}
 
 			ftp.logout();
-			result = true;
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
@@ -163,7 +175,7 @@ public class FtpUtil {
 				}
 			}
 		}
-		return result;
+		return list;
 	}
 	
 	
