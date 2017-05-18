@@ -406,6 +406,10 @@ public class QueryAndStatController {
 		boolean flag = false;
 		try {
 			File dirDeta = new File(path + File.separatorChar + packageName + File.separatorChar);
+			if (!dirDeta.exists()) {
+				resultMap.put("err", "99");
+				return resultMap;
+			}
 			File[] files = dirDeta.listFiles();
 			if (files[0] != null) {
 				String filename = files[0].getName();
@@ -415,6 +419,8 @@ public class QueryAndStatController {
 				resultMap.put("filepatten", file[1]);
 				resultMap.put("date", filename.substring(4, 12));
 				resultMap.put("fileAllName", filename);
+			}else{
+				resultMap.put("err", "99");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

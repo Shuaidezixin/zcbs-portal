@@ -414,16 +414,16 @@
 		    	var output="";
 				for(var i=0,l=dataStr.length;i<l;i++){ 
 					output = output + '<tr height="36" class="bor_bottom" >'; 
-					output = output + '<td >'+dataStr[i]['COMMITIME']+'</td>';
-					output = output + '<td >'+dataStr[i]['TXNDATE']+'</td>';
+					output = output + '<td >'+changeDateTime(dataStr[i]['COMMITIME'])+'</td>';
+					output = output + '<td >'+changeDateTime(dataStr[i]['TXNDATE'])+'</td>';
 					output = output + '<td >'+dataStr[i]['MERCHNAME']+'</td>';
 					output = output + '<td >'+dataStr[i]['ORDERID']+'</td>';
 					output = output + '<td >'+dataStr[i]['TXNAMT']+'</td>';//不确定
-					output = output + '<td >'+dataStr[i]['RETCODE']+'</td>';
+					output = output + '<td >'+(dataStr[i]['RETCODE']==null?"":dataStr[i]['RETCODE'])+'</td>';
 					output = output + '<td >'+dataStr[i]['RETINFO']+'</td>';
-					output = output + '<td >'+dataStr[i]['STATUS']+'</td>';
+					output = output + '<td >'+(dataStr[i]['STATUS']==null?"":dataStr[i]['STATUS'])+'</td>';
  					output = output + '<td >'+dataStr[i]['BUSICODE']+'</td>';
- 					output = output + '<td >'+dataStr[i]['RETTIME']+'</td>';
+ 					output = output + '<td >'+changeDateTime(dataStr[i]['RETTIME'])+'</td>';
 					output = output + '<td >'+dataStr[i]['TXNSEQNO']+'</td>';
  					output = output + '<td >'+dataStr[i]['BUSINAME']+'</td>';
 					output = output + '</tr>';
@@ -466,6 +466,29 @@
 		$('#busicode').val('');
 		$('#batchno,#orderid,#name,#account').val("");
 		   
+	}
+	
+	function changeDateTime(value) {
+		var dateString = value;
+		if (dateString == null || dateString=="") {
+			return "";
+		} else {
+			if(dateString.length==14){
+				year = dateString.substring(0, 4);//0123
+				month = dateString.substring(4, 6);//45
+				day = dateString.substring(6, 8);//67
+				hour = dateString.substring(8, 10);//89
+				minte = dateString.substring(10, 12);//10 11
+				s = dateString.substring(12, 14);// 11 12
+				return year + "-" + month + "-" + day + " " + hour + ":"
+						+ minte + ":" + s;
+			} else if (dateString.length==8){
+				year = dateString.substring(0, 4);//0123
+				month = dateString.substring(4, 6);//45
+				day = dateString.substring(6, 8);//67
+				return year + "-" + month + "-" + day ;
+			}
+		}
 	}
 	</script>
 </body>

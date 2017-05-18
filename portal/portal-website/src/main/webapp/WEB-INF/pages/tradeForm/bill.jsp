@@ -292,15 +292,15 @@
 		    	var output="";
 				for(var i=0,l=dataStr.length;i<l;i++){ 
 					output = output + '<tr height="36" class="bor_bottom" >'; 
-					output = output + '<td >'+dataStr[i]['TXNDATE']+'</td>';
-					output = output + '<td >'+dataStr[i]['TXNSEQNO']+'</td>';
-					output = output + '<td >'+dataStr[i]['AMOUNT']+'</td>';//不确定
-					output = output + '<td >'+dataStr[i]['AMOUNT']+'</td>';//不确定
-					output = output + '<td >'+dataStr[i]['AMOUNT']+'</td>';//不确定
-					output = output + '<td >'+dataStr[i]['BUSINAME']+'</td>';
-					output = output + '<td >'+dataStr[i]['CURRENCY']+'</td>';
- 					output = output + '<td >'+dataStr[i]['ACCSETTLEDATE']+'</td>';
- 					output = output + '<td >'+dataStr[i]['ACCORDNO']+'</td>';
+					output = output + '<td >'+changeDateTime((dataStr[i]['TXNDATE']==null?"":dataStr[i]['TXNDATE']))+'</td>';
+					output = output + '<td >'+(dataStr[i]['TXNSEQNO']==null?"":dataStr[i]['TXNSEQNO'])+'</td>';
+					output = output + '<td >'+(dataStr[i]['AMOUNT']==null?"":dataStr[i]['AMOUNT'])+'</td>';
+					output = output + '<td >'+(dataStr[i]['TXNFEE']==null?"":dataStr[i]['TXNFEE'])+'</td>';
+					output = output + '<td >'+(dataStr[i]['SETL']==null?"":dataStr[i]['SETL'])+'</td>';
+					output = output + '<td >'+(dataStr[i]['BUSINAME']==null?"":dataStr[i]['BUSINAME'])+'</td>';
+					output = output + '<td >'+(dataStr[i]['CURRENCY']==null?"":dataStr[i]['CURRENCY'])+'</td>';
+ 					output = output + '<td >'+changeDateTime((dataStr[i]['ACCSETTLEDATE']==null?"":dataStr[i]['ACCSETTLEDATE']))+'</td>';
+ 					output = output + '<td >'+(dataStr[i]['ACCORDNO']==null?"":dataStr[i]['ACCORDNO'])+'</td>';
 					output = output + '</tr>';
 				} 
 				$('#tradeContents').html(output);
@@ -338,6 +338,28 @@
 	function resize(){
 		$('#time').val(new Date().Format('yyyy-MM-dd'));
 		$('#time2').val(new Date().Format('yyyy-MM-dd'));
+	}
+	function changeDateTime(value) {
+		var dateString = value;
+		if (dateString == null || dateString=="") {
+			return "";
+		} else {
+			if(dateString.length==14){
+				year = dateString.substring(0, 4);//0123
+				month = dateString.substring(4, 6);//45
+				day = dateString.substring(6, 8);//67
+				hour = dateString.substring(8, 10);//89
+				minte = dateString.substring(10, 12);//10 11
+				s = dateString.substring(12, 14);// 11 12
+				return year + "-" + month + "-" + day + " " + hour + ":"
+						+ minte + ":" + s;
+			} else if (dateString.length==8){
+				year = dateString.substring(0, 4);//0123
+				month = dateString.substring(4, 6);//45
+				day = dateString.substring(6, 8);//67
+				return year + "-" + month + "-" + day ;
+			}
+		}
 	}
 	</script>
 </body>

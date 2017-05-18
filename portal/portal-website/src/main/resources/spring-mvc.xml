@@ -12,24 +12,27 @@
        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
 	<!-- 引入属性文件Hibernate属性配置 -->
-	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">  
-        <property name="locations">  
-           <list>
-              <value>classpath:*.properties</value>  
-            </list>  
-        </property>  
-    </bean>
-    
-    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"  
-    		p:defaultEncoding="UTF-8"
-            >
-    </bean>
-    
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:*.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
+		p:defaultEncoding="UTF-8">
+	</bean>
+
 	<!-- 自动扫描controller包下的所有类，使其认为spring mvc的控制器 -->
-	<context:component-scan base-package="com.zcbspay.platform.portal.website.controller" />
+	<context:component-scan
+		base-package="com.zcbspay.platform.portal.website.controller" />
 	<!-- 开启controller注解支持 -->
 	<!-- 注意事项请参考：http://jinnianshilongnian.iteye.com/blog/1762632 -->
-	<context:component-scan base-package="com.zcbspay.platform.portal.website.controller"
+	<context:component-scan
+		base-package="com.zcbspay.platform.portal.website.controller"
 		use-default-filters="false">
 		<context:include-filter type="annotation"
 			expression="org.springframework.stereotype.Controller" />
@@ -38,13 +41,13 @@
 	</context:component-scan>
 	<mvc:default-servlet-handler />
 	<mvc:annotation-driven>
-	    <mvc:message-converters register-defaults="true">
-		    <bean class="org.springframework.http.converter.StringHttpMessageConverter">
-		      <property name="supportedMediaTypes" value = "text/plain;charset=UTF-8" />
-		    </bean>
-	   </mvc:message-converters>
-     </mvc:annotation-driven>
-	
+		<mvc:message-converters register-defaults="true">
+			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+				<property name="supportedMediaTypes" value="text/plain;charset=UTF-8" />
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+
 	<!-- 对模型视图名称的解析，即在模型视图名称添加前后缀 -->
 	<mvc:resources mapping="/js/**" location="/js/" />
 	<mvc:resources mapping="/css/**" location="/css/" />
@@ -79,34 +82,38 @@
 				<value>text/html;charset=UTF-8</value>
 			</list>
 		</property>
-		<property name="objectMapper">  
-        	<bean class="com.zcbspay.platform.portal.website.converter.JsonObjectMapper"></bean>  
-		</property>  
+		<property name="objectMapper">
+			<bean
+				class="com.zcbspay.platform.portal.website.converter.JsonObjectMapper"></bean>
+		</property>
 	</bean>
 	<!-- Jedis ConnectionFactory -->
-<bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
-	<property name="hostName" value="192.168.2.118"/>
-	<property name="port" value="6379"/>
-	<property name="password" value=""></property>
-</bean>
- <!-- redis template definition -->
-<bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
-	<property name="connectionFactory" ref="jedisConnectionFactory"/>
-</bean>
-<bean id="stringRedisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate" p:connection-factory-ref="jedisConnectionFactory"/>
-	<bean class="org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration">
-	<property name="httpSessionStrategy" ref="cookieHttpSessionStrategy"/>
-	<property name="maxInactiveIntervalInSeconds" value="1800"/>
+	<bean id="jedisConnectionFactory"
+		class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+		<property name="hostName" value="192.168.2.118" />
+		<property name="port" value="6379" />
+		<property name="password" value=""></property>
 	</bean>
-	<bean id="cookieHttpSessionStrategy" class="org.springframework.session.web.http.CookieHttpSessionStrategy"></bean>
+	<!-- redis template definition -->
+	<bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+		<property name="connectionFactory" ref="jedisConnectionFactory" />
+	</bean>
+	<bean id="stringRedisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate"
+		p:connection-factory-ref="jedisConnectionFactory" />
+	<bean
+		class="org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration">
+		<property name="httpSessionStrategy" ref="cookieHttpSessionStrategy" />
+		<property name="maxInactiveIntervalInSeconds" value="1800" />
+	</bean>
+	<bean id="cookieHttpSessionStrategy"
+		class="org.springframework.session.web.http.CookieHttpSessionStrategy"></bean>
 	<mvc:interceptors>
 		<mvc:interceptor>
-			拦截订单类请求
-			<mvc:mapping path="/order/**"/>
-			<mvc:mapping path="/queryAndStat/**"/>
-			<mvc:mapping path="/trade/**"/>
-			<mvc:mapping path="/user/**"/>
-			<bean class="com.zcbspay.platform.portal.website.interceptor.LoginInterceptor"/>
+			<mvc:mapping path="/order/**" />
+			<mvc:mapping path="/queryAndStat/**" />
+			<mvc:mapping path="/trade/**" />
+			<mvc:mapping path="/user/**" />
+			<bean class="com.zcbspay.platform.portal.website.interceptor.LoginInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>
 </beans>

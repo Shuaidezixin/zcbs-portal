@@ -299,9 +299,9 @@
 					output = output + '<tr height="36" class="bor_bottom" >'; 
 					output = output + '<td >'+dataStr[i]['MERID']+'</td>';
 					output = output + '<td >'+dataStr[i]['MERCHNAME']+'</td>';
-					output = output + '<td >'+dataStr[i]['STIME']+'</td>';
-					output = output + '<td >'+dataStr[i]['ETIME']+'</td>';
-					output = output + '<td >'+dataStr[i]['ALLNUM']+'</td>';//不确定
+					output = output + '<td >'+changeDateTime(dataStr[i]['STIME'])+'</td>';
+					output = output + '<td >'+changeDateTime(dataStr[i]['ETIME'])+'</td>';
+					output = output + '<td >'+dataStr[i]['ALLNUM']+'</td>';
 					output = output + '<td >'+dataStr[i]['ALLAMT']+'</td>';
 					output = output + '<td >'+dataStr[i]['REFUNDNUM']+'</td>';
 					output = output + '<td >'+dataStr[i]['REFUNDAMT']+'</td>';
@@ -348,6 +348,28 @@
 	function resize(){
 		$('#time').val(new Date().Format('yyyy-MM-dd'));
 		$('#time2').val(new Date().Format('yyyy-MM-dd'));
+	}
+	function changeDateTime(value) {
+		var dateString = value;
+		if (dateString == null || dateString=="") {
+			return "";
+		} else {
+			if(dateString.length==14){
+				year = dateString.substring(0, 4);//0123
+				month = dateString.substring(4, 6);//45
+				day = dateString.substring(6, 8);//67
+				hour = dateString.substring(8, 10);//89
+				minte = dateString.substring(10, 12);//10 11
+				s = dateString.substring(12, 14);// 11 12
+				return year + "-" + month + "-" + day + " " + hour + ":"
+						+ minte + ":" + s;
+			} else if (dateString.length==8){
+				year = dateString.substring(0, 4);//0123
+				month = dateString.substring(4, 6);//45
+				day = dateString.substring(6, 8);//67
+				return year + "-" + month + "-" + day ;
+			}
+		}
 	}
 	</script>
 </body>

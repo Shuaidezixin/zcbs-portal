@@ -238,13 +238,13 @@
 		    	var output="";
 				for(var i=0,l=dataStr.length;i<l;i++){ 
 					output = output + '<tr height="36" class="bor_bottom" >'; 
-					output = output + '<td >'+(dataStr[i]['COMMITIME']==null?"":dataStr[i]['COMMITIME'])+'</td>';
-					output = output + '<td >'+(dataStr[i]['TXNTIME']==null?"":dataStr[i]['TXNTIME'])+'</td>';
+					output = output + '<td >'+changeDateTime((dataStr[i]['COMMITIME']==null?"":dataStr[i]['COMMITIME']))+'</td>';
+					output = output + '<td >'+changeDateTime((dataStr[i]['TXNTIME']==null?"":dataStr[i]['TXNTIME']))+'</td>';
 					output = output + '<td >'+(dataStr[i]['ORDERID']==null?"":dataStr[i]['ORDERID'])+'</td>';
 					output = output + '<td >'+(dataStr[i]['TXNAMT']==null?"":dataStr[i]['TXNAMT'])+'</td>';
 					output = output + '<td >'+(dataStr[i]['RESPCODE']==null?"":dataStr[i]['RESPCODE'])+'</td>';
 					output = output + '<td >'+(dataStr[i]['RESPMSG']==null?"":dataStr[i]['RESPMSG'])+'</td>';
-					output = output + '<td >'+(dataStr[i]['RESPTIME']==null?"":dataStr[i]['RESPTIME'])+'</td>';
+					output = output + '<td >'+changeDateTime((dataStr[i]['RESPTIME']==null?"":dataStr[i]['RESPTIME']))+'</td>';
 					output = output + '<td >'+(dataStr[i]['RELATETRADETXN']==null?"":dataStr[i]['RELATETRADETXN'])+'</td>';
 					output = output + '</tr>';
 				} 
@@ -284,6 +284,23 @@
 		$('#busicode').val('');
 		$("#orderid,#name,#account").val("");
 		  
+	}
+	function changeDateTime(value) {
+		var dateString = value;
+		if (dateString == null || dateString=="") {
+			return "";
+		} else {
+			if(dateString.length==14){
+			year = dateString.substring(0, 4);//0123
+			month = dateString.substring(4, 6);//45
+			day = dateString.substring(6, 8);//67
+			hour = dateString.substring(8, 10);//89
+			minte = dateString.substring(10, 12);//10 11
+			s = dateString.substring(12, 14);// 11 12
+			return year + "-" + month + "-" + day + " " + hour + ":"
+					+ minte + ":" + s;
+			}
+		}
 	}
 	</script>
 </body>
