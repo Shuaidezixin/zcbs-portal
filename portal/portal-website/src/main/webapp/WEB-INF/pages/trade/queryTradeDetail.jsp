@@ -379,20 +379,20 @@
 									var output = '';
 									for (var i = 0, l = dataStr.length; i < l; i++) {
 										output = output + '<tr height="36" class="bor_bottom" >';
-										output = output + '<td width="9%">' + dataStr[i]['ORDERID'] + '</td>';
-										output = output + '<td width="9%">' + dataStr[i]['TXNSEQNO'] + '</td>';
-										output = output + '<td width="9%">' + dataStr[i]['BATCHNO'] + '</td>';
-										output = output + '<td width="9%">' + dataStr[i]['FILENAME'] + '</td>';
-										output = output + '<td width="6%">' + changeDate(dataStr[i]['TXNDATE']) + '</td>';
-										output = output + '<td width="6%">' + changeTime(dataStr[i]['TXNTIME']) + '</td>';
-										output = output + '<td width="8%">' + changeDateTime(dataStr[i]['COMMITIME']) + '</td>';
-										output = output + '<td width="8%">' + changeDate(dataStr[i]['SETLDATE']) + '</td>';
-										output = output + '<td width="4%">' + dataStr[i]['BANKP'] + '</td>';
-										output = output + '<td width="4%">' + dataStr[i]['BANKC'] + '</td>';
-										output = output + '<td width="5%">' + dataStr[i]['BANKNODE'] + '</td>';
-										output = output + '<td width="9%">' + dataStr[i]['ACCOUNTNO'] + '</td>';
-										output = output + '<td width="9%">' + dataStr[i]['ACCOUNTNAME'] + '</td>';
-										output = output + '<td width="5%">' + dataStr[i]['STATUS'] + '</td>';
+										output = output + '<td width="9%">' + (dataStr[i]['ORDERID']==null?"":dataStr[i]['ORDERID']) + '</td>';
+										output = output + '<td width="9%">' + (dataStr[i]['TXNSEQNO']==null?"":dataStr[i]['TXNSEQNO']) + '</td>';
+										output = output + '<td width="9%">' + (dataStr[i]['BATCHNO']==null?"":dataStr[i]['BATCHNO']) + '</td>';
+										output = output + '<td width="9%">' + (dataStr[i]['FILENAME']==null?"":dataStr[i]['FILENAME']) + '</td>';
+										output = output + '<td width="6%">' + (dataStr[i]['TXNDATE']==null?"":changeDate(dataStr[i]['TXNDATE'])) + '</td>';
+										output = output + '<td width="6%">' + (dataStr[i]['TXNTIME']==null?"":changeTime(dataStr[i]['TXNTIME'])) + '</td>';
+										output = output + '<td width="8%">' + (dataStr[i]['COMMITIME']==null?"":changeDateTime(dataStr[i]['COMMITIME'])) + '</td>';
+										output = output + '<td width="8%">' + (dataStr[i]['SETLDATE']==null?"":changeDate(dataStr[i]['SETLDATE'])) + '</td>';
+										output = output + '<td width="4%">' + (dataStr[i]['BANKP']==null?"":dataStr[i]['BANKP']) + '</td>';
+										output = output + '<td width="4%">' + (dataStr[i]['BANKC']==null?"":dataStr[i]['BANKC']) + '</td>';
+										output = output + '<td width="5%">' + (dataStr[i]['BANKNODE']==null?"":dataStr[i]['BANKNODE']) + '</td>';
+										output = output + '<td width="9%">' + (dataStr[i]['ACCOUNTNO']==null?"":dataStr[i]['ACCOUNTNO']) + '</td>';
+										output = output + '<td width="9%">' + (dataStr[i]['ACCOUNTNAME']==null?"":dataStr[i]['ACCOUNTNAME']) + '</td>';
+										output = output + '<td width="5%">' + (dataStr[i]['STATUS']==null?"":dataStr[i]['STATUS']) + '</td>';
 										output = output + '</tr>';
 									}
 									$('#tradeContents').html(output);

@@ -79,6 +79,9 @@
 				<value>text/html;charset=UTF-8</value>
 			</list>
 		</property>
+		<property name="objectMapper">  
+        	<bean class="com.zcbspay.platform.portal.website.converter.JsonObjectMapper"></bean>  
+		</property>  
 	</bean>
 	<!-- Jedis ConnectionFactory -->
 <bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
@@ -98,7 +101,7 @@
 	<bean id="cookieHttpSessionStrategy" class="org.springframework.session.web.http.CookieHttpSessionStrategy"></bean>
 	<mvc:interceptors>
 		<mvc:interceptor>
-			<!-- 拦截订单类请求 -->
+			拦截订单类请求
 			<mvc:mapping path="/order/**"/>
 			<mvc:mapping path="/queryAndStat/**"/>
 			<mvc:mapping path="/trade/**"/>
