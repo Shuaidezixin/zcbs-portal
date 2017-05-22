@@ -17,7 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.zcbspay.platform.portal.query.statistics.bean.TxnsForPortalBean;
 import com.zcbspay.platform.portal.query.statistics.service.QueryAndStatService;
-import com.zcbspay.platform.portal.website.util.ConfigParams;
+import com.zcbspay.platform.portal.website.util.ConfigParamsUrl;
 import com.zcbspay.platform.portal.website.util.HttpUtils;
 import com.zcbspay.platform.portal.website.util.JSONUtils;
 import com.zcbspay.platform.portal.website.util.UserHelper;
@@ -39,7 +39,7 @@ public class TradeQueryController {
 	private static final Logger logger = LoggerFactory.getLogger(TradeQueryController.class);
 	
 	@Autowired
-	private ConfigParams configParams;
+	private ConfigParamsUrl configParams;
 
 	//@Autowired
 	private QueryAndStatService tradeService;

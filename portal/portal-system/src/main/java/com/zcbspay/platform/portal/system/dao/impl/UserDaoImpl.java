@@ -22,13 +22,13 @@ public class UserDaoImpl extends HibernateBaseDAOImpl<String>  implements UserDa
 	}
 
 	@Override
-	public String saveUser(UserBean userBean) {
-		Object[] paramaters = new Object[] { userBean.getUserName(), userBean.getMemberid(), userBean.getLoginName(),MD5Util.MD5(userBean.getPwd()),userBean.getPhone(),userBean.getEmail(),userBean.getUpdateUser(),
+	public Map<String, Object> saveUser(UserBean userBean) {
+		Object[] paramaters = new Object[] { userBean.getUserName(), userBean.getMemberid(), userBean.getLoginName(),userBean.getPwd(),userBean.getPhone(),userBean.getEmail(),userBean.getUpdateUser(),
 				userBean.getNotes()};
 		String[] columns = new String[] { "v_user_name", "v_member_id", "v_login_name", "v_user_password", "v_user_phone","v_user_email","v_create_user","v_notes" };
 		Object total = executeOracleProcedure("{CALL pck_t_user_info.ins_t_user_info(?,?,?,?,?,?,?,?,?)}", columns, paramaters,
-				"cursor0").get(0).get("INFO");
-		return (String) total;
+				"cursor0").get(0);
+		return (Map<String, Object>) total;
 	}
 
 	@Override

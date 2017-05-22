@@ -41,6 +41,7 @@ import org.slf4j.LoggerFactory;
  * @author sargeras.wang
  * @version 1.0, Created at 2013年9月14日
  */
+@SuppressWarnings("deprecation")
 public class ExcelUtil {
 
     private static Logger LG = LoggerFactory.getLogger(ExcelUtil.class);
@@ -136,8 +137,8 @@ public class ExcelUtil {
      *                javabean属性的数据类型有基本数据类型及String,Date,String[],Double[]
      * @param out     与输出设备关联的流对象，可以将EXCEL文档导出到本地文件或者网络中
      */
-    public static <T> void exportExcel(String[] headers, Collection<T> dataset, OutputStream out) {
-        exportExcel(headers, dataset, out, null);
+    public static <T> void exportExcel(String[] headers, Collection<T> dataset, OutputStream out,Map<String, String> headNames) {
+        exportExcel(headers, dataset, out, null,headNames);
     }
 
     /**
@@ -151,14 +152,15 @@ public class ExcelUtil {
      * @param out     与输出设备关联的流对象，可以将EXCEL文档导出到本地文件或者网络中
      * @param pattern 如果有时间数据，设定输出格式。默认为"yyy-MM-dd"
      */
-    public static <T> void exportExcel(String[] headers, Collection<T> dataset, OutputStream out,
-                                       String pattern) {
+    @SuppressWarnings("resource")
+	public static <T> void exportExcel(String[] headers, Collection<T> dataset, OutputStream out,
+                                       String pattern,Map<String, String> headNames) {
         // 声明一个工作薄
         HSSFWorkbook workbook = new HSSFWorkbook();
         // 生成一个表格
         HSSFSheet sheet = workbook.createSheet();
 
-        write2Sheet(sheet, headers, dataset, pattern);
+        write2Sheet(sheet, headers, dataset, pattern,headNames);
         try {
             workbook.write(out);
         } catch (IOException e) {
@@ -166,7 +168,8 @@ public class ExcelUtil {
         }
     }
 
-    public static void exportExcel(String[][] datalist, OutputStream out) {
+    @SuppressWarnings("resource")
+	public static void exportExcel(String[][] datalist, OutputStream out) {
         try {
             // 声明一个工作薄
             HSSFWorkbook workbook = new HSSFWorkbook();
@@ -207,8 +210,8 @@ public class ExcelUtil {
      * @param sheets {@link ExcelSheet}的集合
      * @param out    与输出设备关联的流对象，可以将EXCEL文档导出到本地文件或者网络中
      */
-    public static <T> void exportExcel(List<ExcelSheet<T>> sheets, OutputStream out) {
-        exportExcel(sheets, out, null);
+    public static <T> void exportExcel(List<ExcelSheet<T>> sheets, OutputStream out,Map<String, String> headNames) {
+        exportExcel(sheets, out, null,headNames);
     }
 
     /**
@@ -220,7 +223,8 @@ public class ExcelUtil {
      * @param out     与输出设备关联的流对象，可以将EXCEL文档导出到本地文件或者网络中
      * @param pattern 如果有时间数据，设定输出格式。默认为"yyy-MM-dd"
      */
-    public static <T> void exportExcel(List<ExcelSheet<T>> sheets, OutputStream out, String pattern) {
+    @SuppressWarnings("resource")
+	public static <T> void exportExcel(List<ExcelSheet<T>> sheets, OutputStream out, String pattern,Map<String, String> headNames) {
         if (CollectionUtils.isEmpty(sheets)) {
             return;
         }
@@ -229,7 +233,7 @@ public class ExcelUtil {
         for (ExcelSheet<T> sheet : sheets) {
             // 生成一个表格
             HSSFSheet hssfSheet = workbook.createSheet(sheet.getSheetName());
-            write2Sheet(hssfSheet, sheet.getHeaders(), sheet.getDataset(), pattern);
+            write2Sheet(hssfSheet, sheet.getHeaders(), sheet.getDataset(), pattern,headNames);
         }
         try {
             workbook.write(out);
@@ -247,12 +251,13 @@ public class ExcelUtil {
      * @param pattern 日期格式
      */
     private static <T> void write2Sheet(HSSFSheet sheet, String[] headers, Collection<T> dataset,
-                                        String pattern) {
+                                        String pattern,Map<String, String> headNames) {
         // 产生表格标题行
         HSSFRow row = sheet.createRow(0);
         for (int i = 0; i < headers.length; i++) {
             HSSFCell cell = row.createCell(i);
-            HSSFRichTextString text = new HSSFRichTextString(headers[i]);
+            String headName =headNames.get(headers[i]);
+            HSSFRichTextString text = new HSSFRichTextString(headName==null?headers[i]:headName);
             cell.setCellValue(text);
         }
 
@@ -275,7 +280,7 @@ public class ExcelUtil {
                         }
                         Object value = map.get(k);
                         HSSFCell cell = row.createCell(cellNum);
-                        cell.setCellValue(String.valueOf(value));
+                        cell.setCellValue(String.valueOf(value).equals("null")?"":String.valueOf(value));
                         cellNum++;
                     }
                 } else {

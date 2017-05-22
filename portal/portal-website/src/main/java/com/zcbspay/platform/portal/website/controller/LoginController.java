@@ -25,7 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.zcbspay.platform.portal.system.bean.UserBean;
 import com.zcbspay.platform.portal.system.service.UserService;
 import com.zcbspay.platform.portal.website.constant.Constants;
-import com.zcbspay.platform.portal.website.util.ConfigParams;
+import com.zcbspay.platform.portal.website.util.ConfigParamsUrl;
 import com.zcbspay.platform.portal.website.util.CookieUtils;
 import com.zcbspay.platform.portal.website.util.HttpRequestParam;
 import com.zcbspay.platform.portal.website.util.HttpUtils;
@@ -43,7 +43,7 @@ public class LoginController {
 	// private UserService userService;
 
 	@Autowired
-	private ConfigParams configParams;
+	private ConfigParamsUrl configParams;
 
 	/**
 	 * 验证用户登录信息

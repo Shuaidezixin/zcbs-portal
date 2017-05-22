@@ -9,7 +9,7 @@ public interface UserService{
 	
 	public Map<String, Object> queryUsers(UserBean userBean,String page,String rows);
 	
-	public String saveUser(UserBean userBean);
+	public Map<String, Object> saveUser(UserBean userBean);
 	
 	public Map<String, Object> updateUser(UserBean userBean);
 	

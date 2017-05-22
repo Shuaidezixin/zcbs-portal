@@ -202,7 +202,7 @@ public class QueryAndStatServiceImpl implements QueryAndStatService {
 		boolean flag = false;
 		try {
 			out = new FileOutputStream(ftp.getLocalPath() + fileName);
-			ExcelUtil.exportExcel(headers, dataList, out);
+			//ExcelUtil.exportExcel(headers, dataList, out);
 			FileInputStream in = new FileInputStream(new File(ftp.getLocalPath() + fileName));
 			flag = FtpUtil.uploadFile(ftp.getFtpAddress(), ftp.getFtpPort(), ftp.getFtpUser(), ftp.getFtpPwd(),
 					 prefix, fileName, in);

@@ -24,7 +24,7 @@ import com.zcbspay.platform.portal.query.statistics.bean.TxnsForPortalBean;
 import com.zcbspay.platform.portal.query.statistics.service.QueryAndStatService;
 import com.zcbspay.platform.portal.system.bean.UserBean;
 import com.zcbspay.platform.portal.website.constant.Constants;
-import com.zcbspay.platform.portal.website.util.ConfigParams;
+import com.zcbspay.platform.portal.website.util.ConfigParamsUrl;
 import com.zcbspay.platform.portal.website.util.HttpRequestParam;
 import com.zcbspay.platform.portal.website.util.HttpUtils;
 import com.zcbspay.platform.portal.website.util.UserHelper;
@@ -47,7 +47,7 @@ public class OrderController {
 	//@Autowired
 	//private QueryAndStatService queryAndStatService;
 	@Autowired
-	private ConfigParams configParams;
+	private ConfigParamsUrl configParams;
 	/**
 	 * 订单查询 页面
 	 * @author: zhangshd

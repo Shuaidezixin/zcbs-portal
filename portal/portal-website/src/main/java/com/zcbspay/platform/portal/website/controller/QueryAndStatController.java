@@ -31,7 +31,8 @@ import com.zcbspay.platform.portal.query.statistics.service.QueryAndStatService;
 import com.zcbspay.platform.portal.system.bean.UserBean;
 import com.zcbspay.platform.portal.website.constant.Constants;
 import com.zcbspay.platform.portal.website.enums.FormTypeEnum;
-import com.zcbspay.platform.portal.website.util.ConfigParams;
+import com.zcbspay.platform.portal.website.util.ConfigParamsExcelHeader;
+import com.zcbspay.platform.portal.website.util.ConfigParamsUrl;
 import com.zcbspay.platform.portal.website.util.HttpRequestParam;
 import com.zcbspay.platform.portal.website.util.HttpUtils;
 import com.zcbspay.platform.portal.website.util.UserHelper;
@@ -50,11 +51,15 @@ import net.sf.json.JSONObject;
 @SuppressWarnings("all")
 public class QueryAndStatController {
 
-	//@Autowired
-	//private QueryAndStatService queryAndStatService;
+	// @Autowired
+	// private QueryAndStatService queryAndStatService;
 
 	@Autowired
-	private ConfigParams configParams;
+	private ConfigParamsExcelHeader configParamsExcelHeader;
+
+	@Autowired
+	private ConfigParamsUrl configParams;
+
 	/**
 	 * 对账单报表
 	 * 
@@ -122,7 +127,7 @@ public class QueryAndStatController {
 	@ResponseBody
 	@RequestMapping("/txnsDeta")
 	public String txnsDeta(String page, String rows, TxnsForPortalBean txnsForPortalBean, HttpServletRequest request) {
-		String url = configParams.getUrl("queryAndStat.txnsDeta");//"http://localhost:9911/fe/queryAndStat/txnsDeta";//
+		String url = configParams.getUrl("queryAndStat.txnsDeta");// "http://localhost:9911/fe/queryAndStat/txnsDeta";//
 		return JSONObject.fromObject(excuteHttp(page, rows, txnsForPortalBean, request, url)).toString();
 	}
 
@@ -141,9 +146,9 @@ public class QueryAndStatController {
 	@RequestMapping("/txnsDetaExcelForms")
 	public Map<String, Object> txnsDetaExcelForms(String page, String rows, TxnsForPortalBean txnsForPortalBean,
 			HttpServletRequest request) {
-		String url =configParams.getUrl("queryAndStat.txnsDeta");// "http://localhost:9911/fe/queryAndStat/txnsDeta";//queryAndStat.txnsDeta
-		String[] headers = { "MERCHNAME", "REMARKS", "BUSICODE", "TXNDATE", "RETINFO", "RN", "STATUS", "BUSINAME",
-				"COMMITIME", "TXNSEQNO", "RETCODE", "RETTIME", "ORDERID", "TXNAMT", "NOTES" };
+		String url = configParams.getUrl("queryAndStat.txnsDeta");// "http://localhost:9911/fe/queryAndStat/txnsDeta";//queryAndStat.txnsDeta
+		String[] headers = { "MERCHNAME", "BUSICODE", "BUSINAME", "TXNDATE", "RETCODE", "RETINFO", "STATUS",
+				"COMMITIME", "TXNSEQNO", "RETTIME", "ORDERID", "TXNAMT", "NOTES" };
 		return createExcel("deta", txnsForPortalBean, request, url, headers);
 	}
 
@@ -162,7 +167,7 @@ public class QueryAndStatController {
 	@RequestMapping("/txnsDetaTxtForms")
 	public Map<String, Object> txnsDetaTxtForms(String page, String rows, TxnsForPortalBean txnsForPortalBean,
 			HttpServletRequest request) {
-		String url = configParams.getUrl("queryAndStat.txnsDeta");//"http://localhost:9911/fe/queryAndStat/txnsDeta";//queryAndStat.txnsDeta
+		String url = configParams.getUrl("queryAndStat.txnsDeta");// "http://localhost:9911/fe/queryAndStat/txnsDeta";//queryAndStat.txnsDeta
 		return createTxt("deta", request, txnsForPortalBean, url);
 	}
 
@@ -181,7 +186,7 @@ public class QueryAndStatController {
 	@ResponseBody
 	@RequestMapping("/txnsStat")
 	public String txnsStat(String page, String rows, TxnsForPortalBean txnsForPortalBean, HttpServletRequest request) {
-		String url = configParams.getUrl("queryAndStat.txnsStat");//"http://localhost:9911/fe/queryAndStat/txnsStat";//
+		String url = configParams.getUrl("queryAndStat.txnsStat");// "http://localhost:9911/fe/queryAndStat/txnsStat";//
 		return JSONObject.fromObject(excuteHttp(page, rows, txnsForPortalBean, request, url)).toString();
 	}
 
@@ -200,10 +205,14 @@ public class QueryAndStatController {
 	@RequestMapping("/txnsStatExcelForms")
 	public Map<String, Object> txnsStatExcelForms(String page, String rows, TxnsForPortalBean txnsForPortalBean,
 			HttpServletRequest request) {
-		String url =configParams.getUrl("queryAndStat.txnsStat");// "http://localhost:9911/fe/queryAndStat/txnsStat";//queryAndStat.txnsStat
-		String[] headers = { "CANCELFAILNUM", "MERCHNAME", "ALLNUM", "REMARKS", "MERID", "CANCELNUM", "RN", "SUCCNUM",
-				"BUSINAME", "CANCELFAILAMT", "CANCELSUCCNUM", "CYCEL", "CANCELSUCCAMT", "SUCCAMT", "FIALAMT", "FAILNUM",
-				"NOTES" };
+		String url = configParams.getUrl("queryAndStat.txnsStat");// "http://localhost:9911/fe/queryAndStat/txnsStat";//queryAndStat.txnsStat
+		/*
+		 * String[] headers = { "撤销总笔数", "委托机构名称", "总笔数", "REMARKS", "委托机构号",
+		 * "总金额", "序号", "成功笔数", "业务名称", "撤销失败金额", "撤销成功笔数", "CYCEL", "撤销成功金额",
+		 * "成功金额", "失败金额", "失败笔数", "备注" };
+		 */
+		String[] headers = { "MERID", "MERCHNAME", "CANCELFAILNUM", "CANCELFAILAMT", "ALLNUM", "CANCELNUM", "SUCCNUM",
+				"BUSINAME", "CANCELSUCCNUM", "CANCELSUCCAMT", "SUCCAMT", "FIALAMT", "CYCEL", "FAILNUM", "NOTES" };
 		return createExcel("stat", txnsForPortalBean, request, url, headers);
 	}
 
@@ -222,7 +231,7 @@ public class QueryAndStatController {
 	@RequestMapping("/txnsStatTxtForms")
 	public Map<String, Object> txnsStatTxtForms(String page, String rows, TxnsForPortalBean txnsForPortalBean,
 			HttpServletRequest request) {
-		String url =configParams.getUrl("queryAndStat.txnsStat");// "http://localhost:9911/fe/queryAndStat/txnsStat";//queryAndStat.txnsStat
+		String url = configParams.getUrl("queryAndStat.txnsStat");// "http://localhost:9911/fe/queryAndStat/txnsStat";//queryAndStat.txnsStat
 		return createTxt("stat", request, txnsForPortalBean, url);
 	}
 
@@ -241,7 +250,7 @@ public class QueryAndStatController {
 	@ResponseBody
 	@RequestMapping("/txnsSetl")
 	public String txnsSetl(String page, String rows, TxnsForPortalBean txnsForPortalBean, HttpServletRequest request) {
-		String url =configParams.getUrl("queryAndStat.txnsSetl");// "http://localhost:9911/fe/queryAndStat/txnsSetl";//
+		String url = configParams.getUrl("queryAndStat.txnsSetl");// "http://localhost:9911/fe/queryAndStat/txnsSetl";//
 		return JSONObject.fromObject(excuteHttp(page, rows, txnsForPortalBean, request, url)).toString();
 	}
 
@@ -260,9 +269,9 @@ public class QueryAndStatController {
 	@RequestMapping("/txnsSetlExcelForms")
 	public Map<String, Object> txnsSetlExcelForms(String page, String rows, TxnsForPortalBean txnsForPortalBean,
 			HttpServletRequest request) {
-		String url =configParams.getUrl("queryAndStat.txnsSetl");// "http://localhost:9911/fe/queryAndStat/txnsSetl";//queryAndStat.txnsSetl
-		String[] headers = { "MERCHNAME", "ALLNUM", "CANCELAMT", "REFUNDNUM", "REMARKS", "MERID", "CANCELNUM", "FEES",
-				"STIME", "ALLAMT", "SUCCNUM", "REFUNDAMT", "ETIME", "SUCCAMT", "SETLAMT", "ROWNUM", "NOTES" };
+		String url = configParams.getUrl("queryAndStat.txnsSetl");// "http://localhost:9911/fe/queryAndStat/txnsSetl";//queryAndStat.txnsSetl
+		String[] headers = { "MERCHNAME", "ALLNUM", "CANCELAMT", "REFUNDNUM", "MERID", "CANCELNUM", "FEES", "STIME",
+				"ETIME", "ALLAMT", "SUCCNUM", "REFUNDAMT", "SUCCAMT", "SETLAMT", "NOTES" };
 		return createExcel("setl", txnsForPortalBean, request, url, headers);
 	}
 
@@ -281,7 +290,7 @@ public class QueryAndStatController {
 	@RequestMapping("/txnsSetlTxtForms")
 	public Map<String, Object> txnsSetlTxtForms(String page, String rows, TxnsForPortalBean txnsForPortalBean,
 			HttpServletRequest request) {
-		String url =configParams.getUrl("queryAndStat.txnsSetl");// "http://localhost:9911/fe/queryAndStat/txnsSetl";//queryAndStat.txnsSetl
+		String url = configParams.getUrl("queryAndStat.txnsSetl");// "http://localhost:9911/fe/queryAndStat/txnsSetl";//queryAndStat.txnsSetl
 		return createTxt("setl", request, txnsForPortalBean, url);
 	}
 
@@ -300,7 +309,7 @@ public class QueryAndStatController {
 	@ResponseBody
 	@RequestMapping("/txnsBill")
 	public String txnsBill(String page, String rows, TxnsForPortalBean txnsForPortalBean, HttpServletRequest request) {
-		String url = configParams.getUrl("queryAndStat.txnsBill");//"http://localhost:9911/fe/queryAndStat/txnsBill";//
+		String url = configParams.getUrl("queryAndStat.txnsBill");// "http://localhost:9911/fe/queryAndStat/txnsBill";//
 		return JSONObject.fromObject(excuteHttp(page, rows, txnsForPortalBean, request, url)).toString();
 	}
 
@@ -319,8 +328,8 @@ public class QueryAndStatController {
 	@RequestMapping("/txnsBillExcelForms")
 	public Map<String, Object> txnsBillExcelForms(String page, String rows, TxnsForPortalBean txnsForPortalBean,
 			HttpServletRequest request) {
-		String url =configParams.getUrl("queryAndStat.txnsBill");// "http://localhost:9911/fe/queryAndStat/txnsBill";//queryAndStat.txnsBill
-		String[] headers = { "SETL", "CURRENCY", "TXNDATE", "TXNFEE", "ACCSETTLEDATE", "RN", "AMOUNT", "BUSINAME",
+		String url = configParams.getUrl("queryAndStat.txnsBill");// "http://localhost:9911/fe/queryAndStat/txnsBill";//queryAndStat.txnsBill
+		String[] headers = { "SETL", "CURRENCY", "TXNDATE", "TXNFEE", "ACCSETTLEDATE", "AMOUNT", "BUSINAME",
 				"TXNSEQNO", "ACCORDNO" };
 		return createExcel("bill", txnsForPortalBean, request, url, headers);
 	}
@@ -340,7 +349,7 @@ public class QueryAndStatController {
 	@RequestMapping("/txnsBillTxtForms")
 	public Map<String, Object> txnsBillTxtForms(HttpServletRequest request, String page, String rows,
 			TxnsForPortalBean txnsForPortalBean) {
-		String url = configParams.getUrl("queryAndStat.txnsBill");//"http://localhost:9911/fe/queryAndStat/txnsBill";//queryAndStat.txnsBill
+		String url = configParams.getUrl("queryAndStat.txnsBill");// "http://localhost:9911/fe/queryAndStat/txnsBill";//queryAndStat.txnsBill
 		return createTxt("bill", request, txnsForPortalBean, url);
 	}
 
@@ -359,8 +368,7 @@ public class QueryAndStatController {
 	@RequestMapping("/downloadFile")
 	public void downloadFile(String fileName, HttpServletRequest request, HttpServletResponse response,
 			String packageName) {
-		boolean localhost = request.getRequestURL().toString().contains("localhost");
-		String rootPath = localhost ? request.getSession().getServletContext().getRealPath("/") : "/";// 获取项目根目录
+		String rootPath = request.getSession().getServletContext().getRealPath("/");// 获取项目根目录
 		String path = rootPath + "Data" + File.separatorChar;
 		boolean flag = false;
 		try {
@@ -400,8 +408,7 @@ public class QueryAndStatController {
 	@RequestMapping("/getFileInfo")
 	public Map<String, Object> getFileInfo(String packageName, HttpServletRequest request) {
 		Map<String, Object> resultMap = new HashMap<>();
-		boolean localhost = request.getRequestURL().toString().contains("localhost");
-		String rootPath = localhost ? request.getSession().getServletContext().getRealPath("/") : "/";// 获取项目根目录
+		String rootPath = request.getSession().getServletContext().getRealPath("/");// 获取项目根目录
 		String path = rootPath + "Data" + File.separatorChar;
 		boolean flag = false;
 		try {
@@ -419,7 +426,7 @@ public class QueryAndStatController {
 				resultMap.put("filepatten", file[1]);
 				resultMap.put("date", filename.substring(4, 12));
 				resultMap.put("fileAllName", filename);
-			}else{
+			} else {
 				resultMap.put("err", "99");
 			}
 		} catch (Exception e) {
@@ -480,8 +487,7 @@ public class QueryAndStatController {
 		FileOutputStream outSTr = null;
 		BufferedOutputStream Buff = null;
 		String fileName = prefix + DateUtil.getCurrentDate() + ".txt";
-		boolean localhost = request.getRequestURL().toString().contains("localhost");
-		String rootPath = localhost ? request.getSession().getServletContext().getRealPath("/") : "/";// 获取项目根目录
+		String rootPath = request.getSession().getServletContext().getRealPath("/");// 获取项目根目录
 		String path = rootPath + "Data" + File.separatorChar;
 		String enter = "\r\n";
 		StringBuffer write;
@@ -507,7 +513,7 @@ public class QueryAndStatController {
 			for (Map<String, Object> map : dataList) {
 				write = new StringBuffer();
 				for (String in : map.keySet()) {
-					write.append(map.get(in));
+					write.append(map.get(in).equals("null") ? "" : map.get(in));
 					write.append(",");
 				}
 				write.append(enter);
@@ -561,8 +567,7 @@ public class QueryAndStatController {
 		Map<String, Object> returnResult = new HashMap<String, Object>();
 		boolean flag = false;
 		try {
-			boolean localhost = request.getRequestURL().toString().contains("localhost");
-			String rootPath = localhost ? request.getSession().getServletContext().getRealPath("/") : "/";// 获取项目根目录
+			String rootPath = request.getSession().getServletContext().getRealPath("/");
 			String path = rootPath + "Data" + File.separatorChar;
 			File dir = new File(path);
 			if (!dir.exists()) {// 目录不存在则创建
@@ -579,11 +584,14 @@ public class QueryAndStatController {
 			}
 			File fileServer = new File(path + File.separatorChar + pre + File.separatorChar + fileName);
 			out = new FileOutputStream(fileServer);
-			ExcelUtil.exportExcel(headers, dataList, out);
+
+			ExcelUtil.exportExcel(headers, dataList, out, configParamsExcelHeader.getParams());
+			returnmap.put("info", "生成成功");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
+			returnmap.put("info", "生成失败");
 		}
-		returnmap.put("info", "生成成功");
+
 		return returnmap;
 	}
 

@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public String saveUser(UserBean userBean) {
+	public Map<String, Object> saveUser(UserBean userBean) {
 		return userDao.saveUser(userBean);
 	}
 

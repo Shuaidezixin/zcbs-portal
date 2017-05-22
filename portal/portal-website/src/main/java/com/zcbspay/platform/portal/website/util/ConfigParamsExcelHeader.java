@@ -7,23 +7,21 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Properties;
 
-import javax.servlet.jsp.jstl.core.Config;
-
-public class ConfigParams {
-	private Map<String, String> urls=new HashMap<>();
+public class ConfigParamsExcelHeader {
+	private static Map<String, String> params=new HashMap<>();
 	
-	private Map<String, String> getUrls() {
-		return urls;
+	public  Map<String, String> getParams() {
+		return params;
 	}
 
-	public void setUrls(Map<String, String> urls) {
-		this.urls = urls;
+	public void setParams(Map<String, String> params) {
+		this.params = params;
 	}
-	public ConfigParams(){
+	public ConfigParamsExcelHeader(){
 		Map<String, String> map = new HashMap<String, String>();
 		try {
 			Properties prop = new Properties();
-			InputStream in = ConfigParams.class.getResourceAsStream("/url.properties");
+			InputStream in = ConfigParamsExcelHeader.class.getResourceAsStream("/excelheader.properties");
 			prop.load(in);
 			
 			Iterator<Object> it = prop.keySet().iterator();
@@ -35,10 +33,10 @@ public class ConfigParams {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		setUrls(map);
+		setParams(map);
 	} 
 	
-	public String getUrl(String pathName){
-		return getUrls().get("basepath")+getUrls().get(pathName);
+	public String getName(String pathName){
+		return getParams().get(pathName);
 	}
 }

@@ -9,7 +9,7 @@ public interface UserDao extends BaseDAO<String>{
 
 	Map<String, Object> queryUsers(UserBean userbean, String page, String rows);
 
-	String saveUser(UserBean userBean);
+	Map<String, Object> saveUser(UserBean userBean);
 
 	Map<String, Object> updateUser(UserBean userBean);
 
