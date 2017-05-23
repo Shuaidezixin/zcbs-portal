@@ -29,15 +29,15 @@ public class MailServiceImplTest {
 
 	@Test
 	public void testMail() {
-		ResultBean result = mailService.sendMail("949435735@qq.com", "test", "普通邮件");
-		System.out.println(result.toString());
+		/*ResultBean result = mailService.sendMail("949435735@qq.com", "test", "普通邮件");
+		System.out.println(result.toString());*/
 	}
 
 	@Test
 	public void testMailAndFile() {
-		String filePath = "D:/dat.txt";
+		/*String filePath = "D:/dat.txt";
 		ResultBean result = mailService.sendMailAndFile("949435735@qq.com", "test", filePath, "ted");
-		System.out.println(result.toString());
+		System.out.println(result.toString());*/
 	}
 
 }

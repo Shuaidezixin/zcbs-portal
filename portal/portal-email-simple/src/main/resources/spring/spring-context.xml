@@ -22,7 +22,7 @@
             </list>  
         </property>  
     </bean>
-    <bean id="logHelper" class="com.zcbspay.platform.portal.commons.utils.LogHelper"/>
+    <bean id="logHelper" class="com.zcbspay.platform.portal.common.utils.LogHelper"/>
 	<aop:config>
 	    <aop:aspect ref="logHelper">
 	        <aop:pointcut id="pointcut" expression="execution(* com.zcbspay.platform..*.*(..))"/>
