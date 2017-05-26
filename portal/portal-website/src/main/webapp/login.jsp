@@ -24,17 +24,16 @@
 				<div class="login_tit"></div>
 				<div class="login-msg"></div>
 				<div class="login-input">
-					<span><!--  <i class="num_icon"></i>--></span><input id="usernum" type="text" placeholder="请输入商户号"  name="info[usernum]" maxlength="15" class="list-input input_login"/>
+					<span><!--  <i class="num_icon"></i>--></span><input id="usernum" type="text" placeholder="请输入委托机构号"  name="info[usernum]" maxlength="15" class="list-input input_login"/>
 				</div>
 				<div class="login-input">
-					 <span><!--<i class="user_icon"></i>--></span><input id="username" type="text" placeholder="请输入用户名"  name="info[username]" maxlength="32" class="list-input input_login"/>
+					 <span><!--<i class="user_icon"></i>--></span><input id="username" type="text" placeholder="请输入登录名"  name="info[username]" maxlength="32" class="list-input input_login"/>
 				</div>
 				<div class="login-input">
 		            <span><!--<i class="pas_icon"></i>--></span><input id="password" type="password" placeholder="请输入密码" name="info[password]" maxlength="20" class="list-input input_login"/>
 		        </div>
 		        
 		        <div class="login"><a class="login_btn" href="javascript:void(0);" id="login-button-submit"></a></div>
-<%-- 		        <div class="pas_box clearfix"><a href="<%=basePath%>login/showForgetPwd">忘记登录密码？</a></div> --%>
 			</div>
 		</div>
 	</div>
@@ -101,7 +100,7 @@ $(document).ready(function(){
                      data: {memberid:usernumValue,loginName:usernameValue,pwd: passwordValue},//发送ajax请求  
                      success: function(result) {   
                          if (result.result == "success") { 
-                             parent.document.location.href = '<%=basePath%>trade/showQueryTrade';
+                             parent.document.location.href = '<%=basePath%>order/showOrder';
                          } else {
                         	 $('.login-msg').html(result.info);
                          } 

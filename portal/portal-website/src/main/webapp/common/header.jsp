@@ -10,7 +10,7 @@
 	<div id="loginHide" class="top">
 		<div class="w1200 clearfix top_box">
 			<div class="fl top_l">宜赋通门户网站</div>
-				<div class="fr top_r"><a id="logOutConfirm" href="javascript:void(0);">退出</a></div>
+				<div id="logOutDiv" class="fr top_r"><a id="logOutConfirm" href="javascript:void(0);">退出</a></div>
 				<div class="fr top_r" id="loginusername"></div>
 				<div class="fr top_r" id="lasttime"></div>
 			</div>
@@ -22,7 +22,7 @@
 			<div class="fr nav">
 				<ul>
 					<li><a href="<%=basePath%>login.jsp"  id="index">首页</a></li>
-					<li><a href="" id="servicHall">服务大厅</a></li>
+					<!-- <li><a href="" id="servicHall">服务大厅</a></li> -->
 				</ul>
 			</div>
 		</div>
@@ -36,13 +36,27 @@
 		else
 		return null;
 	}
+	
+	function delCookie(name) 
+	{ 
+	    var exp = new Date(); 
+	    exp.setTime(exp.getTime() - 1); 
+	    var cval=getCookie(name); 
+	    if(cval!=null) 
+	        document.cookie= name + "="+cval+";expires="+exp.toGMTString(); 
+	} 
 	$(function () {
 		var loginname=getCookie("login_user_name");
 		var lasttime =getCookie("login_last_time");
 		var l=loginname==null?"":loginname;
 		var t=lasttime==null?"":lasttime;
-		$("#loginusername").html("用户名:"+l+"&nbsp;&nbsp;&nbsp;&nbsp;");
-		$("#lasttime").html("上次登录时间:"+t+"&nbsp;&nbsp;&nbsp;&nbsp;");
+		if(loginname!=null){
+			$("#loginusername").html("用户名:"+l+"&nbsp;&nbsp;&nbsp;&nbsp;");
+		}else{
+			$("#logOutDiv").remove();
+		}
+		
+		//$("#lasttime").html("上次登录时间:"+t+"&nbsp;&nbsp;&nbsp;&nbsp;");
 		
 		$("#logOutConfirm").click(function() {
 	        $.MessageBox({
@@ -56,6 +70,8 @@
 	    			dataType: "json",
 	    			success: function(json) {
 	    				if(json.code==00){
+	    					delCookie("login_user_name");
+	    					delCookie("login_last_time");
 	    					window.location='<%=basePath%>login.jsp';
 	    				}
 	    			}
