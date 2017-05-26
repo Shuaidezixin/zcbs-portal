@@ -7,8 +7,6 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Properties;
 
-import javax.servlet.jsp.jstl.core.Config;
-
 public class ConfigParamsUrl {
 	private Map<String, String> urls=new HashMap<>();
 	

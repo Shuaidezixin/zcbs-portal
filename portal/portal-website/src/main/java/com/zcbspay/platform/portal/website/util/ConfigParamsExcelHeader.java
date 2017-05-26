@@ -1,4 +1,4 @@
-package com.zcbspay.platform.portal.website.util;
+ package com.zcbspay.platform.portal.website.util;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Properties;
 
 public class ConfigParamsExcelHeader {
-	private static Map<String, String> params=new HashMap<>();
+	private Map<String, String> params=new HashMap<>();
 	
 	public  Map<String, String> getParams() {
 		return params;

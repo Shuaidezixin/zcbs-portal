@@ -149,6 +149,7 @@ public class LoginController {
 			for (Cookie cookie : cookies) {
 				if (cookie.getName().equals(Constants.LoginCanstant.LOGIN_USER_NAME)) {
 					cookie.setMaxAge(0);
+					cookie.setPath("/");
 					response.addCookie(cookie);
 				}
 			}

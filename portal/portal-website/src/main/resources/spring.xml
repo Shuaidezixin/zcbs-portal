@@ -30,22 +30,7 @@
          <property name="maxInMemorySize" value="4096" />
          <property name="defaultEncoding" value="UTF-8"></property>
     </bean>
-    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
-       <property name="maxIdle" value="100"/> 
-        <property name="testOnBorrow" value="true"/> 
-    </bean>
+   
 	<bean  class="com.zcbspay.platform.portal.website.util.ConfigParamsUrl"/>
 	<bean  class="com.zcbspay.platform.portal.website.util.ConfigParamsExcelHeader"/>
-		
-	<bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
-		<property name="hostName" value="${redis.address}"/>
-		<property name="port" value="${redis.port}"/>
-		<property name="password" value=""></property>
-	</bean>
-	 <!-- redis template definition -->
-	<bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
-		<property name="connectionFactory" ref="jedisConnectionFactory"/>
-	</bean>
-	<bean id="stringRedisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate" p:connection-factory-ref="jedisConnectionFactory"/>
-	<bean id="bytesRedisTemplate" class="com.zcbspay.platform.portal.website.redis.cache.BytesRedisTemplate" p:connection-factory-ref="jedisConnectionFactory"/>
 </beans>
