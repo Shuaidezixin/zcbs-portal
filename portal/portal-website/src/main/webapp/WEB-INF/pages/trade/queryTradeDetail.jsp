@@ -429,14 +429,14 @@
 						var output = '';
 						output = output + '<tr height="36" class="bor_bottom" >';
 						output = output + '<td width="10%">' + data.NUMS + '</td>';
-						output = output + '<td width="12%">' + data.AMOUNTS/100 + '</td>';
+						output = output + '<td width="12%">' + data.AMOUNTS + '</td>';
 						output = output + '<td width="10%">' + data.ACCNUMS + '</td>';
-						output = output + '<td width="12%">' + data.ACCAMTS/100 + '</td>';
-						output = output + '<td width="12%">' + data.FEES/100 + '</td>';
+						output = output + '<td width="12%">' + data.ACCAMTS + '</td>';
+						output = output + '<td width="12%">' + data.FEES + '</td>';
 						output = output + '<td width="10%">' + data.FNUMS + '</td>';
-						output = output + '<td width="12%">' + data.FAMTS/100 + '</td>';
+						output = output + '<td width="12%">' + data.FAMTS + '</td>';
 						output = output + '<td width="10%">' + data.OTHERNUMS + '</td>';
-						output = output + '<td width="12%">' + data.OTHERAMTS/100 + '</td>';
+						output = output + '<td width="12%">' + data.OTHERAMTS + '</td>';
 						output = output + '</tr>';
 						$('#tradeStat').html(output);
 					}else {

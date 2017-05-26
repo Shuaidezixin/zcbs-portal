@@ -82,7 +82,7 @@
 											</c:otherwise>
 										</c:choose>
 									</td>
-									<td width="7%">${row.TXNAMT eq null ? "" : row.TXNAMT/100}</td>
+									<td width="7%">${row.TXNAMT eq null ? "" : row.TXNAMT}</td>
 									<td width="11%">
 										<c:choose>
 											<c:when test="${row.TXNTIME eq 'null'}"></c:when>
@@ -163,7 +163,7 @@
 										output = output + '<tr height="36" class="bor_bottom" >';
 										output = output + '<td width="13%">' + (dataStr[i]['ORDERID']==null?"":dataStr[i]['ORDERID']) + '</td>';
 										output = output + '<td width="11%">' + (dataStr[i]['COMMITIME']==null?"":changeDateTime(dataStr[i]['COMMITIME'])) + '</td>';
-										output = output + '<td width="7%">' + (dataStr[i]['TXNAMT']==null?"":(dataStr[i]['TXNAMT']/100)) + '</td>';
+										output = output + '<td width="7%">' + (dataStr[i]['TXNAMT']==null?"":dataStr[i]['TXNAMT']) + '</td>';
 										output = output + '<td width="11%">' + (dataStr[i]['TXNTIME']==null?"":changeDateTime(dataStr[i]['TXNTIME'])) + '</td>';
 										output = output + '<td width="12%">' + (dataStr[i]['RESPCODE']==null?"":dataStr[i]['RESPCODE']) + '</td>';
 										output = output + '<td width="11%">' + changeDateTime(dataStr[i]['RESPTIME']) + '</td>';

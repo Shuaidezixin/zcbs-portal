@@ -305,7 +305,7 @@
 												+ (dataStr[i]['BUSINAME']==null?"":dataStr[i]['BUSINAME'])
 												+ '</td>';
 										output = output + '<td width="8%">'
-												+ (dataStr[i]['TXNAMT']==null?"":(dataStr[i]['TXNAMT']/100))
+												+ (dataStr[i]['TXNAMT']==null?"":dataStr[i]['TXNAMT'])
 												+ '</td>';
 										output = output + '<td width="11%">'
 												+ (dataStr[i]['STATUS']==null?"":dataStr[i]['STATUS'])

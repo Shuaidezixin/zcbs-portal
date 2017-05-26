@@ -294,7 +294,7 @@
 										output = output + '<td width="8%">' + (dataStr[i]['PAYNAME']==null?"":dataStr[i]['PAYNAME']) + '</td>';
 										output = output + '<td width="8%">' + (dataStr[i]['BUSINAME']==null?"":dataStr[i]['BUSINAME']) + '</td>';
 										output = output + '<td width="6%">' + (dataStr[i]['TXNNUMS']==null?"":dataStr[i]['TXNNUMS']) + '</td>';
-										output = output + '<td width="6%">' + (dataStr[i]['TXNAMT']==null?"":(dataStr[i]['TXNAMT']/100)) + '</td>';
+										output = output + '<td width="6%">' + (dataStr[i]['TXNAMT']==null?"":dataStr[i]['TXNAMT']) + '</td>';
 										output = output + '<td width="11%">' + (dataStr[i]['STATUS']==null?"":dataStr[i]['STATUS']) + '</td>';
 										output = output + '<td width="11%">' + (dataStr[i]['COMMITIME']==null?"":changeDateTime(dataStr[i]['COMMITIME'])) + '</td>';
 										output = output + '<td width="11%">' + (dataStr[i]['RESPMSG']==null?"":dataStr[i]['RESPMSG']) + '</td>';
