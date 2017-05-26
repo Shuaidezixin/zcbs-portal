@@ -34,9 +34,11 @@ public class MailServiceImpl implements MailService {
 			MailUtil.sendMailByTemplate(receiver, subject, map, templateName);
 			return new ResultBean("邮件发送成功！");
 		} catch (TemplateException e) {
+			e.printStackTrace();
 			logger.info("无法解析模板文件！");
 			return new ResultBean("", "无法解析模板文件！");
 		} catch (IOException | MessagingException e) {
+			e.printStackTrace();
 			logger.error("邮件发送失败！");
 			return new ResultBean("", "邮件发送失败！");
 		}

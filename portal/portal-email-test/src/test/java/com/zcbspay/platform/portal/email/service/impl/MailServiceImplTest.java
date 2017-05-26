@@ -20,24 +20,24 @@ public class MailServiceImplTest {
 
 	@Test
 	public void testMailTemplate() {
-		String templateName = "template_1.ftl";
+		String templateName = "template_2.ftl";
 		Map<String, String> map = new HashMap<String, String>();
-		map.put("content", "test");
-		ResultBean result = mailService.sendMailByTemplate("949435735@qq.com", "test", map, templateName);
+		map.put("content", "邮件正文内容");
+		ResultBean result = mailService.sendMailByTemplate("949435735@qq.com", "测试模板", map, templateName);
 		System.out.println(result.toString());
 	}
 
 	@Test
 	public void testMail() {
-		ResultBean result = mailService.sendMail("949435735@qq.com", "test", "普通邮件");
-		System.out.println(result.toString());
+		/*ResultBean result = mailService.sendMail("949435735@qq.com", "test", "普通邮件");
+		System.out.println(result.toString());*/
 	}
 
 	@Test
 	public void testMailAndFile() {
-		String filePath = "D:/dat.txt";
+		/*String filePath = "D:/dat.txt";
 		ResultBean result = mailService.sendMailAndFile("949435735@qq.com", "test", filePath, "ted");
-		System.out.println(result.toString());
+		System.out.println(result.toString());*/
 	}
 
 }
